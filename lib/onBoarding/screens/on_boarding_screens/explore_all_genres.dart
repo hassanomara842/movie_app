@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import '../../../core/image/app_assets.dart';
+import '../../../core/routing/app_routes.dart';
 import '../../widget/onboarding_button.dart';
 import '../../widget/onboarding_widget_screen.dart';
 import 'create_watchlists.dart';
@@ -13,7 +14,7 @@ class ExploreAllGenres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 8.h,
+      spacing: 16.h,
       backgroundImage: AppImages.exploreAllGenres,
       containerColor: AppColors.primaryBlack,
       title: "explore_all_genres".tr(),
@@ -25,14 +26,10 @@ class ExploreAllGenres extends StatelessWidget {
         OnboardingButton(
           buttonTitle: "next".tr(),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CreateWatchLists()),
-            );
+            Navigator.of(context).pushNamed(AppRoutes.createWatchLists);
           },
           backgroundColor: AppColors.primaryYellow,
         ),
-        SizedBox(height: 8.h),
         OnboardingButton(
           buttonTitle: "back".tr(),
           borderSideColor: AppColors.primaryYellow,

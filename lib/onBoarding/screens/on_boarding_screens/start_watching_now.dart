@@ -12,7 +12,7 @@ class StartWatchingNow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 14.h,
+      spacing: 24.h,
       backgroundImage: AppImages.startWatchingNow,
       containerColor: AppColors.primaryBlack,
       title: "start_Watching_now".tr(),
@@ -20,7 +20,6 @@ class StartWatchingNow extends StatelessWidget {
       contentFontSize: 20.sp,
       contentTextColor: AppColors.white,
       buttons: [
-        SizedBox(height: 27.h),
         OnboardingButton(
           buttonTitle: "finish".tr(),
           onPressed: () {},

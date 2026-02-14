@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
+import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
 import '../../../core/image/app_assets.dart';
 import '../../widget/onboarding_button.dart';
@@ -13,7 +14,7 @@ class RateReviewAndLearn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 8.h,
+      spacing: 16.h,
       backgroundImage: AppImages.rateReviewAndLearn,
       containerColor: AppColors.primaryBlack,
       title: "rate_review_and_learn".tr(),
@@ -25,14 +26,10 @@ class RateReviewAndLearn extends StatelessWidget {
         OnboardingButton(
           buttonTitle: "next".tr(),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const StartWatchingNow()),
-            );
+            Navigator.of(context).pushNamed(AppRoutes.startWatchingNow);
           },
           backgroundColor: AppColors.primaryYellow,
         ),
-        SizedBox(height: 8.h),
         OnboardingButton(
           buttonTitle: "back".tr(),
           borderSideColor: AppColors.primaryYellow,

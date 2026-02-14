@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
+import 'package:movie_app/core/routing/app_routes.dart';
 import '../../../core/image/app_assets.dart';
 import '../../widget/onboarding_button.dart';
 import '../../widget/onboarding_widget_screen.dart';
@@ -23,12 +24,7 @@ class FindYourNextMovie extends StatelessWidget {
         OnboardingButton(
           buttonTitle: "explore_now".tr(),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DiscoverMoviesScreen(),
-              ),
-            );
+            Navigator.of(context).pushNamed(AppRoutes.discoverMovies);
           },
           backgroundColor: AppColors.primaryYellow,
         ),
