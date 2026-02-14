@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import '../../../core/image/app_assets.dart';
 import '../../widget/onboarding_button.dart';
@@ -11,15 +12,15 @@ class StartWatchingNow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 14,
+      spacing: 14.h,
       backgroundImage: AppImages.startWatchingNow,
       containerColor: AppColors.primaryBlack,
       title: "start_Watching_now".tr(),
-      titleFontSize: 24,
-      contentFontSize: 20,
+      titleFontSize: 24.sp,
+      contentFontSize: 20.sp,
       contentTextColor: AppColors.white,
       buttons: [
-        const SizedBox(height: 27),
+        SizedBox(height: 27.h),
         OnboardingButton(
           buttonTitle: "finish".tr(),
           onPressed: () {},

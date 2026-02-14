@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import '../../../core/image/app_assets.dart';
 import '../../widget/onboarding_button.dart';
@@ -12,13 +13,13 @@ class ExploreAllGenres extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 8,
+      spacing: 8.h,
       backgroundImage: AppImages.exploreAllGenres,
       containerColor: AppColors.primaryBlack,
       title: "explore_all_genres".tr(),
-      titleFontSize: 24,
+      titleFontSize: 24.sp,
       content: "discover_movies_from_every_genre".tr(),
-      contentFontSize: 20,
+      contentFontSize: 20.sp,
       contentTextColor: AppColors.white,
       buttons: [
         OnboardingButton(
@@ -31,7 +32,7 @@ class ExploreAllGenres extends StatelessWidget {
           },
           backgroundColor: AppColors.primaryYellow,
         ),
-        const SizedBox(width: 8),
+        SizedBox(height: 8.h),
         OnboardingButton(
           buttonTitle: "back".tr(),
           borderSideColor: AppColors.primaryYellow,

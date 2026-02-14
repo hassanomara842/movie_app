@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import '../../../core/image/app_assets.dart';
 import '../../widget/onboarding_button.dart';
@@ -12,13 +13,13 @@ class DiscoverMoviesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 24,
+      spacing: 24.h,
       backgroundImage: AppImages.discoverMovies,
       containerColor: AppColors.primaryBlack,
       title: "discover_movies".tr(),
-      titleFontSize: 24,
+      titleFontSize: 24.sp,
       content: "explore_a_vest".tr(),
-      contentFontSize: 20,
+      contentFontSize: 20.sp,
       contentTextColor: AppColors.white,
       buttons: [
         OnboardingButton(

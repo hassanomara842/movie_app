@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 
 import '../../core/text/app_text.dart';
@@ -30,12 +31,12 @@ class OnboardingButton extends StatelessWidget {
             side: BorderSide(color: borderSideColor, width: 2),
           ),
         ),
-        padding: WidgetStateProperty.all(const EdgeInsets.symmetric(vertical: 15)),
+        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 15.h)),
       ),
       onPressed: onPressed,
       child: Text(
         buttonTitle,
-        style: AppText.semiBoldText(color: textColor, fontSize: 20),
+        style: AppText.semiBoldText(color: textColor, fontSize: 20.sp),
       ),
     );
   }

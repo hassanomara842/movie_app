@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import '../../../core/image/app_assets.dart';
 import '../../widget/onboarding_button.dart';
@@ -15,9 +16,9 @@ class FindYourNextMovie extends StatelessWidget {
       backgroundImage: AppImages.findYourNextMovie,
       containerColor: AppColors.transparentColor,
       title: "find_your_next_favorite_movie_here".tr(),
-      titleFontSize: 36,
+      titleFontSize: 36.sp,
       content: "get_access".tr(),
-      contentFontSize: 20,
+      contentFontSize: 20.sp,
       buttons: [
         OnboardingButton(
           buttonTitle: "explore_now".tr(),

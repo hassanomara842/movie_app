@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import '../../../core/image/app_assets.dart';
@@ -12,13 +13,13 @@ class CreateWatchLists extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      spacing: 8,
+      spacing: 8.h,
       backgroundImage: AppImages.createWatchLists,
       containerColor: AppColors.primaryBlack,
       title: "create_watchlists".tr(),
-      titleFontSize: 24,
+      titleFontSize: 24.sp,
       content: "save_movies_to_your_watchlist".tr(),
-      contentFontSize: 20,
+      contentFontSize: 20.sp,
       contentTextColor: AppColors.white,
       buttons: [
         OnboardingButton(
@@ -33,7 +34,7 @@ class CreateWatchLists extends StatelessWidget {
           },
           backgroundColor: AppColors.primaryYellow,
         ),
-        const SizedBox(width: 8),
+        SizedBox(height: 8.h),
         OnboardingButton(
           buttonTitle: "back".tr(),
           borderSideColor: AppColors.primaryYellow,

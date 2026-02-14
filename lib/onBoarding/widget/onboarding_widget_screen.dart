@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/text/app_text.dart';
 
 class OnboardingWidgetScreen extends StatelessWidget {
@@ -48,10 +49,10 @@ class OnboardingWidgetScreen extends StatelessWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: SingleChildScrollView(
                   child: Column(
-                    spacing: spacing,
+                    spacing: spacing.h,
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
