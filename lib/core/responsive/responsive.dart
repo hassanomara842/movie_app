@@ -1,4 +1,4 @@
-import 'package:movie_app/core/utils/size_config.dart';
+import 'package:movie_app/core/responsive/size_config.dart';
 
 double w(double value) {
   return value * SizeConfig.screenWidth / 430;
