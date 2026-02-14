@@ -1,4 +1,10 @@
 class AppImages {
-  static const String onboardingImage1 = 'assets/images/onboadring.png';
-
+  ///OnBoarding Assets
+  static const String findYourNextMovie = 'assets/images/start_screen.png';
+  static const String discoverMovies = 'assets/images/onboarding_image_1.png';
+  static const String exploreAllGenres = 'assets/images/OnBoarding.png';
+  static const String createWatchLists = 'assets/images/onboarding_image_2.png';
+  static const String rateReviewAndLearn =
+      'assets/images/onboarding_image_3.png';
+  static const String startWatchingNow = 'assets/images/onboarding_image_4.png';
 }
