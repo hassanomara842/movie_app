@@ -7,4 +7,7 @@ class AppImages {
   static const String rateReviewAndLearn =
       'assets/images/onboarding_image_3.png';
   static const String startWatchingNow = 'assets/images/onboarding_image_4.png';
+///ProFile Update Assets
+  static const String avatar = 'assets/images/avatar.png';
+
 }
