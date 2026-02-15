@@ -1,9 +1,12 @@
+
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/core/routing/app_routes.dart';
-import 'package:movie_app/core/theming/app_theme.dart';
-import 'package:movie_app/core/helpers/cache_helper.dart';
+
+import 'core/helpers/cache_helper.dart';
+import 'core/routing/app_routes.dart';
+import 'core/theming/app_theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.onBoardingScreen,
+          initialRoute: AppRoutes.upDateProfile,
           onGenerateRoute: AppRoutes.onGenerateRoute,
         );
       },

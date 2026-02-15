@@ -4,6 +4,7 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
+import 'package:movie_app/profile_screen/update_profile_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 
 class AppRoutes {
@@ -15,6 +16,7 @@ class AppRoutes {
   static const String exploreAllGenre = '/exploreAllGenre';
   static const String rateAndReview = '/rateAndReview';
   static const String startWatchingNow = '/startWatchingNow';
+  static const String upDateProfile = '/UpdateProfileScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -42,6 +44,10 @@ class AppRoutes {
       case startWatchingNow:
         return MaterialPageRoute(
           builder: (context) => const StartWatchingNow(),
+        );
+      case upDateProfile:
+        return MaterialPageRoute(
+          builder: (context) => UpdateProfileScreen(),
         );
 
 
