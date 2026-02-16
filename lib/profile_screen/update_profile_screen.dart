@@ -24,7 +24,7 @@ class UpdateProfileScreen extends StatelessWidget {
           padding:  EdgeInsets.symmetric(horizontal: w(20)),
           child: Column(
             children: [
-               SizedBox(height: h(36),),
+               SizedBox(height: h(35),),
                CircleAvatar(
                 radius: w(80),
                 backgroundImage: const AssetImage(AppImages.avatar),
@@ -59,7 +59,7 @@ class UpdateProfileScreen extends StatelessWidget {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.phone_rounded, color: AppColors.white),
-                    hintText: "011111111111",
+                    hintText: "0111233444",
                     hintStyle: TextStyle(color: AppColors.white),
                   ),
                 ),
