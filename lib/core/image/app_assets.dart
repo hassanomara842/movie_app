@@ -7,4 +7,6 @@ class AppImages {
   static const String rateReviewAndLearn =
       'assets/images/onboarding_image_3.png';
   static const String startWatchingNow = 'assets/images/onboarding_image_4.png';
+  static const String forgetPassword = 'assets/images/Forgot_password.png';
+  static const String emailIcon = 'assets/images/Email_icon.svg';
 }

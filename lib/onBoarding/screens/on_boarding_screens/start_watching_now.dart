@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/core/colors/app_colors.dart';
+import 'package:movie_app/core/routing/app_routes.dart';
 import '../../../core/image/app_assets.dart';
-import '../../widget/onboarding_button.dart';
+import '../../../widgets/app_button.dart';
 import '../../widget/onboarding_widget_screen.dart';
 
 class StartWatchingNow extends StatelessWidget {
@@ -14,25 +14,30 @@ class StartWatchingNow extends StatelessWidget {
     return OnboardingWidgetScreen(
       spacing: 24.h,
       backgroundImage: AppImages.startWatchingNow,
-      containerColor: AppColors.primaryBlack,
+      containerColor: Theme.of(context).primaryColor,
       title: "start_Watching_now".tr(),
       titleFontSize: 24.sp,
-      contentFontSize: 20.sp,
-      contentTextColor: AppColors.white,
+      titleTextColor: Theme.of(context).splashColor,
       buttons: [
-        OnboardingButton(
+        AppButton(
           buttonTitle: "finish".tr(),
-          onPressed: () {},
-          backgroundColor: AppColors.primaryYellow,
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.resetPassword,
+              (route) => false,
+            );
+          },
+          backgroundColor: Theme.of(context).cardColor
         ),
-        OnboardingButton(
+        AppButton(
           buttonTitle: "back".tr(),
-          borderSideColor: AppColors.primaryYellow,
-          textColor: AppColors.primaryYellow,
+          borderSideColor: Theme.of(context).cardColor,
+          textColor: Theme.of(context).cardColor,
           onPressed: () {
             Navigator.pop(context);
           },
-          backgroundColor: AppColors.transparentColor,
+          backgroundColor: Theme.of(context).primaryColor,
         ),
       ],
     );
