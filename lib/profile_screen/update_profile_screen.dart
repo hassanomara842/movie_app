@@ -5,7 +5,6 @@ import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/responsive/responsive.dart';
 import 'package:movie_app/core/responsive/size_config.dart';
 import 'package:movie_app/core/text/app_text.dart';
-//update to Ui
 class UpdateProfileScreen extends StatelessWidget {
    const UpdateProfileScreen({super.key});
 
@@ -59,7 +58,7 @@ class UpdateProfileScreen extends StatelessWidget {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.phone_rounded, color: AppColors.white),
-                    hintText: "015666665544",
+                    hintText: "010000000544",
                     hintStyle: TextStyle(color: AppColors.white),
                   ),
                 ),

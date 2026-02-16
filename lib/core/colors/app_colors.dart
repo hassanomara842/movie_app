@@ -10,4 +10,5 @@ class AppColors {
   static const Color softWhite = Color.fromRGBO(255, 255, 255, 0.6);
   static const Color successGreen = Color(0xFF57AA53);
   static const Color errorRed = Color(0xFFE82626);
+  static const Color black = Color(0xFF000000);
 }
