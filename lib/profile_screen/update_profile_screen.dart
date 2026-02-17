@@ -9,7 +9,7 @@ import 'package:movie_app/core/text/app_text.dart';
 import 'avatar_bottom_sheet.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
-  UpdateProfileScreen({super.key});
+  const UpdateProfileScreen({super.key});
 
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();

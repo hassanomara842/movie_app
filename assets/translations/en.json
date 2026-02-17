@@ -14,9 +14,17 @@
   "explore_a_vest": "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.",
   "create_watchlists": "Create Watchlists",
   "save_movies_to_your_watchlist": "Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres.",
+<<<<<<< HEAD
   "pick Avatar": "Pick Avatar",
   "reset Password": "Reset Password",
   "delete Account": "Delete Account",
   "update Data": "Update Data"
+=======
+  "email_is_required": "Email is required",
+  "enter_a_valid_email": "Enter a valid email address",
+  "forget_password": "Forget Password",
+  "email": "Email",
+  "verify_email": "Verify Email"
+>>>>>>> origin/develop
 
 }
