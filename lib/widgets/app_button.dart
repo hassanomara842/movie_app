@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
+import '../core/text/app_text.dart';
 
-import '../../core/text/app_text.dart';
-
-class OnboardingButton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   String buttonTitle;
   VoidCallback onPressed;
   Color backgroundColor;
   Color borderSideColor;
   Color textColor;
 
-  OnboardingButton({
+  AppButton({
     super.key,
     required this.buttonTitle,
     required this.onPressed,

@@ -1,28 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movie_app/core/colors/app_colors.dart';
 import '../../core/text/app_text.dart';
 
 class OnboardingWidgetScreen extends StatelessWidget {
   String backgroundImage;
-  Color containerColor;
+  Color? containerColor;
   String title;
   String content;
   final List<Widget> buttons;
   double titleFontSize;
-  double contentFontSize;
+  double? contentFontSize;
   Color contentTextColor;
+  Color titleTextColor;
   double spacing;
 
   OnboardingWidgetScreen({
     super.key,
     required this.backgroundImage,
-    required this.containerColor,
+    this.containerColor,
     required this.title,
     this.content = "",
     required this.buttons,
     required this.titleFontSize,
-    required this.contentFontSize,
+    this.contentFontSize,
     this.contentTextColor = const Color.fromRGBO(255, 255, 255, 0.6),
+    this.titleTextColor = AppColors.primaryBlack,
     this.spacing = 16,
   });
 
@@ -60,7 +63,7 @@ class OnboardingWidgetScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         title,
                         style: AppText.boldText(
-                          color: Colors.white,
+                          color: titleTextColor,
                           fontSize: titleFontSize,
                         ),
                       ),
@@ -70,7 +73,7 @@ class OnboardingWidgetScreen extends StatelessWidget {
                           content,
                           style: AppText.regularText(
                             color: contentTextColor,
-                            fontSize: contentFontSize,
+                            fontSize: contentFontSize!,
                           ),
                         ),
                       if (buttons.isNotEmpty) ...buttons,
