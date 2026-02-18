@@ -24,7 +24,7 @@ class StartWatchingNow extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              AppRoutes.resetPassword,
+              AppRoutes.register,
               (route) => false,
             );
           },

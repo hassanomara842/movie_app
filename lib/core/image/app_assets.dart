@@ -9,4 +9,7 @@ class AppImages {
   static const String startWatchingNow = 'assets/images/onboarding_image_4.png';
   static const String forgetPassword = 'assets/images/Forgot_password.png';
   static const String emailIcon = 'assets/images/Email_icon.svg';
+  static const String gamerGreen = 'assets/images/gamer_green.png';
+  static const String gamerRed = 'assets/images/gamer_red.png';
+  static const String gamerOrange = 'assets/images/gamer_orange.png';
 }
