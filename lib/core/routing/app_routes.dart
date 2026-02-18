@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/auth/screens/Register.dart';
 import 'package:movie_app/auth/screens/reset_password_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies_screen.dart';
@@ -11,6 +12,7 @@ import '../colors/app_colors.dart';
 class AppRoutes {
   static const String home = '/home';
   static const String login = '/login';
+  static const String register = '/register'; // إضافة مسار الـ Register
   static const String onBoardingScreen = '/startScreen';
   static const String createWatchLists = '/createWatchLists';
   static const String discoverMovies = '/discoverMovies';
@@ -35,7 +37,19 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-      ///Cases of Onboarding Screens
+
+    /// Auth Screens
+      case register: // إضافة الـ Case الخاصة بالـ Register
+        return MaterialPageRoute(
+          builder: (context) => const RegisterScreen(),
+        );
+
+      case resetPassword:
+        return MaterialPageRoute(
+          builder: (context) => const ResetPasswordScreen(),
+        );
+
+    /// Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -61,6 +75,11 @@ class AppRoutes {
           const StartWatchingNow(),
         );
 
+    /// Home Screens
+      case home:
+        return MaterialPageRoute(
+          builder: (context) =>
+          const Scaffold(body: Center(child: Text('Home Screen'))),
       ///Home Screens
       case home:
         return darkRoute(
@@ -72,7 +91,10 @@ class AppRoutes {
         return darkRoute(
           const ResetPasswordScreen(),
         );
+
       default:
+        return MaterialPageRoute(
+          builder: (context) =>
         return darkRoute(
           const Scaffold(body: Center(child: Text('No Route Defined'))),
         );
