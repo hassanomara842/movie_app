@@ -6,6 +6,7 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_gen
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
+import '../colors/app_colors.dart';
 
 class AppRoutes {
   static const String home = '/home';
@@ -19,49 +20,61 @@ class AppRoutes {
   static const String resetPassword = '/resetPassword';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+
+    Route<dynamic> darkRoute(Widget page) {
+      return PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => page,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // This Container ensures the background is ALWAYS dark during the slide/fade
+          return Container(
+            color: AppColors.primaryBlack,
+            child: FadeTransition(opacity: animation, child: child),
+          );
+        },
+      );
+    }
+
     switch (settings.name) {
       ///Cases of Onboarding Screens
       case onBoardingScreen:
-        return MaterialPageRoute(
-          builder: (context) => const FindYourNextMovie(),
+        return darkRoute(
+          const FindYourNextMovie(),
         );
       case createWatchLists:
-        return MaterialPageRoute(
-          builder: (context) => const CreateWatchLists(),
+        return darkRoute(
+          const CreateWatchLists(),
         );
       case discoverMovies:
-        return MaterialPageRoute(
-          builder: (context) => const DiscoverMoviesScreen(),
+        return darkRoute(
+          const DiscoverMoviesScreen(),
         );
       case exploreAllGenre:
-        return MaterialPageRoute(
-          builder: (context) => const ExploreAllGenres(),
+        return darkRoute(
+          const ExploreAllGenres(),
         );
       case rateAndReview:
-        return MaterialPageRoute(
-          builder: (context) => const RateReviewAndLearn(),
+        return darkRoute(
+          const RateReviewAndLearn(),
         );
       case startWatchingNow:
-        return MaterialPageRoute(
-          builder: (context) => const StartWatchingNow(),
+        return darkRoute(
+          const StartWatchingNow(),
         );
 
-
-        ///Home Screens
+      ///Home Screens
       case home:
-        return MaterialPageRoute(
-          builder: (context) =>
-              const Scaffold(body: Center(child: Text('Home Screen'))),
+        return darkRoute(
+          const Scaffold(body: Center(child: Text('Home Screen'))),
         );
-        ///Auth Screens
-        case resetPassword:
-        return MaterialPageRoute(
-          builder: (context) => const ResetPasswordScreen(),
+
+      ///Auth Screens
+      case resetPassword:
+        return darkRoute(
+          const ResetPasswordScreen(),
         );
       default:
-        return MaterialPageRoute(
-          builder: (context) =>
-              const Scaffold(body: Center(child: Text('No Route Defined'))),
+        return darkRoute(
+          const Scaffold(body: Center(child: Text('No Route Defined'))),
         );
     }
   }
