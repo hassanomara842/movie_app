@@ -37,7 +37,7 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-      ///Cases of Onboarding Screens
+    ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -81,6 +81,11 @@ class AppRoutes {
       case registerScreen:
         return darkRoute(
           const RegisterScreen(),
+        );
+    ///Profile Screens
+      case profile:
+        return MaterialPageRoute(
+          builder: (context) => const ProfileScreen(),
         );
       default:
         return darkRoute(
