@@ -82,11 +82,6 @@ class AppRoutes {
         return darkRoute(
           const RegisterScreen(),
         );
-    ///Profile Screens
-      case profile:
-        return MaterialPageRoute(
-          builder: (context) => const ProfileScreen(),
-        );
       default:
         return darkRoute(
           const Scaffold(body: Center(child: Text('No Route Defined'))),
