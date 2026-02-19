@@ -22,5 +22,4 @@ class AppImages {
   static const String emailIcon = 'assets/images/Email_icon.svg';
   static const String egyptImage = 'assets/images/EG.png';
   static const String lrImage = 'assets/images/LR.png';
-  static const String emptyStateImage = 'assets/images/empty1.png';
 }

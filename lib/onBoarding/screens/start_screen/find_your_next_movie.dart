@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
+import '../../../widgets/app_button.dart';
 import '../../../core/image/app_assets.dart';
-import '../../widget/onboarding_button.dart';
 import '../../widget/onboarding_widget_screen.dart';
-import '../on_boarding_screens/discover_movies_screen.dart';
 
 class FindYourNextMovie extends StatelessWidget {
   const FindYourNextMovie({super.key});
@@ -18,15 +17,16 @@ class FindYourNextMovie extends StatelessWidget {
       containerColor: AppColors.transparentColor,
       title: "find_your_next_favorite_movie_here".tr(),
       titleFontSize: 36.sp,
+      titleTextColor: AppColors.white,
       content: "get_access".tr(),
       contentFontSize: 20.sp,
       buttons: [
-        OnboardingButton(
+        AppButton(
           buttonTitle: "explore_now".tr(),
           onPressed: () {
             Navigator.of(context).pushNamed(AppRoutes.discoverMovies);
           },
-          backgroundColor: AppColors.primaryYellow,
+          backgroundColor: Theme.of(context).cardColor,
         ),
       ],
     );

@@ -13,14 +13,12 @@
   "discover_movies": "Discover Movies",
   "explore_a_vest": "Explore a vast collection of movies in all qualities and genres. Find your next favorite film with ease.",
   "create_watchlists": "Create Watchlists",
-<<<<<<< Updated upstream
-  "save_movies_to_your_watchlist": "Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres."
-=======
   "save_movies_to_your_watchlist": "Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres.",
-  "pick Avatar": "Pick Avatar",
-  "reset Password": "Reset Password",
-  "delete Account": "Delete Account",
-  "update Data": "Update Data",
+  "pick_avatar": "Pick Avatar",
+  "reset_password": "Reset Password",
+  "delete_account": "Delete Account",
+  "update_data": "Update Data",
+  "save_movies_to_your_watchlist": "Save movies to your watchlist to keep track of what you want to watch next. Enjoy films in various qualities and genres."
   "email_is_required": "Email is required",
   "enter_a_valid_email": "Enter a valid email address",
   "forget_password": "Forget Password",
@@ -42,10 +40,5 @@
   "confirm_password_is_required": "Confirm password is required",
   "passwords_do_not_match": "Passwords do not match",
   "phone_number_is_required": "Phone number is required",
-  "enter_valid_phone_number": "Enter a valid phone number",
-  "wish_list": "Wish List",
-  "history": "History",
-  "edit_profile": "Edit Profile",
-  "exit": "Exit"
->>>>>>> Stashed changes
+  "enter_valid_phone_number": "Enter a valid phone number"
 }

@@ -1,11 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:movie_app/auth/widget/custom_text_form_field.dart';
-import 'package:movie_app/core/colors/app_colors.dart';
+import 'package:movie_app/core/image/app_assets.dart';
+import '../../../../widgets/app_button.dart';
+import 'package:movie_app/widgets/custom_text_form_field.dart';
 import 'package:movie_app/core/text/app_text.dart';
-
-import '../../core/responsive/responsive.dart';
-import '../../core/responsive/size_config.dart';
+import '../../../core/responsive/responsive.dart';
+import '../../../core/responsive/size_config.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -27,12 +29,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   String? validateEmail(String? value) {
     final email = (value ?? '').trim();
     if (email.isEmpty) {
-      return 'Email is required';
+      return 'email_is_required'.tr();
     }
 
     final emailRegex = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
     if (!emailRegex.hasMatch(email)) {
-      return 'Enter a valid email address';
+      return 'enter_a_valid_email'.tr();
     }
 
     return null;
@@ -50,16 +52,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     SizeConfig.init(context);
 
     return Scaffold(
-      backgroundColor: AppColors.primaryBlack,
       appBar: AppBar(
-        backgroundColor: AppColors.primaryBlack,
-        leading: const BackButton(color: AppColors.primaryYellow),
-        centerTitle: true,
+        leading: const BackButton(),
         title: Text(
-          'Forget Password',
+          'forget_password'.tr(),
           style: AppText.regularText(
-            color: AppColors.primaryYellow,
-            fontSize: 16,
+            color: Theme.of(context).cardColor,
+            fontSize: 18.sp,
           ),
         ),
       ),
@@ -75,71 +74,73 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                 child: Form(
                   key: _formKey,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    spacing: h(18),
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset('assets/images/Forgot_password.png'),
-                      SizedBox(height: h(18)),
+                      Image.asset(AppImages.forgetPassword),
                       CustomTextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.done,
                         autofillHints: const [AutofillHints.email],
                         validator: validateEmail,
-                        cursorColor: AppColors.primaryYellow,
+                        cursorColor: Theme.of(context).cardColor,
                         style: AppText.regularText(
-                          color: AppColors.white,
-                          fontSize: 16,
+                          color: Theme.of(context).splashColor,
+                          fontSize: 16.sp,
                         ),
                         decoration: InputDecoration(
-                          errorStyle: AppText.regularText(
-                            color: AppColors.primaryYellow,
-                            fontSize: 12,
+                          errorStyle: AppText.boldText(
+                            color: Theme.of(context).cardColor,
+                            fontSize: 17.sp,
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).cardColor,
+                              width: 1.0,
+                            ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide.none,
+                            borderSide: BorderSide(
+                              color: Theme.of(context).splashColor,
+                              width: 1.0,
+                            ),
                           ),
                           filled: true,
-                          focusColor: AppColors.white,
+                          focusColor: Theme.of(context).primaryColor,
                           prefixIcon: Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: w(14),
+                              vertical: h(14),
+                            ),
                             child: SvgPicture.asset(
-                              'assets/images/Email_icon.svg',
+                              AppImages.emailIcon,
                               width: w(20),
                               height: h(20),
-                              colorFilter: const ColorFilter.mode(
-                                AppColors.white,
+                              colorFilter: ColorFilter.mode(
+                                Theme.of(context).splashColor,
                                 BlendMode.srcIn,
                               ),
                             ),
                           ),
-                          fillColor: AppColors.darkGrey,
-                          hintText: ' Email',
+                          fillColor: Theme.of(context).primaryColor,
+                          hintText: 'email'.tr(),
                           hintStyle: AppText.semiBoldText(
-                            color: AppColors.white,
-                            fontSize: 16,
+                            color: Theme.of(context).splashColor,
+                            fontSize: 16.sp,
                           ),
                         ),
                         onFieldSubmitted: (context) => onResetPressed(),
                       ),
-                      SizedBox(height: h(24)),
-                      ElevatedButton(
-                        onPressed: onResetPressed,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.primaryYellow,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          minimumSize: Size(double.infinity, h(48)),
-                        ),
-                        child:  Text('Verify Email',
-                          style: AppText.boldText(
-                            color: AppColors.primaryBlack,
-                            fontSize: 16,
-                          ),
-
-                        ),
-                      ),
+                      AppButton(
+                          buttonTitle: 'verify_email'.tr(),
+                          onPressed: () {
+                            onResetPressed();
+                          },
+                          backgroundColor: Theme.of(context).cardColor)
                     ],
                   ),
                 ),
