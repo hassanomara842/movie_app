@@ -28,17 +28,24 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Movie App',
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          themeMode: CacheHelper.getTheme(),
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.onBoardingScreen,
-          onGenerateRoute: AppRoutes.onGenerateRoute,
+        return ValueListenableBuilder<ThemeMode>(
+          valueListenable: CacheHelper.themeNotifier,
+          builder: (context, themeMode, child) {
+            return MaterialApp(
+              title: 'Movie App',
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: context.locale,
+              themeMode: themeMode,
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              debugShowCheckedModeBanner: false,
+              initialRoute: CacheHelper.getOnBoardingSeen()
+                  ? AppRoutes.login
+                  : AppRoutes.onBoardingScreen,
+              onGenerateRoute: AppRoutes.onGenerateRoute,
+            );
+          },
         );
       },
     );

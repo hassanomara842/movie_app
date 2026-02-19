@@ -18,6 +18,15 @@
   "enter_a_valid_email": "يرجى إدخال بريد إلكتروني صحيح",
   "forget_password": "نسيت كلمة المرور",
   "email": "البريد الإلكتروني",
-  "verify_email": "تأكيد البريد الإلكتروني"
-
+  "verify_email": "تأكيد البريد الإلكتروني",
+  "password": "كلمة المرور",
+  "forget_password_question": "نسيت كلمة المرور؟",
+  "login": "تسجيل الدخول",
+  "dont_have_account": "ليس لديك حساب؟ ",
+  "create_one": "إنشاء حساب",
+  "login_with_google": "تسجيل الدخول باستخدام جوجل",
+  "please_enter_email": "يرجى إدخال البريد الإلكتروني",
+  "please_enter_valid_email": "يرجى إدخال بريد إلكتروني صحيح",
+  "please_enter_password": "يرجى إدخال كلمة المرور",
+  "password_too_short": "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
 }

@@ -4,13 +4,13 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import '../core/text/app_text.dart';
 
 class AppButton extends StatelessWidget {
-  String buttonTitle;
-  VoidCallback onPressed;
-  Color backgroundColor;
-  Color borderSideColor;
-  Color textColor;
+  final String buttonTitle;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  final Color borderSideColor;
+  final Color textColor;
 
-  AppButton({
+  const AppButton({
     super.key,
     required this.buttonTitle,
     required this.onPressed,

@@ -5,6 +5,7 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
+import '../../auth/screens/login_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 
 class AppRoutes {
@@ -54,7 +55,11 @@ class AppRoutes {
               const Scaffold(body: Center(child: Text('Home Screen'))),
         );
         ///Auth Screens
-        case resetPassword:
+      case login:
+        return MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        );
+      case resetPassword:
         return MaterialPageRoute(
           builder: (context) => const ResetPasswordScreen(),
         );

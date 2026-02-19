@@ -84,56 +84,24 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.done,
                         autofillHints: const [AutofillHints.email],
-                        validator: validateEmail,
-                        cursorColor: Theme.of(context).cardColor,
-                        style: AppText.regularText(
-                          color: Theme.of(context).splashColor,
-                          fontSize: 16.sp,
-                        ),
-                        decoration: InputDecoration(
-                          errorStyle: AppText.boldText(
-                            color: Theme.of(context).cardColor,
-                            fontSize: 17.sp,
+                        validator: (value) => validateEmail(value),
+                        hintText: 'email'.tr(),
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: w(14),
+                            vertical: h(14),
                           ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).cardColor,
-                              width: 1.0,
+                          child: SvgPicture.asset(
+                            AppImages.emailIcon,
+                            width: w(20),
+                            height: h(20),
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).splashColor,
+                              BlendMode.srcIn,
                             ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).splashColor,
-                              width: 1.0,
-                            ),
-                          ),
-                          filled: true,
-                          focusColor: Theme.of(context).primaryColor,
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: w(14),
-                              vertical: h(14),
-                            ),
-                            child: SvgPicture.asset(
-                              AppImages.emailIcon,
-                              width: w(20),
-                              height: h(20),
-                              colorFilter: ColorFilter.mode(
-                                Theme.of(context).splashColor,
-                                BlendMode.srcIn,
-                              ),
-                            ),
-                          ),
-                          fillColor: Theme.of(context).primaryColor,
-                          hintText: 'email'.tr(),
-                          hintStyle: AppText.semiBoldText(
-                            color: Theme.of(context).splashColor,
-                            fontSize: 16.sp,
                           ),
                         ),
-                        onFieldSubmitted: (context) => onResetPressed(),
+                        onFieldSubmitted: (value) => onResetPressed(),
                       ),
                       AppButton(
                           buttonTitle: 'verify_email'.tr(),
