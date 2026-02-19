@@ -7,6 +7,8 @@ class AppTheme {
     primaryColor: AppColors.white,
     splashColor: AppColors.primaryBlack,
     cardColor: AppColors.primaryYellow,
+    canvasColor: AppColors.white,
+    disabledColor: AppColors.darkGrey,
     scaffoldBackgroundColor: AppColors.white,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.white,
@@ -20,6 +22,8 @@ class AppTheme {
     primaryColor: AppColors.primaryBlack,
     splashColor: AppColors.white,
     cardColor: AppColors.primaryYellow,
+    canvasColor: AppColors.darkGrey,
+    disabledColor: AppColors.darkGrey,
     scaffoldBackgroundColor: AppColors.primaryBlack,
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primaryBlack,
