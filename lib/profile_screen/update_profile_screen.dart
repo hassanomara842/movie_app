@@ -72,9 +72,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: w(15), vertical: h(4)),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.darkGrey
-                    : AppColors.darkBlack,
+                color:AppColors.primaryBlack,
                 borderRadius: BorderRadius.circular(w(15)),
               ),
               child: TextField(
@@ -91,9 +89,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: w(15), vertical: h(4)),
               decoration: BoxDecoration(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.darkGrey
-                    : AppColors.darkBlack,
+                color:AppColors.primaryBlack,
+
                 borderRadius: BorderRadius.circular(w(15)),
               ),
               child: TextField(
@@ -115,9 +112,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   "Reset Password".tr(),
                   textAlign: TextAlign.start,
                   style: AppText.regularText(
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? AppColors.white
-                        : AppColors.darkBlack,
+                    color:AppColors.primaryBlack,
                     fontSize: 20,
                   ),
                 ),
