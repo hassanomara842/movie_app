@@ -18,7 +18,6 @@
   "reset_password": "اعادة تعيين كلمة المرور",
   "delete_account": "حذف الحساب",
   "update_data": " تحديث البيانات",
-  "save_movies_to_your_watchlist": "احفظ الأفلام في قائمة المشاهدة الخاصة بك لتتابع ما تريد مشاهدته لاحقًا. استمتع بالأفلام بمختلف الجودات والأنواع."
   "email_is_required": "البريد الإلكتروني مطلوب",
   "enter_a_valid_email": "يرجى إدخال بريد إلكتروني صحيح",
   "forget_password": "نسيت كلمة المرور",
@@ -40,5 +39,8 @@
   "confirm_password_is_required": "تأكيد كلمة المرور مطلوب",
   "passwords_do_not_match": "كلمتا المرور غير متطابقتين",
   "phone_number_is_required": "رقم الهاتف مطلوب",
-  "enter_valid_phone_number": "يرجى إدخال رقم هاتف صحيح"
+  "enter_valid_phone_number": "يرجى إدخال رقم هاتف صحيح",
+  "edit_profile": "تعديل الملف الشخصي",
+  "exit": "تسجيل الخروج",
+  "wish_list": "قائمة المفضلة"
 }

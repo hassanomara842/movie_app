@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/auth/screens/register/register_view_model.dart';
-import 'package:movie_app/widgets/build_register_inputs.dart';
+import 'package:movie_app/widgets/build_inputs.dart';
 import 'package:movie_app/auth/screens/language_toggle/language_toggle.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/widgets/app_button.dart';
@@ -137,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (viewModel.validateForm()) {
                     debugPrint("Form is valid");
                     Navigator.of(context)
-                        .pushNamed(AppRoutes.updateProfileScreen);
+                        .pushNamed(AppRoutes.profileScreen);
                   }
                 },
               ),

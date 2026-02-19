@@ -6,8 +6,9 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
-import 'package:movie_app/profile_screen/update_profile_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
+import '../../profile_tab/profile/profile_screen.dart';
+import '../../profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../colors/app_colors.dart';
 
 class AppRoutes {
@@ -22,6 +23,7 @@ class AppRoutes {
   static const String resetPassword = '/resetPassword';
   static const String registerScreen = '/registerScreen';
   static const String updateProfileScreen = '/updateProfileScreen';
+  static const String profileScreen = '/profileScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -71,6 +73,10 @@ class AppRoutes {
       case updateProfileScreen:
         return darkRoute(
           const UpdateProfileScreen(),
+        );
+        case profileScreen:
+        return darkRoute(
+          const ProfileScreen(),
         );
 
       ///Auth Screens
