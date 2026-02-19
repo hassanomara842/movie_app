@@ -9,12 +9,16 @@ class AppButton extends StatelessWidget {
   Color backgroundColor;
   Color borderSideColor;
   Color textColor;
+  bool isIcon;
+  IconData? icon;
 
   AppButton({
     super.key,
     required this.buttonTitle,
     required this.onPressed,
     required this.backgroundColor,
+    this.isIcon = false,
+    this.icon,
     this.borderSideColor = Colors.transparent,
     this.textColor = AppColors.primaryBlack,
   });
@@ -33,10 +37,34 @@ class AppButton extends StatelessWidget {
         padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 15.h)),
       ),
       onPressed: onPressed,
-      child: Text(
-        buttonTitle,
-        style: AppText.semiBoldText(color: textColor, fontSize: 20.sp),
-      ),
+      child: isIcon
+          ? Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: Text(
+                    buttonTitle,
+                    maxLines: 5,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppText.semiBoldText(
+                      color: textColor,
+                      fontSize: 20.sp,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 5.w),
+                Icon(
+                  icon,
+                  color: textColor,
+                  size: 20.sp,
+                ),
+              ],
+            )
+          : Text(
+              buttonTitle,
+              style: AppText.semiBoldText(color: textColor, fontSize: 20.sp),
+            ),
     );
   }
 }

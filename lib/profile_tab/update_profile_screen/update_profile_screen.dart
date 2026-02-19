@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movie_app/widgets/build_register_inputs.dart';
+import 'package:movie_app/widgets/build_inputs.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/widgets/app_button.dart';
-import '../core/routing/app_routes.dart';
+import '../../core/routing/app_routes.dart';
 import 'avatar_bottom_sheet.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
