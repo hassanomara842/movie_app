@@ -6,6 +6,7 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
+import 'package:movie_app/profile_screen/update_profile_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../colors/app_colors.dart';
 
@@ -19,7 +20,11 @@ class AppRoutes {
   static const String exploreAllGenre = '/exploreAllGenre';
   static const String rateAndReview = '/rateAndReview';
   static const String startWatchingNow = '/startWatchingNow';
+<<<<<<< HEAD
+  static const String upDateProfile = '/UpdateProfileScreen';
+=======
   static const String resetPassword = '/resetPassword';
+>>>>>>> origin/develop
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
 
@@ -42,6 +47,10 @@ class AppRoutes {
       case register: // إضافة الـ Case الخاصة بالـ Register
         return MaterialPageRoute(
           builder: (context) => const RegisterScreen(),
+        );
+      case upDateProfile:
+        return MaterialPageRoute(
+          builder: (context) => UpdateProfileScreen(),
         );
 
       case resetPassword:
