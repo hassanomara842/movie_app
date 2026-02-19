@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
-import 'package:movie_app/auth/screens/reset_password_screen.dart';
+import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
+import 'package:movie_app/profile_screen/update_profile_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../colors/app_colors.dart';
 
@@ -20,6 +21,7 @@ class AppRoutes {
   static const String startWatchingNow = '/startWatchingNow';
   static const String resetPassword = '/resetPassword';
   static const String registerScreen = '/registerScreen';
+  static const String updateProfileScreen = '/updateProfileScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -65,6 +67,10 @@ class AppRoutes {
       case home:
         return darkRoute(
           const Scaffold(body: Center(child: Text('Home Screen'))),
+        );
+      case updateProfileScreen:
+        return darkRoute(
+          const UpdateProfileScreen(),
         );
 
       ///Auth Screens

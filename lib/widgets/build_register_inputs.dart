@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../core/text/app_text.dart';
-import '../../../widgets/custom_text_form_field.dart';
+import '../core/text/app_text.dart';
+import 'custom_text_form_field.dart';
 
-class BuildRegisterInputs extends StatefulWidget {
+class BuildInputs extends StatefulWidget {
   final IconData icon;
   final String hint;
   final bool isPass;
@@ -12,7 +12,7 @@ class BuildRegisterInputs extends StatefulWidget {
   final TextEditingController controller;
   bool obscureText = false;
 
-  BuildRegisterInputs(
+  BuildInputs(
       {super.key,
       required this.icon,
       required this.hint,
@@ -23,10 +23,10 @@ class BuildRegisterInputs extends StatefulWidget {
       this.textInputType});
 
   @override
-  State<BuildRegisterInputs> createState() => _BuildRegisterInputsState();
+  State<BuildInputs> createState() => _BuildInputsState();
 }
 
-class _BuildRegisterInputsState extends State<BuildRegisterInputs> {
+class _BuildInputsState extends State<BuildInputs> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
