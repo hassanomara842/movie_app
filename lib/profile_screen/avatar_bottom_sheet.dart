@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/image/app_assets.dart';
-import '../core/colors/app_colors.dart';
 
 class AvatarBottomSheet extends StatefulWidget {
   final Function(String) onAvatarSelected;
@@ -19,6 +19,18 @@ class AvatarBottomSheet extends StatefulWidget {
 class _AvatarBottomSheetState extends State<AvatarBottomSheet> {
   late String selected;
 
+  final List<String> avatars = [
+    AppImages.avatar1,
+    AppImages.avatar2,
+    AppImages.avatar3,
+    AppImages.avatar4,
+    AppImages.avatar5,
+    AppImages.avatar6,
+    AppImages.avatar7,
+    AppImages.avatar,
+    AppImages.avatar8,
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -27,25 +39,13 @@ class _AvatarBottomSheetState extends State<AvatarBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> avatars = [
-      AppImages.avatar1,
-      AppImages.avatar2,
-      AppImages.avatar3,
-      AppImages.avatar4,
-      AppImages.avatar5,
-      AppImages.avatar6,
-      AppImages.avatar7,
-      AppImages.avatar,
-      AppImages.avatar8,
-
-    ];
-
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.symmetric(
+        horizontal: 16.w,
+        vertical: 16.h,
+      ),
       decoration: BoxDecoration(
-        color: Theme.of(context).brightness == Brightness.dark
-            ? AppColors.darkGrey
-            : Colors.black54,
+        color: Theme.of(context).canvasColor,
         borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
       ),
       child: GridView.builder(
@@ -70,15 +70,20 @@ class _AvatarBottomSheetState extends State<AvatarBottomSheet> {
             },
             child: Container(
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.primaryYellow : AppColors.transparentColor,
+                color: isSelected
+                    ? Theme.of(context).cardColor
+                    : Theme.of(context).canvasColor,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                  color: AppColors.primaryYellow,
+                  color: Theme.of(context).cardColor,
                   width: 2,
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 10.w,
+                  vertical: 10.h,
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(15),
                   child: Image.asset(

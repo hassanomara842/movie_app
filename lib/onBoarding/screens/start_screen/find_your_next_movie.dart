@@ -17,7 +17,7 @@ class FindYourNextMovie extends StatelessWidget {
       containerColor: AppColors.transparentColor,
       title: "find_your_next_favorite_movie_here".tr(),
       titleFontSize: 36.sp,
-      titleTextColor: Theme.of(context).splashColor,
+      titleTextColor: AppColors.white,
       content: "get_access".tr(),
       contentFontSize: 20.sp,
       buttons: [

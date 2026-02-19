@@ -3,12 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/auth/screens/register/register_view_model.dart';
-import 'package:movie_app/auth/screens/widgets/build_register_inputs.dart';
-import 'package:movie_app/auth/screens/widgets/language_toggle.dart';
+import 'package:movie_app/widgets/build_register_inputs.dart';
+import 'package:movie_app/auth/screens/language_toggle/language_toggle.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/widgets/app_button.dart';
-import '../../../core/colors/app_colors.dart';
 import '../../../core/image/app_assets.dart';
+import '../../../core/routing/app_routes.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -81,7 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               /// Name
-              BuildRegisterInputs(
+              BuildInputs(
                 controller: viewModel.nameController,
                 icon: Icons.badge_outlined,
                 hint: "name".tr(),
@@ -90,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               /// Email
-              BuildRegisterInputs(
+              BuildInputs(
                 controller: viewModel.emailController,
                 icon: Icons.email_outlined,
                 hint: "email".tr(),
@@ -100,7 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               /// Password
-              BuildRegisterInputs(
+              BuildInputs(
                 controller: viewModel.passwordController,
                 icon: Icons.lock_outline,
                 hint: "password".tr(),
@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               /// Confirm Password
-              BuildRegisterInputs(
+              BuildInputs(
                 controller: viewModel.confirmPasswordController,
                 icon: Icons.lock_outline,
                 hint: "confirm_password".tr(),
@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
 
               /// Phone
-              BuildRegisterInputs(
+              BuildInputs(
                 controller: viewModel.phoneController,
                 icon: Icons.phone,
                 hint: "phone_number".tr(),
@@ -132,10 +132,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               /// Create Account Button
               AppButton(
                 buttonTitle: "create_account".tr(),
-                backgroundColor: AppColors.primaryYellow,
+                backgroundColor: Theme.of(context).cardColor,
                 onPressed: () {
                   if (viewModel.validateForm()) {
                     debugPrint("Form is valid");
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.updateProfileScreen);
                   }
                 },
               ),
@@ -146,7 +148,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Text("already_have_account".tr(),
                       style: AppText.regularText(
-                          color: AppColors.white, fontSize: 18.sp)),
+                          color: Theme.of(context).splashColor,
+                          fontSize: 18.sp)),
                   TextButton(
                     style: TextButton.styleFrom(
                       minimumSize: Size.zero,
@@ -156,7 +159,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () {},
                     child: Text("login".tr(),
                         style: AppText.boldText(
-                            color: AppColors.primaryYellow, fontSize: 18.sp)),
+                            color: Theme.of(context).cardColor,
+                            fontSize: 18.sp)),
                   ),
                 ],
               ),

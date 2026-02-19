@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/core/image/app_assets.dart';
-import '../../../widgets/app_button.dart';
+import '../../../../widgets/app_button.dart';
 import 'package:movie_app/widgets/custom_text_form_field.dart';
 import 'package:movie_app/core/text/app_text.dart';
-import '../../core/responsive/responsive.dart';
-import '../../core/responsive/size_config.dart';
+import '../../../core/responsive/responsive.dart';
+import '../../../core/responsive/size_config.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
