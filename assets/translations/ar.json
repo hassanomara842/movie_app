@@ -42,5 +42,13 @@
   "enter_valid_phone_number": "يرجى إدخال رقم هاتف صحيح",
   "edit_profile": "تعديل الملف الشخصي",
   "exit": "تسجيل الخروج",
-  "wish_list": "قائمة المفضلة"
+  "wish_list": "قائمة المفضلة",
+  "please_enter_email": "يرجى إدخال البريد الإلكتروني",
+  "please_enter_valid_email": "يرجى إدخال بريد إلكتروني صحيح",
+  "please_enter_password": "يرجى إدخال كلمة المرور",
+  "password_too_short": "كلمة المرور قصيرة جداً (6 أحرف على الأقل)",
+  "forget_password_question": "هل نسيت كلمة المرور؟",
+  "dont_have_account": "ليس لديك حساب؟",
+  "create_one": "أنشئ حساباً",
+  "login_with_google": "تسجيل الدخول بواسطة جوجل"
 }

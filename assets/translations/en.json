@@ -43,5 +43,13 @@
   "edit_profile": "Edit Profile",
   "exit": "Exit",
   "wish_list": "Wish List",
-  "history": "History"
+  "history": "History",
+  "please_enter_email": "Please enter your email",
+  "please_enter_valid_email": "Please enter a valid email",
+  "please_enter_password": "Please enter your password",
+  "password_too_short": "Password is too short (min 6 characters)",
+  "forget_password_question": "Forgot Password?",
+  "dont_have_account": "Don't have an account?",
+  "create_one": "Create one",
+  "login_with_google": "Login with Google"
 }

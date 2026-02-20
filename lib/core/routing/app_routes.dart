@@ -10,6 +10,7 @@ import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../../profile_tab/profile/profile_screen.dart';
 import '../../profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../colors/app_colors.dart';
+import '../../auth/screens/login/login_screen.dart';
 
 class AppRoutes {
   static const String home = '/home';
@@ -79,7 +80,12 @@ class AppRoutes {
           const ProfileScreen(),
         );
 
+
       ///Auth Screens
+      case login:
+        return darkRoute(
+          const LoginScreen(),
+        );
       case resetPassword:
         return darkRoute(
           const ResetPasswordScreen(),

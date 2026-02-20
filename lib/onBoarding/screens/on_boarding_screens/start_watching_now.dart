@@ -24,7 +24,7 @@ class StartWatchingNow extends StatelessWidget {
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(
               context,
-              AppRoutes.registerScreen,
+              AppRoutes.login,
               (route) => false,
             );
           },
