@@ -23,4 +23,6 @@ class AppImages {
   static const String egyptImage = 'assets/images/EG.png';
   static const String lrImage = 'assets/images/LR.png';
   static const String popcornImage = 'assets/images/empty1.png';
+  static const String splashLogo = 'assets/images/splash_logo.png';
+
 }
