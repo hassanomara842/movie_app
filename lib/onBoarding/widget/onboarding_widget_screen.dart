@@ -4,18 +4,18 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import '../../core/text/app_text.dart';
 
 class OnboardingWidgetScreen extends StatelessWidget {
-  String backgroundImage;
-  Color? containerColor;
-  String title;
-  String content;
+  // kol attributes final 3ala el class
+  final String backgroundImage;
+  final Color? containerColor;
+  final String title;
+  final String content;
   final List<Widget> buttons;
-  double titleFontSize;
-  double? contentFontSize;
-  Color contentTextColor;
-  Color titleTextColor;
-  double spacing;
-
-  OnboardingWidgetScreen({
+  final double titleFontSize;
+  final double? contentFontSize;
+  final Color contentTextColor;
+  final Color titleTextColor;
+  final double spacing;
+  const OnboardingWidgetScreen({
     super.key,
     required this.backgroundImage,
     this.containerColor,
