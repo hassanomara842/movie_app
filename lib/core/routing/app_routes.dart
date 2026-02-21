@@ -10,6 +10,7 @@ import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../../profile_tab/profile/profile_screen.dart';
 import '../../profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../colors/app_colors.dart';
+import '../../auth/screens/home_screen/home_screen.dart';
 import '../../auth/screens/login/login_screen.dart';
 
 class AppRoutes {
@@ -69,7 +70,7 @@ class AppRoutes {
       ///Home Screens
       case home:
         return darkRoute(
-          const Scaffold(body: Center(child: Text('Home Screen'))),
+          const HomeScreen(),
         );
       case updateProfileScreen:
         return darkRoute(
