@@ -85,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: viewModel.nameController,
                 icon: Icons.badge_outlined,
                 hint: "name".tr(),
-                obscureText: false,
+                isPass: false,
                 validator: viewModel.validateName,
               ),
 
@@ -94,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: viewModel.emailController,
                 icon: Icons.email_outlined,
                 hint: "email".tr(),
-                obscureText: false,
+                isPass: false,
                 validator: viewModel.validateEmail,
                 textInputType: TextInputType.emailAddress,
               ),
@@ -104,7 +104,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: viewModel.passwordController,
                 icon: Icons.lock_outline,
                 hint: "password".tr(),
-                obscureText: true,
                 validator: viewModel.validatePassword,
                 isPass: true,
               ),
@@ -114,7 +113,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: viewModel.confirmPasswordController,
                 icon: Icons.lock_outline,
                 hint: "confirm_password".tr(),
-                obscureText: true,
                 validator: viewModel.validateConfirmPassword,
                 isPass: true,
               ),
@@ -124,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 controller: viewModel.phoneController,
                 icon: Icons.phone,
                 hint: "phone_number".tr(),
-                obscureText: false,
+                isPass: false,
                 validator: viewModel.validatePhone,
                 textInputType: TextInputType.phone,
               ),
@@ -136,8 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onPressed: () {
                   if (viewModel.validateForm()) {
                     debugPrint("Form is valid");
-                    Navigator.of(context)
-                        .pushNamed(AppRoutes.profileScreen);
+                    Navigator.of(context).pushNamed(AppRoutes.profileScreen);
                   }
                 },
               ),
@@ -156,7 +153,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       padding: EdgeInsets.zero,
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    onPressed: () {},
+                    //navigate back to login
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text("login".tr(),
                         style: AppText.boldText(
                             color: Theme.of(context).cardColor,
@@ -164,12 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ],
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  LanguageToggle(),
-                ],
-              ),
+              const LanguageToggle(),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app/auth/screens/language_toggle/language_toggle.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/responsive/responsive.dart';
@@ -33,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     SizeConfig.init(context);
     final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final textColor = isDark ? AppColors.white : AppColors.primaryBlack;
-    final accentColor = AppColors.primaryYellow;
+    const accentColor = AppColors.primaryYellow; //const for fix warning
     final dividerColor = isDark ? Colors.white24 : Colors.black12;
 
     return Scaffold(
@@ -62,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   icon: Icons.email_outlined,
                   hint: 'email'.tr(),
-                  obscureText: false,
                   textInputType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -75,13 +75,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-
                 SizedBox(height: h(16)),
                 BuildInputs(
                   controller: _passwordController,
                   icon: Icons.lock_outline,
                   hint: 'password'.tr(),
-                  obscureText: true,
                   isPass: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -108,7 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-
                 SizedBox(height: h(8)),
                 AppButton(
                   buttonTitle: 'login'.tr(),
@@ -121,7 +118,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   backgroundColor: accentColor,
                   textColor: AppColors.primaryBlack,
                 ),
-
                 SizedBox(height: h(20)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -152,7 +148,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(height: h(16)),
                 Row(
                   children: [
@@ -174,7 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-
                 SizedBox(height: h(20)),
                 ElevatedButton.icon(
                   onPressed: () {},
@@ -199,78 +193,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     elevation: 0,
                   ),
                 ),
-
                 SizedBox(height: h(20)),
-                Center(
-                  child: Container(
-                    padding: EdgeInsets.all(w(4)),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(w(30)),
-                      border: Border.all(
-                        color: accentColor,
-                        width: 2,
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildLanguageToggle(
-                          context,
-                          flagAsset: AppImages.lrImage,
-                          isSelected: context.locale.languageCode == 'en',
-                          langCode: 'en',
-                          accentColor: accentColor,
-                        ),
-                        _buildLanguageToggle(
-                          context,
-                          flagAsset: AppImages.egyptImage,
-                          isSelected: context.locale.languageCode == 'ar',
-                          langCode: 'ar',
-                          accentColor: accentColor,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
+                // using language toggle
+                const LanguageToggle(),
                 SizedBox(height: h(24)),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLanguageToggle(
-      BuildContext context, {
-        required String flagAsset,
-        required bool isSelected,
-        required String langCode,
-        required Color accentColor,
-      }) {
-    return GestureDetector(
-      onTap: () {
-        if (!isSelected) {
-          context.setLocale(Locale(langCode));
-        }
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(horizontal: w(8), vertical: h(6)),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? accentColor.withOpacity(0.2)
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(w(20)),
-        ),
-        child: ClipOval(
-          child: Image.asset(
-            flagAsset,
-            width: w(34),
-            height: h(34),
-            fit: BoxFit.cover,
           ),
         ),
       ),
