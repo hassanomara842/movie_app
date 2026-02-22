@@ -13,7 +13,7 @@ class CreateWatchLists extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
       spacing: 16.h,
-      backgroundImage: AppImages.createWatchLists,
+      backgroundImage: AppAssets.createWatchLists,
       containerColor: Theme.of(context).primaryColor,
       title: "create_watchlists".tr(),
       titleFontSize: 24.sp,

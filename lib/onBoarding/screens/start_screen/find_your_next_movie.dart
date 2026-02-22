@@ -13,7 +13,7 @@ class FindYourNextMovie extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
-      backgroundImage: AppImages.findYourNextMovie,
+      backgroundImage: AppAssets.findYourNextMovie,
       containerColor: AppColors.transparentColor,
       title: "find_your_next_favorite_movie_here".tr(),
       titleFontSize: 36.sp,

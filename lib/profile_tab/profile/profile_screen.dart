@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            AppImages.popcornImage,
+            AppAssets.popcornImage,
             width: 150.w,
           ),
         ],

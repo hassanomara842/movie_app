@@ -28,7 +28,7 @@ class ProfileHeader extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 55.w,
-                    backgroundImage: const AssetImage(AppImages.avatar3),
+                    backgroundImage: const AssetImage(AppAssets.avatar3),
                   ),
                   Text(
                     "Nour",
@@ -62,8 +62,7 @@ class ProfileHeader extends StatelessWidget {
                       Navigator.pushNamedAndRemoveUntil(context,
                           AppRoutes.onBoardingScreen, (route) => false);
                     },
-                    icon: Icons.exit_to_app_rounded,
-                    isIcon: true,
+                    icon: const Icon(Icons.exit_to_app_rounded),
                     backgroundColor: AppColors.errorRed),
               )
             ],

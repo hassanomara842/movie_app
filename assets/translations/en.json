@@ -51,5 +51,6 @@
   "forget_password_question": "Forgot Password?",
   "dont_have_account": "Don't have an account?",
   "create_one": "Create one",
+  "or": "OR",
   "login_with_google": "Login with Google"
 }

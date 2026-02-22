@@ -5,13 +5,13 @@ import '../core/text/app_text.dart';
 
 class AppButton extends StatelessWidget {
   // kol attributes final 3ala el class
- final String buttonTitle;
- final VoidCallback onPressed;
- final Color backgroundColor;
- final Color borderSideColor;
- final Color textColor;
- final bool isIcon;
- final IconData? icon;
+  final String buttonTitle;
+  final VoidCallback onPressed;
+  final Color backgroundColor;
+  final Color borderSideColor;
+  final Color textColor;
+  final bool isIcon;
+  final Widget? icon;
 
   const AppButton({
     super.key,
@@ -27,45 +27,38 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(backgroundColor),
-        shape: WidgetStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-            side: BorderSide(color: borderSideColor, width: 2),
-          ),
-        ),
-        padding: WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 15.h)),
-      ),
-      onPressed: onPressed,
-      child: isIcon
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(
-                  child: Text(
-                    buttonTitle,
-                    maxLines: 5,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppText.semiBoldText(
-                      color: textColor,
-                      fontSize: 20.sp,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 5.w),
-                Icon(
-                  icon,
-                  color: textColor,
-                  size: 20.sp,
-                ),
-              ],
-            )
-          : Text(
-              buttonTitle,
-              style: AppText.semiBoldText(color: textColor, fontSize: 20.sp),
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(backgroundColor),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+              side: BorderSide(color: borderSideColor, width: 2),
             ),
-    );
+          ),
+          padding:
+              WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 15.h)),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Text(
+                buttonTitle,
+                maxLines: 5,
+                overflow: TextOverflow.ellipsis,
+                style: AppText.semiBoldText(
+                  color: textColor,
+                  fontSize: 20.sp,
+                ),
+              ),
+            ),
+            if (isIcon) ...[
+              SizedBox(width: 10.w),
+              icon!,
+            ],
+          ],
+        ));
   }
 }
