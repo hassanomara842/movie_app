@@ -24,5 +24,9 @@ class AppImages {
   static const String lrImage = 'assets/images/LR.png';
   static const String popcornImage = 'assets/images/empty1.png';
   static const String splashLogo = 'assets/images/splash_logo.png';
+  static const String homeIcon = 'assets/images/Icon/Vector home.png';
+  static const String exploreIcon = 'assets/images/Icon/explore.png';
+  static const String searchIcon = 'assets/images/Icon/Vector search.png';
+  static const String profileIcon = 'assets/images/Icon/Profiel.png';
 
 }
