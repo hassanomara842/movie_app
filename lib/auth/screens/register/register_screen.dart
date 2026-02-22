@@ -1,14 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/auth/screens/register/register_view_model.dart';
+import 'package:movie_app/cubit/register_states.dart';
 import 'package:movie_app/widgets/build_inputs.dart';
 import 'package:movie_app/auth/screens/language_toggle/language_toggle.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/widgets/app_button.dart';
 import '../../../core/image/app_assets.dart';
 import '../../../core/routing/app_routes.dart';
+import '../../../cubit/register_cubit.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -32,6 +35,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     AppImages.avatar8,
   ];
 
+  int selectedAvatarIndex = 0;
+
   @override
   void dispose() {
     viewModel.dispose();
@@ -40,140 +45,184 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: BackButton(
-          color: Theme.of(context).cardColor,
-        ),
-        title: Text("register".tr(),
-            style: AppText.regularText(
-                color: Theme.of(context).cardColor, fontSize: 16.sp)),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: 16.w,
-          vertical: 16.h,
-        ),
-        child: Form(
-          key: viewModel.formKey,
-          child: Column(
-            spacing: 24.h,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              CarouselSlider.builder(
-                itemCount: avatars.length,
-                itemBuilder: (context, index, realIndex) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      avatars[index],
-                      fit: BoxFit.cover,
-                    ),
-                  );
-                },
-                options: CarouselOptions(
-                  height: 115,
-                  viewportFraction: 0.34,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                  enableInfiniteScroll: true,
+    return BlocListener<RegisterCubit, RegisterStates>(
+        listener: (context, state) {
+          if (state is RegisterLoadingState) {
+            showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => Center(
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).splashColor,
                 ),
               ),
+            );
+          }
 
-              /// Name
-              BuildInputs(
-                controller: viewModel.nameController,
-                icon: Icons.badge_outlined,
-                hint: "name".tr(),
-                obscureText: false,
-                validator: viewModel.validateName,
-              ),
+          if (state is RegisterSuccessState) {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(
+              context,
+              AppRoutes.profileScreen,
+            );
+          }
 
-              /// Email
-              BuildInputs(
-                controller: viewModel.emailController,
-                icon: Icons.email_outlined,
-                hint: "email".tr(),
-                obscureText: false,
-                validator: viewModel.validateEmail,
-                textInputType: TextInputType.emailAddress,
-              ),
-
-              /// Password
-              BuildInputs(
-                controller: viewModel.passwordController,
-                icon: Icons.lock_outline,
-                hint: "password".tr(),
-                obscureText: true,
-                validator: viewModel.validatePassword,
-                isPass: true,
-              ),
-
-              /// Confirm Password
-              BuildInputs(
-                controller: viewModel.confirmPasswordController,
-                icon: Icons.lock_outline,
-                hint: "confirm_password".tr(),
-                obscureText: true,
-                validator: viewModel.validateConfirmPassword,
-                isPass: true,
-              ),
-
-              /// Phone
-              BuildInputs(
-                controller: viewModel.phoneController,
-                icon: Icons.phone,
-                hint: "phone_number".tr(),
-                obscureText: false,
-                validator: viewModel.validatePhone,
-                textInputType: TextInputType.phone,
-              ),
-
-              /// Create Account Button
-              AppButton(
-                buttonTitle: "create_account".tr(),
-                backgroundColor: Theme.of(context).cardColor,
-                onPressed: () {
-                  if (viewModel.validateForm()) {
-                    debugPrint("Form is valid");
-                    Navigator.of(context)
-                        .pushNamed(AppRoutes.profileScreen);
-                  }
-                },
-              ),
-
-              /// Already Have Account
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          if (state is RegisterErrorState) {
+            Navigator.pop(context);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.error)),
+            );
+          }
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            leading: BackButton(
+              color: Theme.of(context).cardColor,
+            ),
+            title: Text("register".tr(),
+                style: AppText.regularText(
+                    color: Theme.of(context).cardColor, fontSize: 16.sp)),
+          ),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16.w,
+              vertical: 16.h,
+            ),
+            child: Form(
+              key: viewModel.formKey,
+              child: Column(
+                spacing: 24.h,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text("already_have_account".tr(),
-                      style: AppText.regularText(
-                          color: Theme.of(context).splashColor,
-                          fontSize: 18.sp)),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: EdgeInsets.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  CarouselSlider.builder(
+                    itemCount: avatars.length,
+                    itemBuilder: (context, index, realIndex) {
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedAvatarIndex = index;
+                          });
+                        },
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.asset(
+                            avatars[index],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      height: 115,
+                      viewportFraction: 0.34,
+                      enlargeCenterPage: true,
+                      scrollDirection: Axis.horizontal,
+                      enableInfiniteScroll: true,
                     ),
-                    onPressed: () {},
-                    child: Text("login".tr(),
-                        style: AppText.boldText(
-                            color: Theme.of(context).cardColor,
-                            fontSize: 18.sp)),
+                  ),
+
+                  /// Name
+                  BuildInputs(
+                    controller: viewModel.nameController,
+                    icon: Icons.badge_outlined,
+                    hint: "name".tr(),
+                    obscureText: false,
+                    validator: viewModel.validateName,
+                  ),
+
+                  /// Email
+                  BuildInputs(
+                    controller: viewModel.emailController,
+                    icon: Icons.email_outlined,
+                    hint: "email".tr(),
+                    obscureText: false,
+                    validator: viewModel.validateEmail,
+                    textInputType: TextInputType.emailAddress,
+                  ),
+
+                  /// Password
+                  BuildInputs(
+                    controller: viewModel.passwordController,
+                    icon: Icons.lock_outline,
+                    hint: "password".tr(),
+                    obscureText: true,
+                    validator: viewModel.validatePassword,
+                    isPass: true,
+                  ),
+
+                  /// Confirm Password
+                  BuildInputs(
+                    controller: viewModel.confirmPasswordController,
+                    icon: Icons.lock_outline,
+                    hint: "confirm_password".tr(),
+                    obscureText: true,
+                    validator: viewModel.validateConfirmPassword,
+                    isPass: true,
+                  ),
+
+                  /// Phone
+                  BuildInputs(
+                    controller: viewModel.phoneController,
+                    icon: Icons.phone,
+                    hint: "phone_number".tr(),
+                    obscureText: false,
+                    validator: viewModel.validatePhone,
+                    textInputType: TextInputType.phone,
+                  ),
+
+                  /// Create Account Button
+                  AppButton(
+                    buttonTitle: "create_account".tr(),
+                    backgroundColor: Theme.of(context).cardColor,
+                    onPressed: () {
+                      if (viewModel.validateForm()) {
+                        context.read<RegisterCubit>().register(
+                              name: viewModel.nameController.text,
+                              email: viewModel.emailController.text,
+                              password: viewModel.passwordController.text,
+                              confirmPassword:
+                                  viewModel.confirmPasswordController.text,
+                              phone: viewModel.phoneController.text,
+                              avaterId: selectedAvatarIndex + 1,
+                            );
+                      }
+                    },
+                  ),
+
+                  /// Already Have Account
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("already_have_account".tr(),
+                          style: AppText.regularText(
+                              color: Theme.of(context).splashColor,
+                              fontSize: 18.sp)),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          minimumSize: Size.zero,
+                          padding: EdgeInsets.zero,
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(AppRoutes.login);
+                        },
+                        child: Text("login".tr(),
+                            style: AppText.boldText(
+                                color: Theme.of(context).cardColor,
+                                fontSize: 18.sp)),
+                      ),
+                    ],
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LanguageToggle(),
+                    ],
                   ),
                 ],
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  LanguageToggle(),
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
