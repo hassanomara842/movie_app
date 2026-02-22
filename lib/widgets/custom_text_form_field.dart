@@ -14,7 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.decoration,
     this.onFieldSubmitted,
     this.obscureText = false,
-    this.enabled = true,  this.textAlign,  this.textDirection,
+    this.enabled = true,
   });
 
   final TextEditingController? controller;
@@ -28,8 +28,7 @@ class CustomTextFormField extends StatelessWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final bool obscureText;
   final bool enabled;
-  final textAlign;
-  final textDirection;
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +44,7 @@ class CustomTextFormField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText,
       enabled: enabled,
-      textAlign: textAlign,
-      textDirection: textDirection,
+
     );
   }
 }
