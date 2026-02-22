@@ -21,6 +21,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+
   final RegisterViewModel viewModel = RegisterViewModel();
 
   final List<String> avatars = [
