@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../../../core/helpers/cache_helper.dart';
 
 enum LanguageType { english, arabic }
@@ -15,6 +16,18 @@ class LanguageViewModel extends ChangeNotifier {
       selectedLanguage = LanguageType.english;
     }
   }
-   //remove unused functions
 
+  Future<void> changeLanguage(LanguageType type, BuildContext context) async {
+    selectedLanguage = type;
+
+    if (type == LanguageType.english) {
+      await CacheHelper.setLanguage("en");
+      await context.setLocale(const Locale("en"));
+    } else {
+      await CacheHelper.setLanguage("ar");
+      await context.setLocale(const Locale("ar"));
+    }
+
+    notifyListeners();
+  }
 }

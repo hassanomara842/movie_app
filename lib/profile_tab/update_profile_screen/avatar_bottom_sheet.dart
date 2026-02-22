@@ -20,15 +20,15 @@ class _AvatarBottomSheetState extends State<AvatarBottomSheet> {
   late String selected;
 
   final List<String> avatars = [
-    AppImages.avatar1,
-    AppImages.avatar2,
-    AppImages.avatar3,
-    AppImages.avatar4,
-    AppImages.avatar5,
-    AppImages.avatar6,
-    AppImages.avatar7,
-    AppImages.avatar,
-    AppImages.avatar8,
+    AppAssets.avatar1,
+    AppAssets.avatar2,
+    AppAssets.avatar3,
+    AppAssets.avatar4,
+    AppAssets.avatar5,
+    AppAssets.avatar6,
+    AppAssets.avatar7,
+    AppAssets.avatar,
+    AppAssets.avatar8,
   ];
 
   @override

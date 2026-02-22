@@ -17,7 +17,7 @@ class UpdateProfileScreen extends StatefulWidget {
 }
 
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
-  String selectedAvatar = AppImages.avatar;
+  String selectedAvatar = AppAssets.avatar;
   final controller = TextEditingController();
   final phoneController = TextEditingController();
   bool obscureText = false;

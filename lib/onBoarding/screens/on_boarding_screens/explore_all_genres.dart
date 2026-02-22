@@ -13,7 +13,7 @@ class ExploreAllGenres extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
       spacing: 16.h,
-      backgroundImage: AppImages.exploreAllGenres,
+      backgroundImage: AppAssets.exploreAllGenres,
       containerColor: Theme.of(context).primaryColor,
       title: "explore_all_genres".tr(),
       titleFontSize: 24.sp,

@@ -13,7 +13,7 @@ class RateReviewAndLearn extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
       spacing: 16.h,
-      backgroundImage: AppImages.rateReviewAndLearn,
+      backgroundImage: AppAssets.rateReviewAndLearn,
       containerColor: Theme.of(context).primaryColor,
       title: "rate_review_and_learn".tr(),
       titleFontSize: 24.sp,

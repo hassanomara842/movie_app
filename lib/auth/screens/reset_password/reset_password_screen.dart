@@ -78,7 +78,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                     spacing: h(18),
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(AppImages.forgetPassword),
+                      Image.asset(AppAssets.forgetPassword),
                       CustomTextFormField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -117,7 +117,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                               vertical: h(14),
                             ),
                             child: SvgPicture.asset(
-                              AppImages.emailIcon,
+                              AppAssets.emailIcon,
                               width: w(20),
                               height: h(20),
                               colorFilter: ColorFilter.mode(

@@ -1,10 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/auth/screens/language_toggle/language_toggle.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
-import 'package:movie_app/core/responsive/responsive.dart';
-import 'package:movie_app/core/responsive/size_config.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/widgets/app_button.dart';
@@ -31,34 +30,20 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
-    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final textColor = isDark ? AppColors.white : AppColors.primaryBlack;
-    const accentColor = AppColors.primaryYellow; //const for fix warning
-    final dividerColor = isDark ? Colors.white24 : Colors.black12;
-
     return Scaffold(
-      backgroundColor: isDark ? AppColors.primaryBlack : Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: w(24)),
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Form(
             key: _formKey,
             child: Column(
+              spacing: 25.h,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: h(50)),
-                Center(
-                  child: SizedBox(
-                    width: w(140),
-                    height: h(140),
-                    child: Image.asset(
-                      AppImages.splashLogo,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                Image.asset(
+                  AppAssets.logoImage,
+                  height: 220.h,
                 ),
-                SizedBox(height: h(48)),
                 BuildInputs(
                   controller: _emailController,
                   icon: Icons.email_outlined,
@@ -75,7 +60,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                SizedBox(height: h(16)),
                 BuildInputs(
                   controller: _passwordController,
                   icon: Icons.lock_outline,
@@ -100,13 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'forget_password_question'.tr(),
                       style: AppText.mediumText(
-                        color: accentColor,
-                        fontSize: 13,
+                        color: Theme.of(context).cardColor,
+                        fontSize: 13.sp,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(height: h(8)),
                 AppButton(
                   buttonTitle: 'login'.tr(),
                   onPressed: () {
@@ -115,24 +98,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           context, AppRoutes.profileScreen, (route) => false);
                     }
                   },
-                  backgroundColor: accentColor,
+                  backgroundColor: Theme.of(context).cardColor,
                   textColor: AppColors.primaryBlack,
                 ),
-                SizedBox(height: h(20)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'dont_have_account'.tr(),
                       style: AppText.regularText(
-                        color: textColor,
-                        fontSize: 14,
+                        color: Theme.of(context).splashColor,
+                        fontSize: 14.sp,
                       ),
                     ),
                     TextButton(
                       style: TextButton.styleFrom(
                         minimumSize: Size.zero,
-                        padding: EdgeInsets.only(left: w(4)),
+                        padding: EdgeInsets.only(left: 4.w),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       onPressed: () {
@@ -141,62 +123,51 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Text(
                         'create_one'.tr(),
                         style: AppText.boldText(
-                          color: accentColor,
-                          fontSize: 14,
+                          color: Theme.of(context).cardColor,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: h(16)),
                 Row(
                   children: [
                     Expanded(
-                      child: Divider(color: dividerColor, thickness: 1),
+                      child: Divider(
+                          color: Theme.of(context).disabledColor, thickness: 1),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: w(12)),
+                      padding: EdgeInsets.symmetric(horizontal: 12.w),
                       child: Text(
-                        'OR',
+                        'or'.tr(),
                         style: AppText.mediumText(
-                          color: textColor,
-                          fontSize: 14,
+                          color: Theme.of(context).splashColor,
+                          fontSize: 14.sp,
                         ),
                       ),
                     ),
                     Expanded(
-                      child: Divider(color: dividerColor, thickness: 1),
+                      child: Divider(
+                          color: Theme.of(context).disabledColor, thickness: 1),
                     ),
                   ],
                 ),
-                SizedBox(height: h(20)),
-                ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.g_mobiledata,
-                    color: AppColors.primaryBlack,
-                    size: 32,
-                  ),
-                  label: Text(
-                    'login_with_google'.tr(),
-                    style: AppText.semiBoldText(
-                      color: AppColors.primaryBlack,
-                      fontSize: 16,
+                AppButton(
+                    buttonTitle: 'login_with_google'.tr(),
+                    onPressed: () {},
+                    icon: Image.asset(
+                      AppAssets.googleIcon,
+                      width: 25.w,
+                      height: 25.h,
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: accentColor,
-                    padding: EdgeInsets.symmetric(vertical: h(14)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(w(14)),
-                    ),
-                    elevation: 0,
-                  ),
+                    isIcon: true,
+                    backgroundColor: Theme.of(context).cardColor),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LanguageToggle(),
+                  ],
                 ),
-                SizedBox(height: h(20)),
-                // using language toggle
-                const LanguageToggle(),
-                SizedBox(height: h(24)),
               ],
             ),
           ),
