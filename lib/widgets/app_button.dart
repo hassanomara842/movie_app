@@ -42,7 +42,11 @@ class AppButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
+          spacing: 15.w,
           children: [
+            if (isIcon) ...[
+              icon!,
+            ],
             Flexible(
               child: Text(
                 buttonTitle,
@@ -54,10 +58,6 @@ class AppButton extends StatelessWidget {
                 ),
               ),
             ),
-            if (isIcon) ...[
-              SizedBox(width: 10.w),
-              icon!,
-            ],
           ],
         ));
   }
