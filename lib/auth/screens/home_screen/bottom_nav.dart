@@ -15,7 +15,7 @@ class BottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      height: 70, // Slightly more height to accommodate the icons without overflow
+      height: 70,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(16),
@@ -35,28 +35,48 @@ class BottomNav extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: AppColors.primaryYellow,
-          unselectedItemColor: Theme.of(context).splashColor.withOpacity(0.6),
+          unselectedItemColor: Theme.of(context).splashColor,
           elevation: 0,
-          iconSize: 26, // Slightly smaller icons to fit perfectly
+          iconSize: 26,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedFontSize: 0, // Ensure no space is reserved for labels
-          unselectedFontSize: 0, // Ensure no space is reserved for labels
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: ImageIcon(
+                  AssetImage('assets/images/Icon/Vector home.png'),
+                ),
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.search),
+              icon: Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: ImageIcon(
+                  AssetImage('assets/images/Icon/Vector search.png'),
+                ),
+              ),
               label: 'Search',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.explore),
+              icon: Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: ImageIcon(
+                  AssetImage('assets/images/Icon/explore.png'),
+                ),
+              ),
               label: 'Explore',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Padding(
+                padding: EdgeInsets.only(top: 15),
+                child: ImageIcon(
+                  AssetImage('assets/images/Icon/Profiel.png'),
+                ),
+              ),
               label: 'Profile',
             ),
           ],
