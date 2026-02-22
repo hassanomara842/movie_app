@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
+import 'package:movie_app/core/helpers/cache_helper.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'language_view_model.dart';
 
@@ -37,29 +38,53 @@ class _LanguageToggleState extends State<LanguageToggle> {
               width: 3,
             ),
           ),
-          child: Row(
-            spacing: 25.w,
-            children: [
-              GestureDetector(
-
-                onTap: () =>
-                    viewModel.changeLanguage(LanguageType.english, context),
-                child: languageFlagsWidget(
-                  isSelected:
-                  viewModel.selectedLanguage == LanguageType.english,
-                  image: AppAssets.lrImage,
+          child: CacheHelper.getLanguage() == 'ar'
+              ? Row(
+                  spacing: 25.w,
+                  children: [
+                    GestureDetector(
+                      onTap: () => viewModel.changeLanguage(
+                          LanguageType.arabic, context),
+                      child: languageFlagsWidget(
+                        isSelected:
+                            viewModel.selectedLanguage == LanguageType.arabic,
+                        image: AppAssets.egyptImage,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => viewModel.changeLanguage(
+                          LanguageType.english, context),
+                      child: languageFlagsWidget(
+                        isSelected:
+                            viewModel.selectedLanguage == LanguageType.english,
+                        image: AppAssets.lrImage,
+                      ),
+                    ),
+                  ],
+                )
+              : Row(
+                  spacing: 25.w,
+                  children: [
+                    GestureDetector(
+                      onTap: () => viewModel.changeLanguage(
+                          LanguageType.english, context),
+                      child: languageFlagsWidget(
+                        isSelected:
+                            viewModel.selectedLanguage == LanguageType.english,
+                        image: AppAssets.lrImage,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => viewModel.changeLanguage(
+                          LanguageType.arabic, context),
+                      child: languageFlagsWidget(
+                        isSelected:
+                            viewModel.selectedLanguage == LanguageType.arabic,
+                        image: AppAssets.egyptImage,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              GestureDetector(
-                onTap: () =>
-                    viewModel.changeLanguage(LanguageType.arabic, context),
-                child: languageFlagsWidget(
-                  isSelected: viewModel.selectedLanguage == LanguageType.arabic,
-                  image: AppAssets.egyptImage,
-                ),
-              ),
-            ],
-          ),
         );
       },
     );
@@ -72,9 +97,9 @@ class _LanguageToggleState extends State<LanguageToggle> {
         shape: BoxShape.circle,
         border: isSelected
             ? Border.all(
-          color: AppColors.primaryYellow,
-          width: 6,
-        )
+                color: Theme.of(context).cardColor,
+                width: 6,
+              )
             : null,
       ),
       child: ClipOval(

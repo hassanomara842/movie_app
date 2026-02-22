@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.home,
+          initialRoute: AppRoutes.onBoardingScreen,
           onGenerateRoute: AppRoutes.onGenerateRoute,
         );
       },

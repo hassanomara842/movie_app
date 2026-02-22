@@ -24,6 +24,8 @@ class AppAssets {
   static const String lrImage = 'assets/images/LR.png';
   static const String popcornImage = 'assets/images/empty1.png';
   static const String splashLogo = 'assets/images/splash_logo.png';
+  static const String logoImage = 'assets/images/logo.png';
+  static const String googleIcon = 'assets/images/google.png';
 
 
 }
