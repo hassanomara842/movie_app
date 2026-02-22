@@ -4,11 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/theming/app_theme.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
+import 'di/injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();
+  configureDependencies();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],

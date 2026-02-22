@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
@@ -6,6 +7,8 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
+import '../../cubit/register_cubit.dart';
+import '../../di/injection.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../../profile_tab/profile/profile_screen.dart';
 import '../../profile_tab/update_profile_screen/update_profile_screen.dart';
@@ -40,7 +43,7 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-    ///Cases of Onboarding Screens
+      ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -75,11 +78,10 @@ class AppRoutes {
         return darkRoute(
           const UpdateProfileScreen(),
         );
-        case profileScreen:
+      case profileScreen:
         return darkRoute(
           const ProfileScreen(),
         );
-
 
       ///Auth Screens
       case login:
@@ -92,8 +94,12 @@ class AppRoutes {
         );
       case registerScreen:
         return darkRoute(
-          const RegisterScreen(),
+          BlocProvider(
+            create: (_) => getIt<RegisterCubit>(),
+            child: const RegisterScreen(),
+          ),
         );
+
       default:
         return darkRoute(
           const Scaffold(body: Center(child: Text('No Route Defined'))),
