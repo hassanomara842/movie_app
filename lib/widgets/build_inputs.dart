@@ -10,15 +10,14 @@ class BuildInputs extends StatefulWidget {
   final TextInputType? textInputType;
   final String? Function(String?)? validator;
   final TextEditingController controller;
-  bool obscureText = false;
+  //delete unuseful attribute _obscureText
 
-  BuildInputs(
+  const BuildInputs(
       {super.key,
       required this.icon,
       required this.hint,
       this.isPass = false,
       required this.controller,
-      required this.obscureText,
       this.validator,
       this.textInputType});
 
@@ -27,6 +26,15 @@ class BuildInputs extends StatefulWidget {
 }
 
 class _BuildInputsState extends State<BuildInputs> {
+  late bool _obscureText;
+
+  @override
+  void initState() {
+    super.initState();
+    // passing the value of isPass to _obscureText
+    _obscureText = widget.isPass;
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
@@ -34,7 +42,7 @@ class _BuildInputsState extends State<BuildInputs> {
       keyboardType: widget.textInputType,
       controller: widget.controller,
       validator: widget.validator,
-      obscureText: widget.obscureText,
+      obscureText: _obscureText,
       style: AppText.regularText(
           color: Theme.of(context).splashColor, fontSize: 16.sp),
       decoration: InputDecoration(
@@ -48,11 +56,11 @@ class _BuildInputsState extends State<BuildInputs> {
             ? IconButton(
                 onPressed: () {
                   setState(() {
-                    widget.obscureText = !widget.obscureText;
+                    _obscureText = !_obscureText;
                   });
                 },
                 icon: Icon(
-                  widget.obscureText
+                  _obscureText
                       ? Icons.visibility_off_outlined
                       : Icons.visibility_outlined,
                   color: Theme.of(context).splashColor,

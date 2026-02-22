@@ -222,6 +222,92 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ],
               ),
             ),
+              /// Name
+              BuildInputs(
+                controller: viewModel.nameController,
+                icon: Icons.badge_outlined,
+                hint: "name".tr(),
+                isPass: false,
+                validator: viewModel.validateName,
+              ),
+
+              /// Email
+              BuildInputs(
+                controller: viewModel.emailController,
+                icon: Icons.email_outlined,
+                hint: "email".tr(),
+                isPass: false,
+                validator: viewModel.validateEmail,
+                textInputType: TextInputType.emailAddress,
+              ),
+
+              /// Password
+              BuildInputs(
+                controller: viewModel.passwordController,
+                icon: Icons.lock_outline,
+                hint: "password".tr(),
+                validator: viewModel.validatePassword,
+                isPass: true,
+              ),
+
+              /// Confirm Password
+              BuildInputs(
+                controller: viewModel.confirmPasswordController,
+                icon: Icons.lock_outline,
+                hint: "confirm_password".tr(),
+                validator: viewModel.validateConfirmPassword,
+                isPass: true,
+              ),
+
+              /// Phone
+              BuildInputs(
+                controller: viewModel.phoneController,
+                icon: Icons.phone,
+                hint: "phone_number".tr(),
+                isPass: false,
+                validator: viewModel.validatePhone,
+                textInputType: TextInputType.phone,
+              ),
+
+              /// Create Account Button
+              AppButton(
+                buttonTitle: "create_account".tr(),
+                backgroundColor: Theme.of(context).cardColor,
+                onPressed: () {
+                  if (viewModel.validateForm()) {
+                    debugPrint("Form is valid");
+                    Navigator.of(context).pushNamed(AppRoutes.profileScreen);
+                  }
+                },
+              ),
+
+              /// Already Have Account
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("already_have_account".tr(),
+                      style: AppText.regularText(
+                          color: Theme.of(context).splashColor,
+                          fontSize: 18.sp)),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      minimumSize: Size.zero,
+                      padding: EdgeInsets.zero,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    //navigate back to login
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text("login".tr(),
+                        style: AppText.boldText(
+                            color: Theme.of(context).cardColor,
+                            fontSize: 18.sp)),
+                  ),
+                ],
+              ),
+              const LanguageToggle(),
+            ],
           ),
         ));
   }
