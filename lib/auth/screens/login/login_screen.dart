@@ -40,10 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
               spacing: 25.h,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Image.asset(
-                  AppAssets.logoImage,
-                  height: 220.h,
-                ),
+                // Image.asset(
+                //   AppAssets.logoImage,
+                //   height: 220.h,
+                // ),
                 BuildInputs(
                   controller: _emailController,
                   icon: Icons.email_outlined,
@@ -152,16 +152,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                AppButton(
-                    buttonTitle: 'login_with_google'.tr(),
-                    onPressed: () {},
-                    icon: Image.asset(
-                      AppAssets.googleIcon,
-                      width: 25.w,
-                      height: 25.h,
-                    ),
-                    isIcon: true,
-                    backgroundColor: Theme.of(context).cardColor),
+                // AppButton(
+                //     buttonTitle: 'login_with_google'.tr(),
+                //     onPressed: () {},
+                //     icon: Image.asset(
+                //       AppAssets.googleIcon,
+                //       width: 25.w,
+                //       height: 25.h,
+                //     ),
+                //     isIcon: true,
+                //     backgroundColor: Theme.of(context).cardColor),
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
