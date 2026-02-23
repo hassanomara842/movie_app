@@ -80,5 +80,16 @@
   "Talk-Show": "Talk-Show",
   "Thriller": "Thriller",
   "War": "War",
-  "Western": "Western"
+  "Western": "Western",
+  "email_already_in_use": "This email is already in use.",
+  "invalid_email": "The email address is invalid.",
+  "weak_password": "The password is too weak.",
+  "user_not_found": "User not found.",
+  "wrong_password": "Incorrect password.",
+  "network_error": "Network error. Check your internet connection.",
+  "unexpected_error": "An unexpected error occurred. Please try again.",
+  "registration_successful": "Registration successful!",
+  "login_successful": "Login successful!",
+  "invalid_email_or_password": "Invalid email or password.",
+  "loading..":"Loading..."
 }

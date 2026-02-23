@@ -80,5 +80,16 @@
   "Talk-Show": "البرامج الحوارية",
   "Thriller": "الإثارة",
   "War": "الحرب",
-  "Western": "أفلام الغرب"
+  "Western": "أفلام الغرب",
+  "email_already_in_use": "البريد الإلكتروني مستخدم بالفعل.",
+  "invalid_email": "البريد الإلكتروني غير صحيح.",
+  "weak_password": "كلمة المرور ضعيفة.",
+  "user_not_found": "المستخدم غير موجود.",
+  "wrong_password": "كلمة المرور خاطئة.",
+  "network_error": "خطأ في الشبكة. تحقق من اتصال الإنترنت.",
+  "unexpected_error": "حدث خطأ غير متوقع. حاول مرة أخرى.",
+  "registration_successful": "تم إنشاء الحساب بنجاح!",
+  "login_successful": "تم تسجيل الدخول بنجاح!",
+  "invalid_email_or_password": "االبريد الالكتروني او كلمة المرور غير صحيحة",
+  "loading..": "تحميل.."
 }

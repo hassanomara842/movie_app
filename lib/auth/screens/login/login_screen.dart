@@ -8,16 +8,17 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/text/app_text.dart';
-import 'package:movie_app/cubit/login_cubit.dart';
-import 'package:movie_app/cubit/login_states.dart';
 import 'package:movie_app/widgets/app_button.dart';
 import 'package:movie_app/widgets/build_inputs.dart';
+import '../../../cubit/auth_cubit.dart';
+import '../../../cubit/auth_states.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
+
 class _LoginScreenState extends State<LoginScreen> {
   final LoginViewModel viewModel = LoginViewModel();
   @override
@@ -25,37 +26,28 @@ class _LoginScreenState extends State<LoginScreen> {
     viewModel.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginStates>(
-      listener: (context, state) {
-        if (state is LoginLoadingState) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => Center(
-              child: CircularProgressIndicator(
-                color: Theme.of(context).splashColor,
-              ),
-            ),
-          );
-        }
-        if (state is LoginSuccessState) {
-          Navigator.pop(context);
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            AppRoutes.profileScreen,
-                (route) => false,
-          );
-        }
-        if (state is LoginErrorState) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error)),
-          );
-        }
-      },
-      child: Scaffold(
+    return BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
+      if (state is AuthSuccess) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          AppRoutes.homeTab,
+          (route) => false,
+        );
+      }
+
+      if (state is AuthError) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(state.message)),
+        );
+      }
+    }, builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+        ),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -67,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Image.asset(
                     AppAssets.logoImage,
-                    height: 220.h,
+                    height: 180.h,
                   ),
 
                   /// Email Input
@@ -109,10 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     buttonTitle: 'login'.tr(),
                     onPressed: () {
                       if (viewModel.validateForm()) {
-                        context.read<LoginCubit>().login(
-                          email: viewModel.emailController.text,
-                          password: viewModel.passwordController.text,
-                        );
+                        context.read<AuthCubit>().login(
+                              viewModel.emailController.text.trim(),
+                              viewModel.passwordController.text.trim(),
+                            );
                       }
                     },
                     backgroundColor: Theme.of(context).cardColor,
@@ -136,7 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(context, AppRoutes.registerScreen);
+                          Navigator.pushNamed(
+                              context, AppRoutes.registerScreen);
                         },
                         child: Text(
                           'create_one'.tr(),
@@ -153,7 +146,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Expanded(
                         child: Divider(
-                            color: Theme.of(context).disabledColor, thickness: 1),
+                            color: Theme.of(context).disabledColor,
+                            thickness: 1),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -167,14 +161,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Expanded(
                         child: Divider(
-                            color: Theme.of(context).disabledColor, thickness: 1),
+                            color: Theme.of(context).disabledColor,
+                            thickness: 1),
                       ),
                     ],
                   ),
 
                   AppButton(
                       buttonTitle: 'login_with_google'.tr(),
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<AuthCubit>().signInWithGoogle();
+                      },
                       icon: Image.asset(
                         AppAssets.googleIcon,
                         width: 25.w,
@@ -194,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
