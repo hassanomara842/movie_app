@@ -10,13 +10,13 @@ import 'package:injectable/injectable.dart';
 @singleton
 class ApiManager {
   Future<UserDataModel> register(
-    String name,
-    String email,
-    String password,
-    String confirmPassword,
-    String phone,
-    int avaterId,
-  ) async {
+      String name,
+      String email,
+      String password,
+      String confirmPassword,
+      String phone,
+      int avaterId,
+      ) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiEndPoints.registerEndPoint);
 
     try {
@@ -48,10 +48,38 @@ class ApiManager {
       rethrow;
     }
   }
+  Future<UserDataModel> login(String email, String password) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiEndPoints.loginEndPoint);
+
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "email": email,
+          "password": password,
+        }),
+      );
+
+      print("LOGIN STATUS CODE: ${response.statusCode}");
+      print("LOGIN RAW RESPONSE: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var json = jsonDecode(response.body);
+        return UserDataModel.fromJson(json);
+      } else {
+        throw Exception('Failed to login: ${response.body}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   static Future<MovieResponse> getAllMovies() async {
     Uri url =
-        Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
+    Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
 
     try {
       var response = await http.get(
@@ -104,35 +132,6 @@ class ApiManager {
       if (kDebugMode) {
         print("Error fetching movies by genre: $e");
       }
-      rethrow;
-    }
-  }
-}
-  Future<UserDataModel> login(String email, String password) async {
-    Uri url = Uri.https(ApiConstants.baseUrl, ApiEndPoints.loginEndPoint);
-
-    try {
-      var response = await http.post(
-        url,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: jsonEncode({
-          "email": email,
-          "password": password,
-        }),
-      );
-
-      print("LOGIN STATUS CODE: ${response.statusCode}");
-      print("LOGIN RAW RESPONSE: ${response.body}");
-
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        var json = jsonDecode(response.body);
-        return UserDataModel.fromJson(json);
-      } else {
-        throw Exception('Failed to login: ${response.body}');
-      }
-    } catch (e) {
       rethrow;
     }
   }
