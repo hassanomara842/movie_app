@@ -48,6 +48,7 @@ class ApiManager {
       rethrow;
     }
   }
+
   Future<UserDataModel> login(String email, String password) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiEndPoints.loginEndPoint);
 
@@ -71,6 +72,61 @@ class ApiManager {
         return UserDataModel.fromJson(json);
       } else {
         throw Exception('Failed to login: ${response.body}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<UserDataModel> updateProfile({
+    required String name,
+    required String phone,
+    required int avaterId,
+  }) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, "/api/update-profile");
+
+    try {
+      var response = await http.put(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode({
+          "name": name,
+          "phone": phone,
+          "avaterId": avaterId,
+        }),
+      );
+
+      print("UPDATE STATUS CODE: ${response.statusCode}");
+      print("UPDATE RAW RESPONSE: ${response.body}");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var json = jsonDecode(response.body);
+        return UserDataModel.fromJson(json);
+      } else {
+        throw Exception('Failed to update profile: ${response.body}');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<void> deleteAccount() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, "/api/delete-account");
+
+    try {
+      var response = await http.delete(
+        url,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      );
+
+      print("DELETE ACCOUNT STATUS CODE: ${response.statusCode}");
+      print("DELETE ACCOUNT RESPONSE: ${response.body}");
+
+      if (response.statusCode != 200 && response.statusCode != 204) {
+        throw Exception('Failed to delete account: ${response.body}');
       }
     } catch (e) {
       rethrow;
