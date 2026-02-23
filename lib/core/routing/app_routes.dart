@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
+import 'package:movie_app/home_tab/home_tab.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
@@ -28,6 +29,7 @@ class AppRoutes {
   static const String registerScreen = '/registerScreen';
   static const String updateProfileScreen = '/updateProfileScreen';
   static const String profileScreen = '/profileScreen';
+  static const String homeTab = '/homeTab';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -98,6 +100,11 @@ class AppRoutes {
             create: (_) => getIt<RegisterCubit>(),
             child: const RegisterScreen(),
           ),
+        );
+       // tabs
+      case homeTab:
+        return darkRoute(
+           HomeTab(),
         );
 
       default:

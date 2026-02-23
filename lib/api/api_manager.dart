@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_app/model/register_model/user_data_model.dart';
+import '../model/movie_response/movie_response.dart';
 import 'api_constants.dart';
 import 'api_end_points.dart';
 import 'package:injectable/injectable.dart';
@@ -8,13 +10,13 @@ import 'package:injectable/injectable.dart';
 @singleton
 class ApiManager {
   Future<UserDataModel> register(
-      String name,
-      String email,
-      String password,
-      String confirmPassword,
-      String phone,
-      int avaterId,
-      ) async {
+    String name,
+    String email,
+    String password,
+    String confirmPassword,
+    String phone,
+    int avaterId,
+  ) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiEndPoints.registerEndPoint);
 
     try {
@@ -43,6 +45,65 @@ class ApiManager {
         throw Exception('Failed to register user: ${response.body}');
       }
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future<MovieResponse> getAllMovies() async {
+    Uri url =
+        Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
+
+    try {
+      var response = await http.get(
+        url,
+      );
+
+      if (kDebugMode) {
+        print("STATUS CODE: ${response.statusCode}");
+        print("RAW RESPONSE: ${response.body}");
+      }
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception(
+            'Failed to load movies: ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching movies: $e");
+      }
+      rethrow;
+    }
+  }
+
+  static Future<MovieResponse> getAllMoviesByGenre(String genre) async {
+    Uri url = Uri.https(
+      ApiConstants.movieBaseUrl,
+      ApiEndPoints.allMovieEndPoint,
+      {'genre': genre},
+    );
+
+    try {
+      var response = await http.get(url);
+
+      if (kDebugMode) {
+        print("GENRE URL: $url");
+        print("STATUS CODE: ${response.statusCode}");
+      }
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception(
+            'Failed to load movies by genre: ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching movies by genre: $e");
+      }
       rethrow;
     }
   }
