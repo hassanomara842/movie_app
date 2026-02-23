@@ -1,7 +1,6 @@
 import 'package:injectable/injectable.dart';
 import '../../api/api_manager.dart';
-import '../entities/user_entity.dart';
-import 'auth_repository.dart';
+import '../entities/user_entity.dart';import 'auth_repository.dart';
 
 @Injectable(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
@@ -55,5 +54,33 @@ class AuthRepositoryImpl implements AuthRepository {
     }
 
     return data.toEntity();
+  }
+
+  @override
+  Future<UserEntity> updateProfile({
+    required String name,
+    required String phone,
+    required int avaterId,
+  }) async {
+    final response = await apiManager.updateProfile(
+      name: name,
+      phone: phone,
+      avaterId: avaterId,
+    );
+
+    print("UPDATE PROFILE MESSAGE: ${response.message}");
+    print("UPDATE PROFILE DATA: ${response.data}");
+
+    final data = response.data;
+    if (data == null) {
+      throw Exception(response.message ?? "Update profile failed");
+    }
+
+    return data.toEntity();
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    await apiManager.deleteAccount();
   }
 }
