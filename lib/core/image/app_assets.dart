@@ -26,6 +26,8 @@ class AppAssets {
   static const String splashLogo = 'assets/images/splash_logo.png';
   static const String logoImage = 'assets/images/logo.png';
   static const String googleIcon = 'assets/images/google.png';
-
-
+  static const String homeTabBG = 'assets/images/home_tab_bg.png';
+  static const String availableNow = 'assets/images/available_now.png';
+  static const String watchNow = 'assets/images/watch_now.png';
+  static const String star = 'assets/images/star.png';
 }
