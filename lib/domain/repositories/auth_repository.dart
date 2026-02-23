@@ -9,4 +9,8 @@ abstract class AuthRepository {
     required String phone,
     required int avaterId,
   });
+  Future<UserEntity> login({
+    required String email,
+    required String password,
+  });
 }
