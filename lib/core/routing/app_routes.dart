@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
+import 'package:movie_app/cubit/auth_cubit.dart';
 import 'package:movie_app/home_tab/home_tab.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
-import '../../cubit/register_cubit.dart';
-import '../../cubit/login_cubit.dart';
 import '../../cubit/profile_cubit.dart';
 import '../../cubit/update_profile_cubit.dart';
 import '../../di/injection.dart';
@@ -48,7 +47,7 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-    ///Cases of Onboarding Screens
+      ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -74,7 +73,7 @@ class AppRoutes {
           const StartWatchingNow(),
         );
 
-    ///Home Screens
+      ///Home Screens
       case home:
         return darkRoute(
           const Scaffold(body: Center(child: Text('Home Screen'))),
@@ -94,11 +93,11 @@ class AppRoutes {
           ),
         );
 
-    ///Auth Screens
+      ///Auth Screens
       case login:
         return darkRoute(
           BlocProvider(
-            create: (_) => getIt<LoginCubit>(),
+            create: (_) => getIt<AuthCubit>(),
             child: const LoginScreen(),
           ),
         );
@@ -109,11 +108,11 @@ class AppRoutes {
       case registerScreen:
         return darkRoute(
           BlocProvider(
-            create: (_) => getIt<RegisterCubit>(),
+            create: (_) => getIt<AuthCubit>(),
             child: const RegisterScreen(),
           ),
         );
-    // tabs
+      // tabs
       case homeTab:
         return darkRoute(
           HomeTab(),
