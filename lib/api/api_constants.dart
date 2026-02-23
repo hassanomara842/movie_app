@@ -3,3 +3,5 @@ class ApiConstants {
   static const String movieBaseUrl = "movies-api.accel.li";
 
 }
+
+ }

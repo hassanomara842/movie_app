@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-
 import '../../api/api_manager.dart';
 import '../entities/user_entity.dart';
 import 'auth_repository.dart';
@@ -32,10 +31,27 @@ class AuthRepositoryImpl implements AuthRepository {
     print("DATA: ${response.data}");
     print("FULL JSON: ${response.toJson()}");
 
-
     final data = response.data;
     if (data == null) {
       throw Exception(response.message ?? "Registration failed");
+    }
+
+    return data.toEntity();
+  }
+
+  @override
+  Future<UserEntity> login({
+    required String email,
+    required String password,
+  }) async {
+    final response = await apiManager.login(email, password);
+
+    print("LOGIN MESSAGE: ${response.message}");
+    print("LOGIN DATA: ${response.data}");
+
+    final data = response.data;
+    if (data == null) {
+      throw Exception(response.message ?? "Login failed");
     }
 
     return data.toEntity();
