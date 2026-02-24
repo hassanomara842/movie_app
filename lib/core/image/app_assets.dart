@@ -24,8 +24,17 @@ class AppAssets {
   static const String lrImage = 'assets/images/LR.png';
   static const String popcornImage = 'assets/images/empty1.png';
   static const String splashLogo = 'assets/images/splash_logo.png';
+  static const String joker = 'assets/images/joker.png';
+  static const String avengers = 'assets/images/avengers.png';
+  static const String blackwidow = 'assets/images/blackwidow.png';
+  static const String civilwar = 'assets/images/civilwar.png';
+  static const String hobbsshaw = 'assets/images/hobbs&shaw.png';
+  static const String dok = 'assets/images/dok.png';
+
   static const String logoImage = 'assets/images/logo.png';
   static const String googleIcon = 'assets/images/google.png';
-
-
+  static const String homeTabBG = 'assets/images/home_tab_bg.png';
+  static const String availableNow = 'assets/images/available_now.png';
+  static const String watchNow = 'assets/images/watch_now.png';
+  static const String star = 'assets/images/star.png';
 }
