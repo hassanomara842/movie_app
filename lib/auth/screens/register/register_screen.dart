@@ -64,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Navigator.pop(context);
             Navigator.pushReplacementNamed(
               context,
-              AppRoutes.profileScreen,
+              AppRoutes.home,
             );
           }
 

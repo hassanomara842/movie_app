@@ -14,6 +14,7 @@ import '../../profile_tab/profile/profile_screen.dart';
 import '../../profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../colors/app_colors.dart';
 import '../../auth/screens/login/login_screen.dart';
+import '../../home_screen/home_screen.dart';
 
 class AppRoutes {
   static const String home = '/home';
@@ -72,7 +73,7 @@ class AppRoutes {
       ///Home Screens
       case home:
         return darkRoute(
-          const Scaffold(body: Center(child: Text('Home Screen'))),
+          const HomeScreen(),
         );
       case updateProfileScreen:
         return darkRoute(

@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/text/app_text.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/cubit/theme_cubit.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/widgets/app_button.dart';
 
@@ -20,25 +22,44 @@ class ProfileHeader extends StatelessWidget {
       child: Column(
         spacing: 30.h,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Stack(
             children: [
-              Column(
-                spacing: 5.h,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  CircleAvatar(
-                    radius: 55.w,
-                    backgroundImage: const AssetImage(AppAssets.avatar3),
+                  Column(
+                    spacing: 5.h,
+                    children: [
+                      CircleAvatar(
+                        radius: 55.w,
+                        backgroundImage: const AssetImage(AppAssets.avatar3),
+                      ),
+                      Text(
+                        "Nour",
+                        style: AppText.boldText(
+                            color: Theme.of(context).splashColor, fontSize: 20.sp),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Nour",
-                    style: AppText.boldText(
-                        color: Theme.of(context).splashColor, fontSize: 20.sp),
-                  ),
+                  _buildStatItem(Theme.of(context).splashColor, "12", "wish_list".tr()),
+                  _buildStatItem(Theme.of(context).splashColor, "10", "history".tr()),
                 ],
               ),
-              _buildStatItem(Theme.of(context).splashColor, "12", "wish_list".tr()),
-              _buildStatItem(Theme.of(context).splashColor, "10", "history".tr()),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: IconButton(
+                  onPressed: () {
+                    context.read<ThemeCubit>().toggleTheme();
+                  },
+                  icon: Icon(
+                    context.watch<ThemeCubit>().state == ThemeMode.dark
+                        ? Icons.light_mode
+                        : Icons.dark_mode,
+                    color: AppColors.primaryYellow,
+                  ),
+                ),
+              ),
             ],
           ),
           Row(

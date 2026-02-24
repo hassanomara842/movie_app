@@ -20,7 +20,7 @@ class CacheHelper {
     if (theme == 'dark') return ThemeMode.dark;
     if (theme == 'light') return ThemeMode.light;
 
-    return ThemeMode.system;
+    return ThemeMode.dark; // Default to dark instead of system
   }
   static Future<void> setTheme(ThemeMode theme) async {
     await sharedPreferences.setString(_themeKey, theme.name);

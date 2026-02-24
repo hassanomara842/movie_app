@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       Navigator.pushNamedAndRemoveUntil(
-                          context, AppRoutes.profileScreen, (route) => false);
+                          context, AppRoutes.home, (route) => false);
                     }
                   },
                   backgroundColor: Theme.of(context).cardColor,
