@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
+import 'package:movie_app/browse_screen/browse_screen.dart';
 import 'package:movie_app/cubit/auth_cubit.dart';
 import 'package:movie_app/home_tab/home_tab.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
@@ -9,6 +10,7 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
+import 'package:movie_app/search_screen/search_screen.dart';
 import '../../cubit/profile_cubit.dart';
 import '../../cubit/update_profile_cubit.dart';
 import '../../di/injection.dart';
@@ -31,6 +33,9 @@ class AppRoutes {
   static const String registerScreen = '/registerScreen';
   static const String updateProfileScreen = '/updateProfileScreen';
   static const String profileScreen = '/profileScreen';
+  static const String searchScreen = '/SearchScreen';
+  static const String browseScreen = '/BrowseScreen';
+
   static const String homeTab = '/homeTab';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -116,6 +121,14 @@ class AppRoutes {
       case homeTab:
         return darkRoute(
           HomeTab(),
+        );
+      case searchScreen:
+        return darkRoute(
+          const SearchScreen(),
+        );
+      case browseScreen:
+        return darkRoute(
+          const BrowseScreen(),
         );
 
       default:

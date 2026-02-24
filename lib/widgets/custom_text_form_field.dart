@@ -29,6 +29,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool obscureText;
   final bool enabled;
 
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -43,6 +44,7 @@ class CustomTextFormField extends StatelessWidget {
       onFieldSubmitted: onFieldSubmitted,
       obscureText: obscureText,
       enabled: enabled,
+
     );
   }
 }
