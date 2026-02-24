@@ -15,12 +15,12 @@ class _BrowseScreenState extends State<BrowseScreen> {
   int selectedIndex = 0;
 
   final List<String> movies = [
-    AppImages.blackwidow,
-    AppImages.joker,
-    AppImages.avengers,
-    AppImages.hobbsshaw,
-    AppImages.civilwar,
-    AppImages.dok,
+    AppAssets.blackwidow,
+    AppAssets.joker,
+    AppAssets.avengers,
+    AppAssets.hobbsshaw,
+    AppAssets.civilwar,
+    AppAssets.dok,
   ];
 
   final List<String> categories = [

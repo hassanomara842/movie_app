@@ -54,31 +54,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         );
       }
 
-<<<<<<< HEAD
-          if (state is RegisterSuccessState) {
-            Navigator.pop(context);
-            Navigator.pushReplacementNamed(
-              context,
-              AppRoutes.home,
-            );
-          }
-
-          if (state is RegisterErrorState) {
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(state.error)),
-            );
-          }
-        },
-        child: Scaffold(
-            appBar: AppBar(
-              leading: BackButton(
-                color: Theme.of(context).cardColor,
-              ),
-              title: Text("register".tr(),
-                  style: AppText.regularText(
-                      color: Theme.of(context).cardColor, fontSize: 16.sp)),
-=======
       if (state is AuthError) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(state.message)),
@@ -89,7 +64,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
           appBar: AppBar(
             leading: BackButton(
               color: Theme.of(context).cardColor,
->>>>>>> 5ca35d22995a06faaeadd56d885cf078898de2ff
             ),
             title: Text("register".tr(),
                 style: AppText.regularText(

@@ -5,8 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/text/app_text.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/cubit/theme_cubit.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/cubit/profile_cubit.dart';
 import 'package:movie_app/cubit/profile_states.dart';
@@ -17,84 +15,6 @@ class ProfileHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 50.h),
-      decoration: BoxDecoration(
-        color: Theme.of(context).canvasColor,
-      ),
-      child: Column(
-        spacing: 30.h,
-        children: [
-          Stack(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Column(
-                    spacing: 5.h,
-                    children: [
-                      CircleAvatar(
-                        radius: 55.w,
-                        backgroundImage: const AssetImage(AppAssets.avatar3),
-                      ),
-                      Text(
-                        "Nour",
-                        style: AppText.boldText(
-                            color: Theme.of(context).splashColor, fontSize: 20.sp),
-                      ),
-                    ],
-                  ),
-                  _buildStatItem(Theme.of(context).splashColor, "12", "wish_list".tr()),
-                  _buildStatItem(Theme.of(context).splashColor, "10", "history".tr()),
-                ],
-              ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: IconButton(
-                  onPressed: () {
-                    context.read<ThemeCubit>().toggleTheme();
-                  },
-                  icon: Icon(
-                    context.watch<ThemeCubit>().state == ThemeMode.dark
-                        ? Icons.light_mode
-                        : Icons.dark_mode,
-                    color: AppColors.primaryYellow,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            spacing: 10.w,
-            children: [
-              Expanded(
-                flex: 2,
-                child: AppButton(
-                    buttonTitle: "edit_profile".tr(),
-                    onPressed: () {
-                      Navigator.pushNamed(
-                          context, AppRoutes.updateProfileScreen);
-                    },
-                    backgroundColor: Theme.of(context).cardColor),
-              ),
-              Expanded(
-                child: AppButton(
-                    buttonTitle: "exit".tr(),
-                    textColor: AppColors.white,
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          AppRoutes.onBoardingScreen, (route) => false);
-                    },
-                    icon: const Icon(Icons.exit_to_app_rounded),
-                    backgroundColor: AppColors.errorRed),
-              )
-            ],
-          ),
-        ],
-=======
     final List<String> avatars = [
       AppAssets.avatar,
       AppAssets.avatar1,
@@ -189,7 +109,6 @@ class ProfileHeader extends StatelessWidget {
             ),
           );
         },
->>>>>>> 5ca35d22995a06faaeadd56d885cf078898de2ff
       ),
     );
   }

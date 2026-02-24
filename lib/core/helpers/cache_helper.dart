@@ -26,12 +26,7 @@ class CacheHelper {
     final theme = sharedPreferences.getString(_themeKey);
     if (theme == 'dark') return ThemeMode.dark;
     if (theme == 'light') return ThemeMode.light;
-<<<<<<< HEAD
-
     return ThemeMode.dark; // Default to dark instead of system
-=======
-    return ThemeMode.system;
->>>>>>> 5ca35d22995a06faaeadd56d885cf078898de2ff
   }
 
   static Future<void> setTheme(ThemeMode theme) async {

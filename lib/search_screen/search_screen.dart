@@ -55,7 +55,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               Expanded(
                 child: Center(
-                  child: Image.asset(AppImages.popcornImage,
+                  child: Image.asset(AppAssets.popcornImage,
                     width: 200,
                   ),
                 ),

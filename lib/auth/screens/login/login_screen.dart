@@ -61,37 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     AppAssets.logoImage,
                     height: 180.h,
                   ),
-<<<<<<< HEAD
-                ),
-                AppButton(
-                  buttonTitle: 'login'.tr(),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, AppRoutes.home, (route) => false);
-                    }
-                  },
-                  backgroundColor: Theme.of(context).cardColor,
-                  textColor: AppColors.primaryBlack,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'dont_have_account'.tr(),
-                      style: AppText.regularText(
-                        color: Theme.of(context).splashColor,
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        minimumSize: Size.zero,
-                        padding: EdgeInsets.only(left: 4.w),
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-=======
-
                   /// Email Input
                   BuildInputs(
                     controller: viewModel.emailController,
@@ -113,7 +82,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
->>>>>>> 5ca35d22995a06faaeadd56d885cf078898de2ff
                       onPressed: () {
                         Navigator.pushNamed(context, AppRoutes.resetPassword);
                       },
