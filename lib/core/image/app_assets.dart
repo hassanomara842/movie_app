@@ -1,4 +1,4 @@
-class AppImages {
+class AppAssets {
   ///OnBoarding Assets
   static const String findYourNextMovie = 'assets/images/start_screen.png';
   static const String discoverMovies = 'assets/images/onboarding_image_1.png';
@@ -31,4 +31,10 @@ class AppImages {
   static const String hobbsshaw = 'assets/images/hobbs&shaw.png';
   static const String dok = 'assets/images/dok.png';
 
+  static const String logoImage = 'assets/images/logo.png';
+  static const String googleIcon = 'assets/images/google.png';
+  static const String homeTabBG = 'assets/images/home_tab_bg.png';
+  static const String availableNow = 'assets/images/available_now.png';
+  static const String watchNow = 'assets/images/watch_now.png';
+  static const String star = 'assets/images/star.png';
 }

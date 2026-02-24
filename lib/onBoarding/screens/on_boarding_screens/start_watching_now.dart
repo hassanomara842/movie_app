@@ -13,7 +13,7 @@ class StartWatchingNow extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
       spacing: 24.h,
-      backgroundImage: AppImages.startWatchingNow,
+      backgroundImage: AppAssets.startWatchingNow,
       containerColor: Theme.of(context).primaryColor,
       title: "start_Watching_now".tr(),
       titleFontSize: 24.sp,

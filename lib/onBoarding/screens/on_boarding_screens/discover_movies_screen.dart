@@ -13,7 +13,7 @@ class DiscoverMoviesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return OnboardingWidgetScreen(
       spacing: 24.h,
-      backgroundImage: AppImages.discoverMovies,
+      backgroundImage: AppAssets.discoverMovies,
       containerColor: Theme.of(context).primaryColor,
       title: "discover_movies".tr(),
       titleFontSize: 24.sp,
