@@ -26,7 +26,7 @@ flutter_native_splash:
   # uncomment this if you want to disable this package for specific platform:
   # android: false
   # ios: false
-   web: false
+  web: false
 
   #======================================================================
 
@@ -50,8 +50,8 @@ flutter_native_splash:
   # general background_image for all platform (except android 12+)
   # if you specify this [required] background_image, then you should comment the
   # [required] color in previous section. select one, they cant work together.
-   background_image:      "assets/images/splash_screen_light.png" #========[REQUIRED]============
-   background_image_dark: "assets/images/splash_screen.png"
+  background_image: "assets/images/splash_screen_light.png" #========[REQUIRED]============
+  background_image_dark: "assets/images/splash_screen.png"
   # platform-specific background_image. will override general background_image if active:
   #background_image_android:      "assets/background-android.png"
   #background_image_dark_android: "assets/dark-background-android.png"
@@ -111,7 +111,7 @@ flutter_native_splash:
 
   # hide notif bar on android. ios already hides it by default.
   # Has no effect in web since web has no notification bar.
-   fullscreen: true                # default false
+  fullscreen: true                # default false
     # if you don't want to hide notif bar, for android just set this to false,
     # but for ios, add this to your flutter main():
     # WidgetsFlutterBinding.ensureInitialized();
@@ -131,7 +131,7 @@ flutter_native_splash:
   # handling concept. visit https://developer.android.com/guide/topics/ui/splash-screen
 
   #! ANDROID 12+ configuration:
-   android_12:
+  android_12:
     # background color
     color: "#f5f5f5"
     color_dark: "#121312"
