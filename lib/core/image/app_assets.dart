@@ -33,6 +33,7 @@ class AppAssets {
 
   static const String homeIcon = 'assets/images/icons/home_logo.png';
   static const String searchIcon = 'assets/images/icons/search_logo.png';
+  static const String searchIconDark = 'assets/images/search_dark.png';
   static const String exploreIcon = 'assets/images/icons/explore_logo.png';
   static const String profileIcon = 'assets/images/icons/profile_logo.png';
 }

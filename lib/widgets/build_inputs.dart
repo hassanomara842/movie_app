@@ -38,14 +38,12 @@ class _BuildInputsState extends State<BuildInputs> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
-      cursorColor: Theme.of(context).splashColor,
       keyboardType: widget.textInputType,
       controller: widget.controller,
       validator: widget.validator,
       obscureText: _obscureText,
       style: AppText.regularText(
           color: Theme.of(context).splashColor, fontSize: 16.sp),
-      decoration: InputDecoration(
         hintText: widget.hint,
         errorStyle: AppText.regularText(
             color: Theme.of(context).cardColor, fontSize: 16.sp),
@@ -100,7 +98,6 @@ class _BuildInputsState extends State<BuildInputs> {
               color: Theme.of(context).disabledColor,
               width: 1.w,
             )),
-      ),
     );
   }
 }
