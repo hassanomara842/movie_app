@@ -5,8 +5,9 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
-import '../../core/image/app_assets.dart';
-import '../../core/responsive/responsive.dart';
+
+import '../../../../core/image/app_assets.dart';
+import '../../../../core/responsive/responsive.dart';
 
 class MovieCard extends StatelessWidget {
   final Movies movie;

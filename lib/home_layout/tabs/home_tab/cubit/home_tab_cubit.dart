@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_app/api/api_manager.dart';
-import '../../model/movie_response/movie_response.dart';
+import '../../../../model/movie_response/movie_response.dart';
 import 'home_tab_states.dart';
 
 @injectable

@@ -31,7 +31,9 @@ import 'package:movie_app/domain/usecases/google_signin_usecase.dart' as _i983;
 import 'package:movie_app/domain/usecases/login_usecase.dart' as _i639;
 import 'package:movie_app/domain/usecases/register_usecase.dart' as _i584;
 import 'package:movie_app/domain/usecases/update_profile_usecase.dart' as _i339;
-import 'package:movie_app/home_tab/cubit/home_tab_cubit.dart' as _i988;
+import 'package:movie_app/home_layout/cubit/home_layout_cubit.dart' as _i115;
+import 'package:movie_app/home_layout/tabs/home_tab/cubit/home_tab_cubit.dart'
+    as _i418;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -46,7 +48,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     final firebaseModule = _$FirebaseModule();
     gh.factory<_i574.ProfileCubit>(() => _i574.ProfileCubit());
-    gh.factory<_i988.HomeTabCubit>(() => _i988.HomeTabCubit());
+    gh.factory<_i115.HomeLayoutCubit>(() => _i115.HomeLayoutCubit());
+    gh.factory<_i418.HomeTabCubit>(() => _i418.HomeTabCubit());
     gh.singleton<_i1065.ApiManager>(() => _i1065.ApiManager());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);

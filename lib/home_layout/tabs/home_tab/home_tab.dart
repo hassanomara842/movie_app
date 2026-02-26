@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
-import 'package:movie_app/home_tab/widget/movie_card.dart';
-import 'package:movie_app/home_tab/widget/movie_cover.dart';
-import '../core/responsive/responsive.dart';
-import '../core/responsive/size_config.dart';
-import '../core/text/app_text.dart';
-import '../widgets/main_loading_widget.dart';
+import 'package:movie_app/home_layout/tabs/home_tab/widget/movie_card.dart';
+import 'package:movie_app/home_layout/tabs/home_tab/widget/movie_cover.dart';
+import '../../../core/responsive/responsive.dart';
+import '../../../core/responsive/size_config.dart';
+import '../../../core/text/app_text.dart';
+import '../../../widgets/main_loading_widget.dart';
 import 'cubit/home_tab_cubit.dart';
 import 'cubit/home_tab_states.dart';
 
