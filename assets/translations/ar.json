@@ -91,5 +91,8 @@
   "registration_successful": "تم إنشاء الحساب بنجاح!",
   "login_successful": "تم تسجيل الدخول بنجاح!",
   "invalid_email_or_password": "االبريد الالكتروني او كلمة المرور غير صحيحة",
-  "loading..": "تحميل.."
+  "loading..": "تحميل..",
+  "no_matching_movies_found": "لم يتم العثور على أفلام مطابقة",
+  "search_for_a_movie": "ابحث عن فيلم."
+
 }
