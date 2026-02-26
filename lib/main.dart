@@ -7,6 +7,7 @@ import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/theming/app_theme.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
 import 'core/observer/bloc_observer.dart';
+import 'package:movie_app/cubit/profile_cubit.dart';
 import 'di/injection.dart';
 import 'firebase_options.dart';
 
@@ -38,17 +39,24 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Movie App',
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          themeMode: CacheHelper.getTheme(),
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.onBoardingScreen,
-          onGenerateRoute: AppRoutes.onGenerateRoute,
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => getIt<ProfileCubit>()..getUserProfile(),
+            ),
+          ],
+          child: MaterialApp(
+            title: 'Movie App',
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            themeMode: CacheHelper.getTheme(),
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: AppRoutes.onBoardingScreen,
+            onGenerateRoute: AppRoutes.onGenerateRoute,
+          ),
         );
       },
     );

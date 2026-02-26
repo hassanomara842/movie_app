@@ -1,7 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
+import 'package:movie_app/cubit/profile_cubit.dart';
+import 'package:movie_app/cubit/profile_states.dart';
 import 'package:movie_app/cubit/update_profile_cubit.dart';
 import 'package:movie_app/cubit/update_profile_states.dart';
 import 'package:movie_app/widgets/build_inputs.dart';
@@ -9,6 +12,7 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/widgets/app_button.dart';
+import 'package:movie_app/widgets/main_loading_widget.dart';
 import '../../../../core/routing/app_routes.dart';
 import 'avatar_bottom_sheet.dart';
 
@@ -18,6 +22,7 @@ class UpdateProfileScreen extends StatefulWidget {
   @override
   State<UpdateProfileScreen> createState() => _UpdateProfileScreenState();
 }
+
 class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final List<String> avatars = [
     AppAssets.avatar,
@@ -34,14 +39,26 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final controller = TextEditingController();
   final phoneController = TextEditingController();
   bool obscureText = false;
+
   @override
   void initState() {
     super.initState();
-    controller.text = CacheHelper.getUserName() ?? "";
-    phoneController.text = CacheHelper.getUserEmail() ?? "";
-    int avatarId = CacheHelper.getAvatarId() ?? 1;
-    selectedAvatar = avatars[(avatarId - 1).clamp(0, avatars.length - 1)];
+
+    final profileState = context.read<ProfileCubit>().state;
+
+    if (profileState is ProfileSuccessState && profileState.user != null) {
+      controller.text = profileState.user!.name;
+      phoneController.text = profileState.user!.phone;
+      int avatarId = profileState.user!.avaterId;
+      selectedAvatar = avatars[(avatarId - 1).clamp(0, avatars.length - 1)];
+    } else {
+      controller.text = CacheHelper.getUserName() ?? "";
+      phoneController.text = "";
+      int avatarId = CacheHelper.getAvatarId() ?? 1;
+      selectedAvatar = avatars[(avatarId - 1).clamp(0, avatars.length - 1)];
+    }
   }
+
   @override
   void dispose() {
     controller.dispose();
@@ -57,7 +74,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           showDialog(
             context: context,
             barrierDismissible: false,
-            builder: (_) => const Center(child: CircularProgressIndicator()),
+            builder: (_) => const MainLoadingWidget(),
           );
         } else if (state is UpdateProfileSuccessState) {
           Navigator.pop(context);
@@ -68,9 +85,16 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         } else if (state is DeleteAccountSuccessState) {
           Navigator.pop(context);
           Navigator.pushNamedAndRemoveUntil(context, AppRoutes.onBoardingScreen, (route) => false);
-        } else if (state is UpdateProfileErrorState) {
+        } else if (state is UpdateProfileErrorState || state is DeleteAccountErrorState) {
           Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.error)));
+
+          String errorMsg = "";
+          if (state is UpdateProfileErrorState) errorMsg = state.error;
+          if (state is DeleteAccountErrorState) errorMsg = state.error;
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(errorMsg)),
+          );
         }
       },
       child: Scaffold(
