@@ -136,6 +136,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           isPass: false,
                           controller: phoneController,
                           textInputType: TextInputType.phone,
+                          textInputAction: TextInputAction.done,
                         ),
                         Align(
                           alignment: AlignmentDirectional.topStart,

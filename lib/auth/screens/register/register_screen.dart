@@ -167,6 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     isPass: false,
                     validator: viewModel.validatePhone,
                     textInputType: TextInputType.phone,
+                    textInputAction: TextInputAction.done,
                   ),
 
                   /// Create Account Button
