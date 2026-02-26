@@ -1,4 +1,4 @@
-import '../../model/movie_response/movie_response.dart';
+import '../../../../model/movie_response/movie_response.dart';
 
 abstract class HomeTabStates {}
 

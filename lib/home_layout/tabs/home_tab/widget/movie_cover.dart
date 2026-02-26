@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
-import '../../widgets/main_loading_widget.dart';
+import '../../../../widgets/main_loading_widget.dart';
 
 class MovieCover extends StatelessWidget {
   const MovieCover({super.key, required this.coverImageUrl});
