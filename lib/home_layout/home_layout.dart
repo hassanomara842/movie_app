@@ -19,6 +19,7 @@ class HomeLayout extends StatelessWidget {
         builder: (context, state) {
           var cubit = context.read<HomeLayoutCubit>();
           return Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Stack(
               alignment: Alignment.bottomCenter,
               children: [

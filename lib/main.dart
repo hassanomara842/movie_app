@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/theming/app_theme.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
+import 'core/observer/bloc_observer.dart';
 import 'package:movie_app/cubit/profile_cubit.dart';
 import 'di/injection.dart';
 import 'firebase_options.dart';
@@ -18,6 +19,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();
   configureDependencies();
+  Bloc.observer = MyBlocObserver();
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
