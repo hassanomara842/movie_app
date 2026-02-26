@@ -43,9 +43,11 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   void initState() {
     super.initState();
+    _setupInitialData();
+  }
 
+  void _setupInitialData() {
     final profileState = context.read<ProfileCubit>().state;
-
     if (profileState is ProfileSuccessState && profileState.user != null) {
       controller.text = profileState.user!.name;
       phoneController.text = profileState.user!.phone;
@@ -68,35 +70,49 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UpdateProfileCubit, UpdateProfileStates>(
-      listener: (context, state) {
-        if (state is UpdateProfileLoadingState || state is DeleteAccountLoadingState) {
-          showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (_) => const MainLoadingWidget(),
-          );
-        } else if (state is UpdateProfileSuccessState) {
-          Navigator.pop(context);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Profile Updated Successfully")),
-          );
-          Navigator.pop(context);
-        } else if (state is DeleteAccountSuccessState) {
-          Navigator.pop(context);
-          Navigator.pushNamedAndRemoveUntil(context, AppRoutes.onBoardingScreen, (route) => false);
-        } else if (state is UpdateProfileErrorState || state is DeleteAccountErrorState) {
-          Navigator.pop(context);
-
-          String errorMsg = "";
-          if (state is UpdateProfileErrorState) errorMsg = state.error;
-          if (state is DeleteAccountErrorState) errorMsg = state.error;
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(errorMsg)),
-          );
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<ProfileCubit, ProfileStates>(
+          listener: (context, state) {
+            if (state is ProfileSuccessState && state.user != null) {
+              setState(() {
+                controller.text = state.user!.name;
+                phoneController.text = state.user!.phone;
+                int avatarId = state.user!.avaterId;
+                selectedAvatar = avatars[(avatarId - 1).clamp(0, avatars.length - 1)];
+              });
+            }
+          },
+        ),
+        BlocListener<UpdateProfileCubit, UpdateProfileStates>(
+          listener: (context, state) {
+            if (state is UpdateProfileLoadingState || state is DeleteAccountLoadingState) {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (_) => const MainLoadingWidget(),
+              );
+            } else if (state is UpdateProfileSuccessState) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Profile Updated Successfully")),
+              );
+              Navigator.pop(context);
+            } else if (state is DeleteAccountSuccessState) {
+              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.onBoardingScreen, (route) => false);
+            } else if (state is UpdateProfileErrorState || state is DeleteAccountErrorState) {
+              Navigator.pop(context);
+              String errorMsg = "";
+              if (state is UpdateProfileErrorState) errorMsg = state.error;
+              if (state is DeleteAccountErrorState) errorMsg = state.error;
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(errorMsg)),
+              );
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         appBar: AppBar(
           leading: BackButton(color: Theme.of(context).cardColor),
