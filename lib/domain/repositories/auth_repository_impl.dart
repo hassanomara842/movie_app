@@ -16,6 +16,29 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl(this.apiManager, this.remoteDataSource, this.firebaseAuth,
       this.firestore);
+  @override
+  Future<UserEntity> getUserProfile() async {
+    try {
+      final user = firebaseAuth.currentUser;
+      if (user == null) {
+        throw Exception("User is not logged in");
+      }
+      final doc = await firestore.collection('Users').doc(user.uid).get();
+      if (!doc.exists) {
+        throw Exception("User data not found in Firestore");
+      }
+      final data = doc.data()!;
+      return UserEntity(
+        id: user.uid,
+        name: data['name'] ?? '',
+        email: data['email'] ?? user.email ?? '',
+        phone: data['phone'] ?? '',
+        avaterId: data['avaterId'] ?? 0,
+      );
+    } catch (e) {
+      throw Exception("Failed to get profile: ${e.toString()}");
+    }
+  }
 
   @override
   Future<UserEntity> updateProfile({
@@ -23,26 +46,47 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phone,
     required int avaterId,
   }) async {
-    final response = await apiManager.updateProfile(
-      name: name,
-      phone: phone,
-      avaterId: avaterId,
-    );
-
-    print("UPDATE PROFILE MESSAGE: ${response.message}");
-    print("UPDATE PROFILE DATA: ${response.data}");
-
-    final data = response.data;
-    if (data == null) {
-      throw Exception(response.message ?? "Update profile failed");
+    try {
+      final userId = firebaseAuth.currentUser?.uid;
+      if (userId == null) {
+        throw Exception("User is not logged in");
+      }
+      await firestore.collection('Users').doc(userId).update({
+        'name': name,
+        'phone': phone,
+        'avaterId': avaterId,
+      });
+      return UserEntity(
+        id: userId,
+        name: name,
+        email: firebaseAuth.currentUser?.email ?? '',
+        phone: phone,
+        avaterId: avaterId,
+      );
+    } catch (e) {
+      throw Exception("Failed to update profile: ${e.toString()}");
     }
-
-    return data.toEntity();
   }
 
   @override
   Future<void> deleteAccount() async {
-    await apiManager.deleteAccount();
+    try {
+      final user = firebaseAuth.currentUser;
+      if (user == null) {
+        throw Exception("User is not logged in");
+      }
+      final userId = user.uid;
+      await firestore.collection('Users').doc(userId).delete();
+      await user.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw Exception(
+            'This operation is sensitive and requires recent authentication. Log in again before retrying this request.');
+      }
+      rethrow;
+    } catch (e) {
+      throw Exception("Failed to delete account: ${e.toString()}");
+    }
   }
 
   @override

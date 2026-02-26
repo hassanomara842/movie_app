@@ -9,6 +9,7 @@ import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/cubit/profile_cubit.dart';
 import 'package:movie_app/cubit/profile_states.dart';
 import 'package:movie_app/widgets/app_button.dart';
+import 'package:movie_app/widgets/main_loading_widget.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -41,6 +42,13 @@ class ProfileHeader extends StatelessWidget {
       },
       child: BlocBuilder<ProfileCubit, ProfileStates>(
         builder: (context, state) {
+          if (state is ProfileLoadingState) {
+            return const SizedBox(
+              height: 200,
+              child: MainLoadingWidget(),
+            );
+          }
+
           final user = (state is ProfileSuccessState) ? state.user : null;
 
           return Container(
@@ -87,9 +95,12 @@ class ProfileHeader extends StatelessWidget {
                       flex: 2,
                       child: AppButton(
                           buttonTitle: "edit_profile".tr(),
-                          onPressed: () {
-                            Navigator.pushNamed(
+                          onPressed: () async {
+                            await Navigator.pushNamed(
                                 context, AppRoutes.updateProfileScreen);
+                            if (context.mounted) {
+                              context.read<ProfileCubit>().getUserProfile();
+                            }
                           },
                           backgroundColor: Theme.of(context).cardColor),
                     ),

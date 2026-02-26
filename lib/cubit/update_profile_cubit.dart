@@ -9,8 +9,10 @@ import '../domain/usecases/delete_account_usecase.dart';
 class UpdateProfileCubit extends Cubit<UpdateProfileStates> {
   final UpdateProfileUseCase updateProfileUseCase;
   final DeleteAccountUseCase deleteAccountUseCase;
+
   UpdateProfileCubit(this.updateProfileUseCase, this.deleteAccountUseCase)
       : super(UpdateProfileInitial());
+
   Future<void> updateProfile({
     required String name,
     required String phone,
@@ -34,6 +36,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileStates> {
       emit(UpdateProfileErrorState(e.toString()));
     }
   }
+
   Future<void> deleteAccount() async {
     emit(DeleteAccountLoadingState());
     try {

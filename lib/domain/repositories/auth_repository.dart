@@ -1,6 +1,8 @@
 import '../entities/user_entity.dart';
 
 abstract class AuthRepository {
+  Future<UserEntity> getUserProfile();
+
   Future<UserEntity> updateProfile({
     required String name,
     required String phone,
