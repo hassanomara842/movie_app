@@ -49,7 +49,7 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-      ///Cases of Onboarding Screens
+    ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -75,7 +75,7 @@ class AppRoutes {
           const StartWatchingNow(),
         );
 
-      ///Home Screens
+    ///Home Screens
       case home:
         return darkRoute(
           const Scaffold(body: Center(child: Text('Home Screen'))),
@@ -95,7 +95,7 @@ class AppRoutes {
           ),
         );
 
-      ///Auth Screens
+    ///Auth Screens
       case login:
         return darkRoute(
           BlocProvider(
@@ -114,7 +114,7 @@ class AppRoutes {
             child: const RegisterScreen(),
           ),
         );
-      // tabs
+    // tabs
       case homeTab:
         return darkRoute(
           const HomeTab(),
