@@ -8,7 +8,6 @@ import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
-import '../../cubit/profile_cubit.dart';
 import '../../cubit/update_profile_cubit.dart';
 import '../../di/injection.dart';
 import '../../home_layout/home_layout.dart';
@@ -89,10 +88,7 @@ class AppRoutes {
         );
       case profileScreen:
         return darkRoute(
-          BlocProvider(
-            create: (context) => getIt<ProfileCubit>()..getUserProfile(),
-            child: const ProfileScreen(),
-          ),
+          const ProfileScreen(),
         );
 
     ///Auth Screens
@@ -105,7 +101,10 @@ class AppRoutes {
         );
       case resetPassword:
         return darkRoute(
-          const ResetPasswordScreen(),
+          BlocProvider(
+            create: (_) => getIt<AuthCubit>(),
+            child: const ResetPasswordScreen(),
+          ),
         );
       case registerScreen:
         return darkRoute(
@@ -114,7 +113,7 @@ class AppRoutes {
             child: const RegisterScreen(),
           ),
         );
-    // tabs
+    /// tabs
       case homeTab:
         return darkRoute(
           const HomeTab(),

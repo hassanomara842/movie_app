@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:injectable/injectable.dart';
+import 'package:fluttertoast/fluttertoast.dart';import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import '../domain/usecases/google_signin_usecase.dart';
 import '../domain/usecases/login_usecase.dart';
 import '../domain/usecases/register_usecase.dart';
+import '../domain/usecases/reset_password_usecase.dart';
 import 'auth_states.dart';
 
 @injectable
@@ -14,11 +14,13 @@ class AuthCubit extends Cubit<AuthState> {
   final LoginUseCase loginUseCase;
   final GoogleSignInUseCase googleSignInUseCase;
   final RegisterUseCase registerUseCase;
+  final ResetPasswordUseCase resetPasswordUseCase;
 
   AuthCubit({
     required this.loginUseCase,
     required this.googleSignInUseCase,
     required this.registerUseCase,
+    required this.resetPasswordUseCase,
   }) : super(AuthInitial());
 
   String getReadableError(Exception e) {
@@ -45,7 +47,29 @@ class AuthCubit extends Cubit<AuthState> {
       return e.toString();
     }
   }
-
+  Future<void> resetPassword(String email) async {
+    emit(AuthLoading());
+    try {
+      await resetPasswordUseCase(email);
+      emit(ResetPasswordSuccess());
+      Fluttertoast.showToast(
+        msg: "reset_email_sent".tr(),
+        backgroundColor: AppColors.primaryYellow,
+        textColor: AppColors.white,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+      );
+    } catch (e) {
+      Fluttertoast.showToast(
+        msg: getReadableError(e as Exception),
+        backgroundColor: AppColors.primaryYellow,
+        textColor: AppColors.white,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+      );
+      emit(AuthError(getReadableError(e as Exception)));
+    }
+  }
   void register({
     required String name,
     required String email,

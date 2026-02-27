@@ -8,9 +8,13 @@ abstract class AuthRepository {
     required String phone,
     required int avaterId,
   });
+
   Future<void> deleteAccount();
+
   Future<UserEntity> login(String email, String password);
+
   Future<UserEntity> signInWithGoogle();
+
   Future<UserEntity> register({
     required String name,
     required String email,
@@ -18,4 +22,5 @@ abstract class AuthRepository {
     required String phone,
     required int avaterId,
   });
+  Future<void> resetPassword(String email);
 }

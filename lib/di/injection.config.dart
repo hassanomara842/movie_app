@@ -32,10 +32,13 @@ import 'package:movie_app/domain/usecases/get_user_profile_usecase.dart'
 import 'package:movie_app/domain/usecases/google_signin_usecase.dart' as _i983;
 import 'package:movie_app/domain/usecases/login_usecase.dart' as _i639;
 import 'package:movie_app/domain/usecases/register_usecase.dart' as _i584;
+import 'package:movie_app/domain/usecases/reset_password_usecase.dart' as _i273;
 import 'package:movie_app/domain/usecases/update_profile_usecase.dart' as _i339;
 import 'package:movie_app/home_layout/cubit/home_layout_cubit.dart' as _i115;
 import 'package:movie_app/home_layout/tabs/home_tab/cubit/home_tab_cubit.dart'
     as _i418;
+import 'package:movie_app/home_layout/tabs/search_tab/cubit/search_tab_cubit.dart'
+    as _i750;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -51,6 +54,7 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseModule = _$FirebaseModule();
     gh.factory<_i115.HomeLayoutCubit>(() => _i115.HomeLayoutCubit());
     gh.factory<_i418.HomeTabCubit>(() => _i418.HomeTabCubit());
+    gh.factory<_i750.SearchTabCubit>(() => _i750.SearchTabCubit());
     gh.singleton<_i1065.ApiManager>(() => _i1065.ApiManager());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
@@ -73,19 +77,22 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i467.GetUserProfileUseCase(gh<_i932.AuthRepository>()));
     gh.factory<_i983.GoogleSignInUseCase>(
         () => _i983.GoogleSignInUseCase(gh<_i932.AuthRepository>()));
+    gh.factory<_i273.ResetPasswordUseCase>(
+        () => _i273.ResetPasswordUseCase(gh<_i932.AuthRepository>()));
     gh.factory<_i339.UpdateProfileUseCase>(
         () => _i339.UpdateProfileUseCase(gh<_i932.AuthRepository>()));
     gh.lazySingleton<_i639.LoginUseCase>(
         () => _i639.LoginUseCase(gh<_i932.AuthRepository>()));
     gh.lazySingleton<_i584.RegisterUseCase>(
         () => _i584.RegisterUseCase(gh<_i932.AuthRepository>()));
-    gh.factory<_i574.ProfileCubit>(
-        () => _i574.ProfileCubit(gh<_i467.GetUserProfileUseCase>()));
     gh.factory<_i43.AuthCubit>(() => _i43.AuthCubit(
           loginUseCase: gh<_i639.LoginUseCase>(),
           googleSignInUseCase: gh<_i983.GoogleSignInUseCase>(),
           registerUseCase: gh<_i584.RegisterUseCase>(),
+          resetPasswordUseCase: gh<_i273.ResetPasswordUseCase>(),
         ));
+    gh.factory<_i574.ProfileCubit>(
+        () => _i574.ProfileCubit(gh<_i467.GetUserProfileUseCase>()));
     gh.factory<_i140.UpdateProfileCubit>(() => _i140.UpdateProfileCubit(
           gh<_i339.UpdateProfileUseCase>(),
           gh<_i566.DeleteAccountUseCase>(),
