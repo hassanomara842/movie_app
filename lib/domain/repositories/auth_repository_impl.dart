@@ -16,6 +16,16 @@ class AuthRepositoryImpl implements AuthRepository {
 
   AuthRepositoryImpl(this.apiManager, this.remoteDataSource, this.firebaseAuth,
       this.firestore);
+
+  @override
+  Future<void> resetPassword(String email) async {
+    try {
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw Exception("Failed to send reset email: ${e.toString()}");
+    }
+  }
+
   @override
   Future<UserEntity> getUserProfile() async {
     try {

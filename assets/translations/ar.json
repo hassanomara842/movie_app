@@ -93,6 +93,7 @@
   "invalid_email_or_password": "االبريد الالكتروني او كلمة المرور غير صحيحة",
   "loading..": "تحميل..",
   "no_matching_movies_found": "لم يتم العثور على أفلام مطابقة",
-  "search_for_a_movie": "ابحث عن فيلم."
+  "search_for_a_movie": "ابحث عن فيلم.",
+  "reset_email_sent": "تم إرسال إيميل إعادة تعيين كلمة المرور بنجاح"
 
 }
