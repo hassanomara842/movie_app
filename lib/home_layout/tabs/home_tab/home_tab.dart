@@ -13,6 +13,7 @@ import '../../../core/text/app_text.dart';
 import '../../../widgets/main_loading_widget.dart';
 import 'cubit/home_tab_cubit.dart';
 import 'cubit/home_tab_states.dart';
+import 'package:movie_app/di/injection.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -21,13 +22,13 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return BlocProvider(
-      create: (context) => HomeTabCubit()
+      create: (context) => getIt<HomeTabCubit>()
         ..getMovies()
         ..getMoviesByGenre(),
       child: Scaffold(
         body: BlocBuilder<HomeTabCubit, HomeTabStates>(
           builder: (context, state) {
-            final cubit = BlocProvider.of<HomeTabCubit>(context);
+            final cubit = context.read<HomeTabCubit>();
             return Stack(
               alignment: Alignment.center,
               children: [

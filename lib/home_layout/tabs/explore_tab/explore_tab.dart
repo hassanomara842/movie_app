@@ -4,6 +4,7 @@ import 'package:movie_app/home_layout/tabs/explore_tab/appbar/appbar_widget.dart
 import 'package:movie_app/home_layout/tabs/explore_tab/content/content_explore_screen.dart';
 import '../../../core/responsive/size_config.dart';
 import '../home_tab/cubit/home_tab_cubit.dart';
+import 'package:movie_app/di/injection.dart';
 
 class ExploreTab extends StatefulWidget {
   const ExploreTab({super.key});
@@ -18,7 +19,7 @@ class _ExploreTabState extends State<ExploreTab> {
       SizeConfig.init(context);
 
       return BlocProvider(
-        create: (_) => HomeTabCubit()..getMoviesByGenre(),
+        create: (_) => getIt<HomeTabCubit>()..getMoviesByGenre(),
         child: const Scaffold(
           appBar: AppBarExploreWidget(),
           body: ContentExploreScreen(),
