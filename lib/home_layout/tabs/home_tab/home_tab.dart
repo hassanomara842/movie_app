@@ -28,7 +28,7 @@ class HomeTab extends StatelessWidget {
       child: Scaffold(
         body: BlocBuilder<HomeTabCubit, HomeTabStates>(
           builder: (context, state) {
-            final cubit = BlocProvider.of<HomeTabCubit>(context);
+            final cubit = context.read<HomeTabCubit>();
             return Stack(
               alignment: Alignment.center,
               children: [

@@ -32,7 +32,7 @@ class _AppBarExploreWidgetState extends State<AppBarExploreWidget> {
             child: TabBar(
               onTap: (index) {
                 // Update selected genre and fetch movies
-                cubit.getMoviesByGenre(genre: cubit.genres[index]);
+                cubit.getMoviesByGenre();
               },
               isScrollable: true,
               dividerColor: AppColors.transparentColor,
