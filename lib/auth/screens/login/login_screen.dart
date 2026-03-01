@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (state is AuthSuccess) {
         Navigator.pushNamedAndRemoveUntil(
           context,
-          AppRoutes.homeTab,
+          AppRoutes.homeLayout,
           (route) => false,
         );
       }
@@ -78,6 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     hint: 'password'.tr(),
                     isPass: true,
                     validator: viewModel.validatePassword,
+                    textInputAction: TextInputAction.done,
                   ),
 
                   Align(

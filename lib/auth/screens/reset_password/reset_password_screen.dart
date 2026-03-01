@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:movie_app/core/image/app_assets.dart';
+import 'package:movie_app/cubit/auth_cubit.dart';
+import 'package:movie_app/cubit/auth_states.dart';
 import '../../../../widgets/app_button.dart';
 import 'package:movie_app/widgets/custom_text_form_field.dart';
 import 'package:movie_app/core/text/app_text.dart';
@@ -45,52 +48,57 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if (!isValid) return;
 
     FocusScope.of(context).unfocus();
+    context.read<AuthCubit>().resetPassword(emailController.text.trim());
   }
-
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: const BackButton(),
-        title: Text(
-          'forget_password'.tr(),
-          style: AppText.regularText(
-            color: Theme.of(context).cardColor,
-            fontSize: 18.sp,
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is ResetPasswordSuccess) {
+          Navigator.pop(context);
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const BackButton(),
+          title: Text(
+            'forget_password'.tr(),
+            style: AppText.regularText(
+              color: Theme.of(context).cardColor,
+              fontSize: 18.sp,
+            ),
           ),
         ),
-      ),
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final bottomInset = MediaQuery.of(context).viewInsets.bottom;
 
-            return SingleChildScrollView(
-              padding: EdgeInsets.fromLTRB(w(16), 0, w(16), bottomInset),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    spacing: h(18),
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Image.asset(AppAssets.forgetPassword),
-                      CustomTextFormField(
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.done,
-                        autofillHints: const [AutofillHints.email],
-                        validator: validateEmail,
-                        cursorColor: Theme.of(context).cardColor,
-                        style: AppText.regularText(
-                          color: Theme.of(context).splashColor,
-                          fontSize: 16.sp,
-                        ),
-                        decoration: InputDecoration(
+              return SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(w(16), 0, w(16), bottomInset),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      spacing: h(18),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(AppAssets.forgetPassword),
+                        CustomTextFormField(
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.done,
+                          autofillHints: const [AutofillHints.email],
+                          validator: validateEmail,
+                          cursorColor: Theme.of(context).cardColor,
+                          style: AppText.regularText(
+                            color: Theme.of(context).splashColor,
+                            fontSize: 16.sp,
+                          ),
                           errorStyle: AppText.boldText(
                             color: Theme.of(context).cardColor,
                             fontSize: 17.sp,
@@ -132,21 +140,21 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             color: Theme.of(context).splashColor,
                             fontSize: 16.sp,
                           ),
+                          onFieldSubmitted: (_) => onResetPressed(),
                         ),
-                        onFieldSubmitted: (context) => onResetPressed(),
-                      ),
-                      AppButton(
-                          buttonTitle: 'verify_email'.tr(),
-                          onPressed: () {
-                            onResetPressed();
-                          },
-                          backgroundColor: Theme.of(context).cardColor)
-                    ],
+                        AppButton(
+                            buttonTitle: 'verify_email'.tr(),
+                            onPressed: () {
+                              onResetPressed();
+                            },
+                            backgroundColor: Theme.of(context).cardColor)
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

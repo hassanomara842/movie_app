@@ -42,6 +42,7 @@ class ApiManager {
       rethrow;
     }
   }
+
   Future<void> deleteAccount() async {
     Uri url = Uri.https(ApiConstants.baseUrl, "/api/delete-account");
 
@@ -66,7 +67,7 @@ class ApiManager {
 
   static Future<MovieResponse> getAllMovies() async {
     Uri url =
-    Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
+        Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
 
     try {
       var response = await http.get(
@@ -118,6 +119,36 @@ class ApiManager {
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching movies by genre: $e");
+      }
+      rethrow;
+    }
+  }
+
+  static Future<MovieResponse> getMoviesBySearch(String q) async {
+    Uri url = Uri.https(
+      ApiConstants.movieBaseUrl,
+      ApiEndPoints.allMovieEndPoint,
+      {'query_term': q},
+    );
+
+    try {
+      var response = await http.get(url);
+
+      if (kDebugMode) {
+        print("q URL: $url");
+        print("STATUS CODE: ${response.statusCode}");
+      }
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception(
+            'Failed to load movies by q: ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching movies by q: $e");
       }
       rethrow;
     }

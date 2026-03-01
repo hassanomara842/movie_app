@@ -3,18 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/cubit/auth_cubit.dart';
-import 'package:movie_app/home_tab/home_tab.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/rate_review_and_learn.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/start_watching_now.dart';
-import '../../cubit/profile_cubit.dart';
 import '../../cubit/update_profile_cubit.dart';
 import '../../di/injection.dart';
+import '../../home_layout/home_layout.dart';
+import '../../home_layout/tabs/home_tab/home_tab.dart';
+import '../../home_layout/tabs/profile_tab/profile/profile_screen.dart';
+import '../../home_layout/tabs/profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
-import '../../profile_tab/profile/profile_screen.dart';
-import '../../profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../colors/app_colors.dart';
 import '../../auth/screens/login/login_screen.dart';
 
@@ -32,6 +32,7 @@ class AppRoutes {
   static const String updateProfileScreen = '/updateProfileScreen';
   static const String profileScreen = '/profileScreen';
   static const String homeTab = '/homeTab';
+  static const String homeLayout = '/homeLayout';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -47,7 +48,7 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-      ///Cases of Onboarding Screens
+    ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -73,7 +74,7 @@ class AppRoutes {
           const StartWatchingNow(),
         );
 
-      ///Home Screens
+    ///Home Screens
       case home:
         return darkRoute(
           const Scaffold(body: Center(child: Text('Home Screen'))),
@@ -87,13 +88,10 @@ class AppRoutes {
         );
       case profileScreen:
         return darkRoute(
-          BlocProvider(
-            create: (context) => getIt<ProfileCubit>()..getUserProfile(),
-            child: const ProfileScreen(),
-          ),
+          const ProfileScreen(),
         );
 
-      ///Auth Screens
+    ///Auth Screens
       case login:
         return darkRoute(
           BlocProvider(
@@ -103,7 +101,10 @@ class AppRoutes {
         );
       case resetPassword:
         return darkRoute(
-          const ResetPasswordScreen(),
+          BlocProvider(
+            create: (_) => getIt<AuthCubit>(),
+            child: const ResetPasswordScreen(),
+          ),
         );
       case registerScreen:
         return darkRoute(
@@ -112,10 +113,14 @@ class AppRoutes {
             child: const RegisterScreen(),
           ),
         );
-      // tabs
+    /// tabs
       case homeTab:
         return darkRoute(
-          HomeTab(),
+          const HomeTab(),
+        );
+      case homeLayout:
+        return darkRoute(
+          const HomeLayout(),
         );
 
       default:
