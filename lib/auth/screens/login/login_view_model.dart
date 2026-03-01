@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class LoginViewModel {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final emailController = TextEditingController(text: "nouramer355@gmail.com");
+  final passwordController = TextEditingController(text: '123456');
   final formKey = GlobalKey<FormState>();
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {

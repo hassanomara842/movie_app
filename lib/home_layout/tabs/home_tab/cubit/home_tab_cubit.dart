@@ -33,9 +33,9 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
     }
   }
 
-  Future<void> getMoviesByGenre() async {
+  Future<void> getMoviesByGenre([String? genre]) async {
     emit(HomeTabGenreMoviesLoading());
-    currentGenre = genres[Random().nextInt(genres.length)];
+    currentGenre = genre ?? genres[Random().nextInt(genres.length)];
     try {
       allMoviesByGenre = await _moviesRepository.getAllMoviesByGenre(currentGenre!);
       emit(HomeTabGenreMoviesSuccess(moviesByGenre: allMoviesByGenre!, genre: currentGenre!));
