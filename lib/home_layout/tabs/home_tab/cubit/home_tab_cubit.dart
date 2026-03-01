@@ -34,6 +34,7 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
   }
 
   Future<void> getMoviesByGenre([String? genre]) async {
+    allMoviesByGenre = null;
     emit(HomeTabGenreMoviesLoading());
     currentGenre = genre ?? genres[Random().nextInt(genres.length)];
     try {
