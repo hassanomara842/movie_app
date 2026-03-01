@@ -21,46 +21,58 @@ class MovieCard extends StatelessWidget {
       ),
       height: h(220),
       width: w(146),
-      child: Stack(
-        fit: StackFit.expand,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: CachedNetworkImage(
-              imageUrl: movie.mediumCoverImage ?? '',
-              fit: BoxFit.cover,
-              placeholder: (context, url) => const MainLoadingWidget(),
-              errorWidget: (context, url, error) => const Icon(Icons.error),
-            ),
-          ),
-          Positioned(
-            top: h(13),
-            left: w(13),
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: w(7), vertical: h(5)),
-              decoration: BoxDecoration(
-                color: AppColors.primaryBlack.withAlpha(150),
-                borderRadius: BorderRadius.circular(10),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: CachedNetworkImage(
+          imageUrl: movie.mediumCoverImage ?? '',
+          fit: BoxFit.cover,
+          useOldImageOnUrlChange: true,
+          imageBuilder: (context, imageProvider) => Stack(
+            fit: StackFit.expand,
+            children: [
+              Image(
+                image: imageProvider,
+                fit: BoxFit.cover,
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    movie.rating?.toString() ?? "N/A",
-                    style: AppText.regularTextRoboto(
-                        color: AppColors.white, fontSize: 16.sp),
+              Positioned(
+                top: h(13),
+                left: w(13),
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: w(7), vertical: h(5)),
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryBlack.withAlpha(150),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                  SizedBox(width: w(5)),
-                  Image.asset(
-                    AppAssets.star,
-                    fit: BoxFit.contain,
-                    height: h(15),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        movie.rating?.toStringAsFixed(1) ?? "0.0",
+                        style: AppText.regularTextRoboto(
+                            color: AppColors.white, fontSize: 16.sp),
+                      ),
+                      SizedBox(width: w(5)),
+                      Image.asset(
+                        AppAssets.star,
+                        fit: BoxFit.contain,
+                        height: h(15),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          placeholder: (context, url) => Container(
+            color: Theme.of(context).canvasColor,
+            child: const MainLoadingWidget(),
+          ),
+          errorWidget: (context, url, error) => Container(
+            color: Theme.of(context).canvasColor,
+            child: const Icon(Icons.error, color: Colors.white),
+          ),
+        ),
       ),
     );
   }

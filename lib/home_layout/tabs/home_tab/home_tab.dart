@@ -43,42 +43,9 @@ class HomeTab extends StatelessWidget {
                     children: [
                       SizedBox(height: h(30)),
                       Image.asset(AppAssets.availableNow, fit: BoxFit.contain),
-                      if (state is HomeTabAllMoviesLoading)
-                        SizedBox(
-                          height: h(350),
-                          child: const Center(child: MainLoadingWidget()),
-                        )
-                      else if (state is HomeTabAllMoviesError)
-                        SizedBox(
-                          height: h(350),
-                          child: Center(
-                            child: Text(
-                              state.errorMessage,
-                              style: AppText.regularTextRoboto(
-                                  color: Colors.white, fontSize: 16.sp),
-                            ),
-                          ),
-                        )
-                      else if (cubit.allMovies?.data?.movies != null)
-                        CarouselSlider.builder(
-                          itemCount: cubit.allMovies!.data!.movies!.length,
-                          itemBuilder: (context, index, realIndex) {
-                            return MovieCover(
-                              coverImageUrl: cubit.allMovies!.data!
-                                      .movies![index].mediumCoverImage ??
-                                  '',
-                            );
-                          },
-                          options: CarouselOptions(
-                            autoPlay: true,
-                            autoPlayInterval: const Duration(seconds: 3),
-                            height: h(350),
-                            viewportFraction: 0.60,
-                            enlargeCenterPage: true,
-                            scrollDirection: Axis.horizontal,
-                            enableInfiniteScroll: true,
-                          ),
-                        ),
+                      
+                      _buildUpperSection(state, cubit),
+
                       Image.asset(AppAssets.watchNow, fit: BoxFit.contain),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: w(16)),
@@ -91,12 +58,13 @@ class HomeTab extends StatelessWidget {
                             TextButton(
                                 onPressed: () {},
                                 child: Row(
-                                  spacing: w(5),
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Text("see_more".tr(),
                                         style: AppText.regularTextRoboto(
                                             color: AppColors.primaryYellow,
                                             fontSize: 16.sp)),
+                                    SizedBox(width: w(5)),
                                     const Icon(
                                       size: 16,
                                       Icons.arrow_forward_outlined,
@@ -108,36 +76,7 @@ class HomeTab extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: state is HomeTabGenreMoviesLoading
-                            ? const Center(child: MainLoadingWidget())
-                            : state is HomeTabGenreMoviesError
-                                ? Center(
-                                    child: Text(
-                                      state.errorMessage,
-                                      style: AppText.regularTextRoboto(
-                                          color: Colors.white, fontSize: 16.sp),
-                                    ),
-                                  )
-                                : cubit.allMoviesByGenre?.data?.movies != null
-                                    ? ListView.separated(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: w(16)),
-                                        scrollDirection: Axis.horizontal,
-                                        shrinkWrap: true,
-                                        itemCount: cubit.allMoviesByGenre!.data!
-                                            .movies!.length,
-                                        itemBuilder: (context, index) =>
-                                            MovieCard(
-                                          movie: cubit.allMoviesByGenre!.data!
-                                              .movies![index],
-                                        ),
-                                        separatorBuilder:
-                                            (BuildContext context, int index) =>
-                                                SizedBox(
-                                          width: w(16),
-                                        ),
-                                      )
-                                    : const SizedBox(),
+                        child: _buildLowerSection(state, cubit),
                       )
                     ],
                   ),
@@ -146,6 +85,89 @@ class HomeTab extends StatelessWidget {
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildUpperSection(HomeTabStates state, HomeTabCubit cubit) {
+    final movies = cubit.allMovies?.data?.movies;
+
+    // Prioritize showing movies if they exist (even while loading)
+    if (movies != null && movies.isNotEmpty) {
+      return CarouselSlider.builder(
+        itemCount: movies.length,
+        itemBuilder: (context, index, realIndex) {
+          return MovieCover(
+            coverImageUrl: movies[index].mediumCoverImage ?? '',
+          );
+        },
+        options: CarouselOptions(
+          autoPlay: true,
+          autoPlayInterval: const Duration(seconds: 3),
+          height: h(350),
+          viewportFraction: 0.60,
+          enlargeCenterPage: true,
+          scrollDirection: Axis.horizontal,
+          enableInfiniteScroll: true,
+        ),
+      );
+    }
+
+    if (state is HomeTabAllMoviesLoading) {
+      return SizedBox(
+        height: h(350),
+        child: const Center(child: MainLoadingWidget()),
+      );
+    } else if (state is HomeTabAllMoviesError) {
+      return _buildErrorState(state.errorMessage, () => cubit.getMovies());
+    }
+    
+    return SizedBox(height: h(350));
+  }
+
+  Widget _buildLowerSection(HomeTabStates state, HomeTabCubit cubit) {
+    final movies = cubit.allMoviesByGenre?.data?.movies;
+
+    if (movies != null && movies.isNotEmpty) {
+      return ListView.separated(
+        padding: EdgeInsets.symmetric(horizontal: w(16)),
+        scrollDirection: Axis.horizontal,
+        itemCount: movies.length,
+        itemBuilder: (context, index) => MovieCard(
+          movie: movies[index],
+        ),
+        separatorBuilder: (context, index) => SizedBox(width: w(16)),
+      );
+    }
+
+    if (state is HomeTabGenreMoviesLoading) {
+      return const Center(child: MainLoadingWidget());
+    } else if (state is HomeTabGenreMoviesError) {
+      return _buildErrorState(
+          state.errorMessage, () => cubit.getMoviesByGenre(cubit.currentGenre));
+    }
+
+    return const SizedBox();
+  }
+
+  Widget _buildErrorState(String message, VoidCallback onRetry) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(AppAssets.popcornImage, width: 100.w),
+          Text(
+            message,
+            textAlign: TextAlign.center,
+            style:
+                AppText.regularTextRoboto(color: Colors.white, fontSize: 16.sp),
+          ),
+          TextButton(
+            onPressed: onRetry,
+            child: const Text("Try Again",
+                style: TextStyle(color: AppColors.primaryYellow)),
+          )
+        ],
       ),
     );
   }
