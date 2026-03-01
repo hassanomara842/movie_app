@@ -10,8 +10,10 @@ const _moviesCacheBoxName = 'movies_cache_box';
 
 @LazySingleton(as: MoviesLocalDataSource)
 class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
-  Future<Box<MoviesCacheEntryHiveModel>> _box() async {
-    return Hive.openBox<MoviesCacheEntryHiveModel>(_moviesCacheBoxName);
+  Future<Box<MoviesCacheEntryHiveModel>>? _boxFuture;
+
+  Future<Box<MoviesCacheEntryHiveModel>> _box() {
+    return _boxFuture ??= Hive.openBox<MoviesCacheEntryHiveModel>(_moviesCacheBoxName);
   }
 
   @override
