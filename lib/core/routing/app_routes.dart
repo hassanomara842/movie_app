@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/cubit/auth_cubit.dart';
+import 'package:movie_app/home_layout/tabs/movie_details/movie_details_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/discover_movies_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/explore_all_genres.dart';
@@ -33,6 +34,7 @@ class AppRoutes {
   static const String profileScreen = '/profileScreen';
   static const String homeTab = '/homeTab';
   static const String homeLayout = '/homeLayout';
+  static const String movieDetailsScreen = '/movieDetailsScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -123,6 +125,10 @@ class AppRoutes {
           const HomeLayout(),
         );
 
+      case movieDetailsScreen:
+        return darkRoute(
+          const MovieDetailsScreen(),
+        );
       default:
         return darkRoute(
           const Scaffold(body: Center(child: Text('No Route Defined'))),

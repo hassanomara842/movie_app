@@ -24,6 +24,18 @@ class AppText {
     );
   }
 
+  static TextStyle boldTextRoboto({
+    required Color color,
+    required double fontSize,
+  }) {
+    return GoogleFonts.roboto(
+      color: color,
+      fontSize: fontSize.sp,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+
   static TextStyle mediumText({
     required Color color,
     required double fontSize,

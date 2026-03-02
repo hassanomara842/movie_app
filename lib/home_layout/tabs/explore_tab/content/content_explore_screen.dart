@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/image/app_assets.dart';
+import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
@@ -82,29 +83,34 @@ class ContentExploreScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = movies[index];
 
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: CachedNetworkImage(
-                  imageUrl: movie.mediumCoverImage ?? '',
-                  fit: BoxFit.cover,
-                  imageBuilder: (context, imageProvider) => Container(
-                    alignment: Alignment.topLeft,
-                    padding: EdgeInsets.all(w(10)),
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: imageProvider,
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.movieDetailsScreen);
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: CachedNetworkImage(
+                    imageUrl: movie.mediumCoverImage ?? '',
+                    fit: BoxFit.cover,
+                    imageBuilder: (context, imageProvider) => Container(
+                      alignment: Alignment.topLeft,
+                      padding: EdgeInsets.all(w(10)),
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: imageProvider,
+                        ),
                       ),
+                      child: _buildRatingBadge(context, movie.rating),
                     ),
-                    child: _buildRatingBadge(context, movie.rating),
-                  ),
-                  placeholder: (context, url) => Container(
-                    color: Theme.of(context).canvasColor,
-                    child: const Center(child: MainLoadingWidget()),
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    color: Theme.of(context).canvasColor,
-                    child: const Icon(Icons.error, color: Colors.white),
+                    placeholder: (context, url) => Container(
+                      color: Theme.of(context).canvasColor,
+                      child: const Center(child: MainLoadingWidget()),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: Theme.of(context).canvasColor,
+                      child: const Icon(Icons.error, color: Colors.white),
+                    ),
                   ),
                 ),
               );
