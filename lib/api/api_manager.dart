@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:movie_app/model/register_model/user_data_model.dart';
 import '../model/movie_response/movie_response.dart';
 import '../model/movie_details_response/movie_details_response.dart';
-
 import 'api_constants.dart';
 import 'api_end_points.dart';
 import 'package:injectable/injectable.dart';
