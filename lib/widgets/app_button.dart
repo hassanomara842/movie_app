@@ -36,7 +36,7 @@ class AppButton extends StatelessWidget {
             ),
           ),
           padding:
-              WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 15.h)),
+              WidgetStateProperty.all(EdgeInsets.symmetric(vertical: 20.h)),
         ),
         onPressed: onPressed,
         child: Row(
