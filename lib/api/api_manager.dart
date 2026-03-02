@@ -45,7 +45,6 @@ class ApiManager {
 
   Future<void> deleteAccount() async {
     Uri url = Uri.https(ApiConstants.baseUrl, "/api/delete-account");
-
     try {
       var response = await http.delete(
         url,
@@ -53,7 +52,6 @@ class ApiManager {
           "Content-Type": "application/json",
         },
       );
-
       print("DELETE ACCOUNT STATUS CODE: ${response.statusCode}");
       print("DELETE ACCOUNT RESPONSE: ${response.body}");
 
@@ -67,7 +65,7 @@ class ApiManager {
 
   static Future<MovieResponse> getAllMovies() async {
     Uri url =
-        Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
+    Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
 
     try {
       var response = await http.get(
@@ -149,6 +147,36 @@ class ApiManager {
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching movies by q: $e");
+      }
+      rethrow;
+    }
+  }
+  static Future<MovieResponse> getMovieSuggestions(int movieId) async {
+    Uri url = Uri.https(
+      ApiConstants.movieBaseUrl,
+      "/api/v2/movie_suggestions.json",
+      {'movie_id': movieId.toString()},
+    );
+
+    try {
+      var response = await http.get(url);
+
+      if (kDebugMode) {
+        print("SUGGESTIONS URL: $url");
+        print("STATUS CODE: ${response.statusCode}");
+        print("RAW RESPONSE: ${response.body}");
+      }
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception(
+            'Failed to load suggestions: ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching suggestions: $e");
       }
       rethrow;
     }
