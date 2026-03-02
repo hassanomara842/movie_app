@@ -47,7 +47,7 @@ class GenresListWidget extends StatelessWidget {
                 Text(
                   genres[index],
                   style: AppText.regularTextRoboto(
-                      color: Theme.of(context).primaryColor, fontSize: sp(18)),
+                      color: Theme.of(context).splashColor, fontSize: sp(18)),
                 ),
               ],
             ));
