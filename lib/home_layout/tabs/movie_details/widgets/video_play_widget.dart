@@ -13,16 +13,31 @@ class VideoPlayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Stack(
+      alignment: Alignment.center,
       children: [
-        Container(
+        ShaderMask(
+          shaderCallback: (rect) {
+            return LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                AppColors.primaryBlack.withValues(alpha: 0.2),
+                AppColors.primaryBlack.withValues(alpha: 1),
+              ],
+            ).createShader(rect);
+          },
+          blendMode: BlendMode.srcATop,
+          child: SizedBox(
+              height: h(645),
+              width: double.infinity,
+              child: Image.asset(
+                AppAssets.discoverMovies,
+                fit: BoxFit.cover,
+              )),
+        ),
+        SizedBox(
           height: h(645),
           width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(AppAssets.discoverMovies),
-            ),
-          ),
           child: Padding(
             padding: EdgeInsets.symmetric(
               horizontal: w(20),
@@ -48,22 +63,25 @@ class VideoPlayWidget extends StatelessWidget {
                       Image.asset(AppAssets.saveIcon)
                     ],
                   ),
-                  Spacer(),
                   InkWell(
                       onTap: () {}, child: Image.asset(AppAssets.playButton)),
-                  Spacer(),
-                  Text(
-                    textAlign: TextAlign.center,
-                    "Doctor Strange in the Multiverse of Madness",
-                    style: AppText.boldTextRoboto(
-                        color: AppColors.white, fontSize: sp(26)),
-                  ),
-                  Text(
-                    textAlign: TextAlign.center,
-                    "2022",
-                    style: AppText.boldTextRoboto(
-                        color: AppColors.grey, fontSize: sp(24)),
-                  ),
+                  Column(
+                    spacing: h(15),
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        "Doctor Strange in the Multiverse of Madness",
+                        style: AppText.boldTextRoboto(
+                            color: AppColors.white, fontSize: sp(26)),
+                      ),
+                      Text(
+                        textAlign: TextAlign.center,
+                        "2022",
+                        style: AppText.boldTextRoboto(
+                            color: AppColors.grey, fontSize: sp(24)),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),
