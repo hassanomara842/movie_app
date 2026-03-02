@@ -1,22 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
 import '../../../../core/text/app_text.dart';
 
 class GenresListWidget extends StatelessWidget {
-  const GenresListWidget({super.key});
+  final List<String> genres;
+  const GenresListWidget({super.key, required this.genres});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-
-    final List<String> genres = [
-      "Action",
-      "Adventure",
-      "Sci-Fi",
-      "Drama",
-      "Comedy",
-    ];
 
     return GridView.builder(
       shrinkWrap: true,
@@ -45,9 +39,9 @@ class GenresListWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  genres[index],
+                  genres[index].tr(),
                   style: AppText.regularTextRoboto(
-                      color: Theme.of(context).primaryColor, fontSize: sp(18)),
+                      color: Theme.of(context).splashColor, fontSize: sp(18)),
                 ),
               ],
             ));

@@ -45,6 +45,8 @@ import 'package:movie_app/domain/usecases/update_profile_usecase.dart' as _i339;
 import 'package:movie_app/home_layout/cubit/home_layout_cubit.dart' as _i115;
 import 'package:movie_app/home_layout/tabs/home_tab/cubit/home_tab_cubit.dart'
     as _i418;
+import 'package:movie_app/home_layout/tabs/movie_details/cubit/movie_details_cubit.dart'
+    as _i163;
 import 'package:movie_app/home_layout/tabs/search_tab/cubit/search_tab_cubit.dart'
     as _i750;
 
@@ -62,6 +64,7 @@ extension GetItInjectableX on _i174.GetIt {
     final firebaseModule = _$FirebaseModule();
     final thirdPartyModule = _$ThirdPartyModule();
     gh.factory<_i115.HomeLayoutCubit>(() => _i115.HomeLayoutCubit());
+    gh.factory<_i163.MovieDetailsCubit>(() => _i163.MovieDetailsCubit());
     gh.factory<_i750.SearchTabCubit>(() => _i750.SearchTabCubit());
     gh.singleton<_i1065.ApiManager>(() => _i1065.ApiManager());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
@@ -90,14 +93,14 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i566.DeleteAccountUseCase>(
         () => _i566.DeleteAccountUseCase(gh<_i932.AuthRepository>()));
-    gh.factory<_i983.GoogleSignInUseCase>(
-        () => _i983.GoogleSignInUseCase(gh<_i932.AuthRepository>()));
-    gh.factory<_i339.UpdateProfileUseCase>(
-        () => _i339.UpdateProfileUseCase(gh<_i932.AuthRepository>()));
     gh.factory<_i467.GetUserProfileUseCase>(
         () => _i467.GetUserProfileUseCase(gh<_i932.AuthRepository>()));
+    gh.factory<_i983.GoogleSignInUseCase>(
+        () => _i983.GoogleSignInUseCase(gh<_i932.AuthRepository>()));
     gh.factory<_i273.ResetPasswordUseCase>(
         () => _i273.ResetPasswordUseCase(gh<_i932.AuthRepository>()));
+    gh.factory<_i339.UpdateProfileUseCase>(
+        () => _i339.UpdateProfileUseCase(gh<_i932.AuthRepository>()));
     gh.lazySingleton<_i639.LoginUseCase>(
         () => _i639.LoginUseCase(gh<_i932.AuthRepository>()));
     gh.lazySingleton<_i584.RegisterUseCase>(

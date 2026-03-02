@@ -48,14 +48,14 @@ class CastWidget extends StatelessWidget {
                   Text(
                     "Name : Hayley Atwell",
                     style: AppText.boldTextRoboto(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: sp(19)),
+                        color: Theme.of(context).splashColor,
+                        fontSize: sp(20)),
                   ),
                   Text(
                     "Character : Captain Carter",
                     style: AppText.boldTextRoboto(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: sp(19)),
+                        color: Theme.of(context).splashColor,
+                        fontSize: sp(20)),
                   ),
                 ],
               )

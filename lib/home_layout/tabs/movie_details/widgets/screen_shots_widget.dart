@@ -1,20 +1,28 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/image/app_assets.dart';
+import 'package:movie_app/model/movie_details_response/movie_details_response.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
 
 class ScreenShotsListWidget extends StatelessWidget {
-  const ScreenShotsListWidget({super.key});
+  final Movie movie;
+  const ScreenShotsListWidget({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
+    final List<String> screenShots = [
+      movie.mediumCoverImage ?? '',
+      movie.backgroundImage ?? '',
+      movie.backgroundImageOriginal ?? '',
+    ].where((url) => url.isNotEmpty).toList();
+
     return ListView.builder(
       shrinkWrap: true,
       padding: EdgeInsets.zero,
       physics: const NeverScrollableScrollPhysics(),
-      itemCount: 3,
+      itemCount: screenShots.length,
       itemBuilder: (context, index) {
         return Container(
           margin: EdgeInsets.symmetric(
@@ -24,9 +32,13 @@ class ScreenShotsListWidget extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            image: const DecorationImage(
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: CachedNetworkImage(
+              imageUrl: screenShots[index],
               fit: BoxFit.cover,
-              image: AssetImage(AppAssets.discoverMovies),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
             ),
           ),
         );
