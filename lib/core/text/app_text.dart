@@ -13,6 +13,16 @@ class AppText {
       fontWeight: FontWeight.w400,
     );
   }
+  static TextStyle regularTextRoboto({
+    required Color color,
+    required double fontSize,
+  }) {
+    return GoogleFonts.roboto(
+      color: color,
+      fontSize: fontSize.sp,
+      fontWeight: FontWeight.w400,
+    );
+  }
 
   static TextStyle mediumText({
     required Color color,

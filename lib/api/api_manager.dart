@@ -55,16 +55,13 @@ class ApiManager {
     Uri url = Uri.https(ApiConstants.baseUrl, "/api/register");
 
     try {
-      var response = await http.post(
+      var response = await http.put(
         url,
         headers: {
           "Content-Type": "application/json",
         },
         body: jsonEncode({
           "name": name,
-          "email": email,
-          "password": password,
-          "confirmPassword": confirmPassword,
           "phone": phone,
           "avaterId": avaterId,
         }),

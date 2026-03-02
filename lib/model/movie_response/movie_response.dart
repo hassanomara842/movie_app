@@ -1,17 +1,21 @@
 class MovieResponse {
   MovieResponse({
-      this.status, 
-      this.statusMessage, 
-      this.data,});
+    this.status,
+    this.statusMessage,
+    this.data,
+    this.meta,
+  });
 
   MovieResponse.fromJson(dynamic json) {
     status = json['status'];
     statusMessage = json['status_message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    meta = json['@meta'] != null ? Meta.fromJson(json['@meta']) : null;
   }
   String? status;
   String? statusMessage;
   Data? data;
+  Meta? meta;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -20,17 +24,41 @@ class MovieResponse {
     if (data != null) {
       map['data'] = data?.toJson();
     }
+    if (meta != null) {
+      map['@meta'] = meta?.toJson();
+    }
     return map;
   }
+}
 
+class Meta {
+  Meta({
+    this.apiVersion,
+    this.executionTime,
+  });
+
+  Meta.fromJson(dynamic json) {
+    apiVersion = json['api_version'];
+    executionTime = json['execution_time'];
+  }
+  int? apiVersion;
+  String? executionTime;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['api_version'] = apiVersion;
+    map['execution_time'] = executionTime;
+    return map;
+  }
 }
 
 class Data {
   Data({
-      this.movieCount, 
-      this.limit, 
-      this.pageNumber, 
-      this.movies,});
+    this.movieCount,
+    this.limit,
+    this.pageNumber,
+    this.movies,
+  });
 
   Data.fromJson(dynamic json) {
     movieCount = json['movie_count'];
@@ -58,37 +86,37 @@ class Data {
     }
     return map;
   }
-
 }
 
 class Movies {
   Movies({
-      this.id, 
-      this.url, 
-      this.imdbCode, 
-      this.title, 
-      this.titleEnglish, 
-      this.titleLong, 
-      this.slug, 
-      this.year, 
-      this.rating, 
-      this.runtime, 
-      this.genres, 
-      this.summary, 
-      this.descriptionFull, 
-      this.synopsis, 
-      this.ytTrailerCode, 
-      this.language, 
-      this.mpaRating, 
-      this.backgroundImage, 
-      this.backgroundImageOriginal, 
-      this.smallCoverImage, 
-      this.mediumCoverImage, 
-      this.largeCoverImage, 
-      this.state, 
-      this.torrents, 
-      this.dateUploaded, 
-      this.dateUploadedUnix,});
+    this.id,
+    this.url,
+    this.imdbCode,
+    this.title,
+    this.titleEnglish,
+    this.titleLong,
+    this.slug,
+    this.year,
+    this.rating,
+    this.runtime,
+    this.genres,
+    this.summary,
+    this.descriptionFull,
+    this.synopsis,
+    this.ytTrailerCode,
+    this.language,
+    this.mpaRating,
+    this.backgroundImage,
+    this.backgroundImageOriginal,
+    this.smallCoverImage,
+    this.mediumCoverImage,
+    this.largeCoverImage,
+    this.state,
+    this.torrents,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+  });
 
   Movies.fromJson(dynamic json) {
     id = json['id'];
@@ -99,7 +127,7 @@ class Movies {
     titleLong = json['title_long'];
     slug = json['slug'];
     year = json['year'];
-    rating = json['rating'] is int ? (json['rating'] as int).toDouble() : json['rating'];
+    rating = json['rating']?.toDouble();
     runtime = json['runtime'];
     genres = json['genres'] != null ? json['genres'].cast<String>() : [];
     summary = json['summary'];
@@ -182,25 +210,25 @@ class Movies {
     map['date_uploaded_unix'] = dateUploadedUnix;
     return map;
   }
-
 }
 
 class Torrents {
   Torrents({
-      this.url, 
-      this.hash, 
-      this.quality, 
-      this.type, 
-      this.isRepack, 
-      this.videoCodec, 
-      this.bitDepth, 
-      this.audioChannels, 
-      this.seeds, 
-      this.peers, 
-      this.size, 
-      this.sizeBytes, 
-      this.dateUploaded, 
-      this.dateUploadedUnix,});
+    this.url,
+    this.hash,
+    this.quality,
+    this.type,
+    this.isRepack,
+    this.videoCodec,
+    this.bitDepth,
+    this.audioChannels,
+    this.seeds,
+    this.peers,
+    this.size,
+    this.sizeBytes,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+  });
 
   Torrents.fromJson(dynamic json) {
     url = json['url'];
@@ -251,5 +279,4 @@ class Torrents {
     map['date_uploaded_unix'] = dateUploadedUnix;
     return map;
   }
-
 }
