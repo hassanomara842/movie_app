@@ -82,7 +82,6 @@ class ApiManager {
   }
 
   Future<void> deleteAccount() async {
-
     Uri url = Uri.https(ApiConstants.baseUrl, "/api/delete-account");
 
     try {
@@ -106,7 +105,7 @@ class ApiManager {
 
   static Future<MovieResponse> getAllMovies() async {
     Uri url =
-    Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
+        Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint);
 
     try {
       var response = await http.get(
@@ -192,6 +191,37 @@ class ApiManager {
       rethrow;
     }
   }
+
+  static Future<MovieResponse> getMovieSuggestions(int movieId) async {
+    Uri url = Uri.https(
+      ApiConstants.movieBaseUrl,
+      ApiEndPoints.movieSuggestionsEndPoint,
+      {'movie_id': movieId.toString()},
+    );
+
+    try {
+      var response = await http.get(url);
+
+      if (kDebugMode) {
+        print("MOVIE DETAILS URL: $url");
+        print("STATUS CODE: ${response.statusCode}");
+      }
+
+      if (response.statusCode == 200) {
+        var json = jsonDecode(response.body);
+        return MovieResponse.fromJson(json);
+      } else {
+        throw Exception(
+            'Failed to load movie details: ${response.statusCode} ${response.body}');
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching movie details: $e");
+      }
+      rethrow;
+    }
+  }
+
   static Future<MovieResponse> getMoviesBySearch(String q) async {
     Uri url = Uri.https(
       ApiConstants.movieBaseUrl,

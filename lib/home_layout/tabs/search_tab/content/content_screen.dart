@@ -76,9 +76,10 @@ class ContentScreen extends StatelessWidget {
               final movie = movies[index];
 
               return InkWell(
+                splashColor: Colors.transparent,
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.movieDetailsScreen);
-
+                  Navigator.pushNamed(context, AppRoutes.movieDetailsScreen,
+                      arguments: movie.id);
                 },
                 child: Container(
                   alignment: Alignment.topLeft,
@@ -97,7 +98,8 @@ class ContentScreen extends StatelessWidget {
                         EdgeInsets.symmetric(horizontal: w(10), vertical: h(5)),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Theme.of(context).splashColor.withValues(alpha: 0.6),
+                      color:
+                          Theme.of(context).splashColor.withValues(alpha: 0.6),
                     ),
                     child: Row(
                       spacing: w(5),

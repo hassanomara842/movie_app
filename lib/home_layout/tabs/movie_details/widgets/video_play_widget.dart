@@ -1,13 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/responsive/size_config.dart';
-
 import '../../../../core/colors/app_colors.dart';
 import '../../../../core/image/app_assets.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/text/app_text.dart';
+import '../../../../model/movie_details_response/movie_details_response.dart';
 
 class VideoPlayWidget extends StatelessWidget {
-  const VideoPlayWidget({super.key});
+  final Movie movie;
+  const VideoPlayWidget({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +30,17 @@ class VideoPlayWidget extends StatelessWidget {
           },
           blendMode: BlendMode.srcATop,
           child: SizedBox(
-              height: h(645),
-              width: double.infinity,
-              child: Image.asset(
+            height: h(645),
+            width: double.infinity,
+            child: CachedNetworkImage(
+              imageUrl: movie.largeCoverImage ?? "",
+              fit: BoxFit.cover,
+              errorWidget: (context, url, error) => Image.asset(
                 AppAssets.discoverMovies,
                 fit: BoxFit.cover,
-              )),
+              ),
+            ),
+          ),
         ),
         SizedBox(
           height: h(645),
@@ -44,7 +51,6 @@ class VideoPlayWidget extends StatelessWidget {
             ),
             child: SafeArea(
               child: Column(
-                spacing: h(5),
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
@@ -66,17 +72,17 @@ class VideoPlayWidget extends StatelessWidget {
                   InkWell(
                       onTap: () {}, child: Image.asset(AppAssets.playButton)),
                   Column(
-                    spacing: h(15),
                     children: [
                       Text(
+                        movie.title ?? "",
                         textAlign: TextAlign.center,
-                        "Doctor Strange in the Multiverse of Madness",
                         style: AppText.boldTextRoboto(
                             color: AppColors.white, fontSize: sp(26)),
                       ),
+                      SizedBox(height: h(15)),
                       Text(
+                        movie.year?.toString() ?? "",
                         textAlign: TextAlign.center,
-                        "2022",
                         style: AppText.boldTextRoboto(
                             color: AppColors.grey, fontSize: sp(24)),
                       ),

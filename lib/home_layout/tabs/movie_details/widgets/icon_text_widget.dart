@@ -15,7 +15,7 @@ class IconTextWidget extends StatelessWidget {
     SizeConfig.init(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: w(15), vertical: h(10)),
+      padding: EdgeInsets.symmetric(horizontal: w(12), vertical: h(10)),
       decoration: BoxDecoration(
         color: AppColors.darkGrey.withAlpha(150),
         borderRadius: BorderRadius.circular(16),

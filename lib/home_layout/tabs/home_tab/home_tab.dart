@@ -43,9 +43,7 @@ class HomeTab extends StatelessWidget {
                     children: [
                       SizedBox(height: h(30)),
                       Image.asset(AppAssets.availableNow, fit: BoxFit.contain),
-                      
                       _buildUpperSection(state, cubit),
-
                       Image.asset(AppAssets.watchNow, fit: BoxFit.contain),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: w(16)),
@@ -92,13 +90,13 @@ class HomeTab extends StatelessWidget {
   Widget _buildUpperSection(HomeTabStates state, HomeTabCubit cubit) {
     final movies = cubit.allMovies?.data?.movies;
 
-    // Prioritize showing movies if they exist (even while loading)
     if (movies != null && movies.isNotEmpty) {
       return CarouselSlider.builder(
         itemCount: movies.length,
         itemBuilder: (context, index, realIndex) {
           return MovieCover(
             coverImageUrl: movies[index].mediumCoverImage ?? '',
+            movieId: movies[index].id!,
           );
         },
         options: CarouselOptions(
@@ -121,7 +119,7 @@ class HomeTab extends StatelessWidget {
     } else if (state is HomeTabAllMoviesError) {
       return _buildErrorState(state.errorMessage, () => cubit.getMovies());
     }
-    
+
     return SizedBox(height: h(350));
   }
 

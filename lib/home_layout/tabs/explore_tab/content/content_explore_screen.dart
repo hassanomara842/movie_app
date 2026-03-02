@@ -84,8 +84,10 @@ class ContentExploreScreen extends StatelessWidget {
               final movie = movies[index];
 
               return InkWell(
+                splashColor: Colors.transparent,
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.movieDetailsScreen);
+                  Navigator.pushNamed(context, AppRoutes.movieDetailsScreen,
+                      arguments: movie.id);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),

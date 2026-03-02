@@ -39,6 +39,7 @@ class AppRoutes {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
       return PageRouteBuilder(
+        settings: settings,
         pageBuilder: (context, animation, secondaryAnimation) => page,
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return Container(
@@ -50,7 +51,7 @@ class AppRoutes {
     }
 
     switch (settings.name) {
-    ///Cases of Onboarding Screens
+      ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -76,7 +77,7 @@ class AppRoutes {
           const StartWatchingNow(),
         );
 
-    ///Home Screens
+      ///Home Screens
       case home:
         return darkRoute(
           const Scaffold(body: Center(child: Text('Home Screen'))),
@@ -93,7 +94,7 @@ class AppRoutes {
           const ProfileScreen(),
         );
 
-    ///Auth Screens
+      ///Auth Screens
       case login:
         return darkRoute(
           BlocProvider(
@@ -115,7 +116,8 @@ class AppRoutes {
             child: const RegisterScreen(),
           ),
         );
-    /// tabs
+
+      /// tabs
       case homeTab:
         return darkRoute(
           const HomeTab(),
