@@ -30,10 +30,14 @@ class IconTextWidget extends StatelessWidget {
             fit: BoxFit.contain,
             height: h(25),
           ),
-          Text(
-            text,
-            style: AppText.regularTextRoboto(
-                color: AppColors.white, fontSize: sp(25)),
+          Expanded(
+            child: Text(
+              text,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppText.regularTextRoboto(
+                  color: AppColors.white, fontSize: sp(25)),
+            ),
           ),
         ],
       ),

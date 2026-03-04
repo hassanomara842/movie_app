@@ -7,10 +7,11 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/home_layout/tabs/home_tab/widget/movie_card.dart';
 import 'package:movie_app/home_layout/tabs/home_tab/widget/movie_cover.dart';
+import 'package:movie_app/widgets/App_Shimmer/app_shimmer.dart';
+import 'package:movie_app/widgets/App_Shimmer/movie_card_shimmer.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/responsive/size_config.dart';
 import '../../../core/text/app_text.dart';
-import '../../../widgets/main_loading_widget.dart';
 import 'cubit/home_tab_cubit.dart';
 import 'cubit/home_tab_states.dart';
 import 'package:movie_app/di/injection.dart';
@@ -114,7 +115,12 @@ class HomeTab extends StatelessWidget {
     if (state is HomeTabAllMoviesLoading) {
       return SizedBox(
         height: h(350),
-        child: const Center(child: MainLoadingWidget()),
+        child: Center(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.r),
+            child: AppShimmer.rectangular(height: h(350), width: w(210)),
+          ),
+        ),
       );
     } else if (state is HomeTabAllMoviesError) {
       return _buildErrorState(state.errorMessage, () => cubit.getMovies());
@@ -139,7 +145,13 @@ class HomeTab extends StatelessWidget {
     }
 
     if (state is HomeTabGenreMoviesLoading) {
-      return const Center(child: MainLoadingWidget());
+      return ListView.separated(
+        padding: EdgeInsets.symmetric(horizontal: w(16)),
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) => const MovieCardShimmer(),
+        separatorBuilder: (context, index) => SizedBox(width: w(16)),
+      );
     } else if (state is HomeTabGenreMoviesError) {
       return _buildErrorState(
           state.errorMessage, () => cubit.getMoviesByGenre(cubit.currentGenre));
@@ -158,7 +170,7 @@ class HomeTab extends StatelessWidget {
             message,
             textAlign: TextAlign.center,
             style:
-                AppText.regularTextRoboto(color: Colors.white, fontSize: 16.sp),
+            AppText.regularTextRoboto(color: Colors.white, fontSize: 16.sp),
           ),
           TextButton(
             onPressed: onRetry,
