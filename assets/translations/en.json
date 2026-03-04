@@ -101,5 +101,10 @@
   "summary": "Summary",
   "cast": "Cast",
   "genres": "Genres",
-  "min": "Min"
+  "min": "Min",
+  "no_internet_connection": "No Internet Connection",
+  "oops_error": "Oops! Something went wrong",
+  "error_message": "We're sorry for the inconvenience. Please try again later.",
+  "back_to_home": "Back to Home"
+
 }

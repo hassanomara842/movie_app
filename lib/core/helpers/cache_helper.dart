@@ -7,11 +7,20 @@ class CacheHelper {
   static const String _userNameKey = 'userName';
   static const String _userEmailKey = 'userEmail';
   static const String _avatarIdKey = 'avatarId';
+  static const String _onBoardingKey = 'onBoarding_viewed';
 
   static late SharedPreferences sharedPreferences;
 
   static Future<void> init() async {
     sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  static Future<void> setOnBoardingViewed() async {
+    await sharedPreferences.setBool(_onBoardingKey, true);
+  }
+
+  static bool isOnBoardingViewed() {
+    return sharedPreferences.getBool(_onBoardingKey) ?? false;
   }
 
   static String? getLanguage() {
@@ -38,6 +47,7 @@ class CacheHelper {
   static bool isDarkTheme() {
     return getTheme() == ThemeMode.dark;
   }
+
   static Future<void> saveUserData({
     required String name,
     required String email,

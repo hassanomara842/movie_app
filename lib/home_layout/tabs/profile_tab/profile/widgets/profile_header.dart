@@ -32,7 +32,7 @@ class ProfileHeader extends StatelessWidget {
       listener: (context, state) {
         if (state is LogoutSuccessState) {
           Navigator.pushNamedAndRemoveUntil(
-              context, AppRoutes.onBoardingScreen, (route) => false);
+              context, AppRoutes.login, (route) => false);
         }
         if (state is ProfileErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(

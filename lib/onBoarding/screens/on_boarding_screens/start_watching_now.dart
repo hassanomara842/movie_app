@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
+import 'package:movie_app/core/helpers/cache_helper.dart';
 import '../../../core/image/app_assets.dart';
 import '../../../widgets/app_button.dart';
 import '../../widget/onboarding_widget_screen.dart';
@@ -21,14 +22,17 @@ class StartWatchingNow extends StatelessWidget {
       buttons: [
         AppButton(
           buttonTitle: "finish".tr(),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutes.login,
-              (route) => false,
-            );
+          onPressed: () async {
+            await CacheHelper.setOnBoardingViewed();
+            if (context.mounted) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.login,
+                    (route) => false,
+              );
+            }
           },
-          backgroundColor: Theme.of(context).cardColor
+          backgroundColor: Theme.of(context).cardColor,
         ),
         AppButton(
           buttonTitle: "back".tr(),

@@ -16,7 +16,6 @@ import '../../home_layout/tabs/home_tab/home_tab.dart';
 import '../../home_layout/tabs/profile_tab/profile/profile_screen.dart';
 import '../../home_layout/tabs/profile_tab/update_profile_screen/update_profile_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
-import '../colors/app_colors.dart';
 import '../../auth/screens/login/login_screen.dart';
 
 class AppRoutes {
@@ -40,18 +39,19 @@ class AppRoutes {
     Route<dynamic> darkRoute(Widget page) {
       return PageRouteBuilder(
         settings: settings,
+        transitionDuration: const Duration(milliseconds: 500),
         pageBuilder: (context, animation, secondaryAnimation) => page,
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return Container(
-            color: AppColors.primaryBlack,
-            child: FadeTransition(opacity: animation, child: child),
+          return FadeTransition(
+            opacity: animation,
+            child: child,
           );
         },
       );
     }
 
     switch (settings.name) {
-      ///Cases of Onboarding Screens
+    ///Cases of Onboarding Screens
       case onBoardingScreen:
         return darkRoute(
           const FindYourNextMovie(),
@@ -77,7 +77,7 @@ class AppRoutes {
           const StartWatchingNow(),
         );
 
-      ///Home Screens
+    ///Home Screens
       case home:
         return darkRoute(
           const Scaffold(body: Center(child: Text('Home Screen'))),
@@ -94,7 +94,7 @@ class AppRoutes {
           const ProfileScreen(),
         );
 
-      ///Auth Screens
+    ///Auth Screens
       case login:
         return darkRoute(
           BlocProvider(
@@ -117,7 +117,7 @@ class AppRoutes {
           ),
         );
 
-      /// tabs
+    /// tabs
       case homeTab:
         return darkRoute(
           const HomeTab(),
@@ -128,8 +128,9 @@ class AppRoutes {
         );
 
       case movieDetailsScreen:
+        final int movieId = settings.arguments as int;
         return darkRoute(
-          const MovieDetailsScreen(),
+          MovieDetailsScreen(movieId: movieId),
         );
       default:
         return darkRoute(
