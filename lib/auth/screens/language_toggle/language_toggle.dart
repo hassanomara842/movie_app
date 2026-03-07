@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
-import 'package:movie_app/core/helpers/cache_helper.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'language_view_model.dart';
 
@@ -27,65 +26,43 @@ class _LanguageToggleState extends State<LanguageToggle> {
       animation: viewModel,
       builder: (context, _) {
         return Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 8.w,
-            vertical: 8.h,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            border: Border.all(
-              color: AppColors.primaryYellow,
-              width: 3,
+            padding: EdgeInsets.symmetric(
+              horizontal: 8.w,
+              vertical: 8.h,
             ),
-          ),
-          child: CacheHelper.getLanguage() == 'ar'
-              ? Row(
-                  spacing: 25.w,
-                  children: [
-                    GestureDetector(
-                      onTap: () => viewModel.changeLanguage(
-                          LanguageType.arabic, context),
-                      child: languageFlagsWidget(
-                        isSelected:
-                            viewModel.selectedLanguage == LanguageType.arabic,
-                        image: AppAssets.egyptImage,
-                      ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              border: Border.all(
+                color: AppColors.primaryYellow,
+                width: 3,
+              ),
+            ),
+            child: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Row(
+                spacing: 25.w,
+                children: [
+                  GestureDetector(
+                    onTap: () =>
+                        viewModel.changeLanguage(LanguageType.arabic, context),
+                    child: languageFlagsWidget(
+                      isSelected:
+                          viewModel.selectedLanguage == LanguageType.arabic,
+                      image: AppAssets.egyptImage,
                     ),
-                    GestureDetector(
-                      onTap: () => viewModel.changeLanguage(
-                          LanguageType.english, context),
-                      child: languageFlagsWidget(
-                        isSelected:
-                            viewModel.selectedLanguage == LanguageType.english,
-                        image: AppAssets.lrImage,
-                      ),
+                  ),
+                  GestureDetector(
+                    onTap: () =>
+                        viewModel.changeLanguage(LanguageType.english, context),
+                    child: languageFlagsWidget(
+                      isSelected:
+                          viewModel.selectedLanguage == LanguageType.english,
+                      image: AppAssets.lrImage,
                     ),
-                  ],
-                )
-              : Row(
-                  spacing: 25.w,
-                  children: [
-                    GestureDetector(
-                      onTap: () => viewModel.changeLanguage(
-                          LanguageType.english, context),
-                      child: languageFlagsWidget(
-                        isSelected:
-                            viewModel.selectedLanguage == LanguageType.english,
-                        image: AppAssets.lrImage,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () => viewModel.changeLanguage(
-                          LanguageType.arabic, context),
-                      child: languageFlagsWidget(
-                        isSelected:
-                            viewModel.selectedLanguage == LanguageType.arabic,
-                        image: AppAssets.egyptImage,
-                      ),
-                    ),
-                  ],
-                ),
-        );
+                  ),
+                ],
+              ),
+            ));
       },
     );
   }

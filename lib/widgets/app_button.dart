@@ -40,6 +40,7 @@ class AppButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Row(
+          textDirection: TextDirection.ltr,
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           spacing: 15.w,
