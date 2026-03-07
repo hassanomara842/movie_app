@@ -106,7 +106,7 @@ class ApiManager {
   static Future<MovieResponse> getAllMovies() async {
     Uri url =
         Uri.https(ApiConstants.movieBaseUrl, ApiEndPoints.allMovieEndPoint, {
-      "sort_by:": "year",
+      "sort_by:": "date_added",
       "order_by": "desc",
     });
 
