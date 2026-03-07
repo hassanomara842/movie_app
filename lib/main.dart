@@ -8,6 +8,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/theming/app_theme.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
+import 'package:movie_app/cubit/profile_cubit.dart';
 import 'package:movie_app/data/local/hive/movie_hive_model.dart';
 import 'package:movie_app/data/local/hive/movies_cache_entry_hive_model.dart';
 import 'package:movie_app/cubit/internet_cubit.dart';
@@ -42,8 +43,11 @@ void main() async {
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
-      child: BlocProvider(
-        create: (context) => InternetCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => InternetCubit()),
+          BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserProfile()),
+        ],
         child: const MyApp(),
       ),
     ),
