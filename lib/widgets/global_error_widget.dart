@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
+import 'package:movie_app/core/routing/app_routes.dart';
 
 class GlobalErrorWidget extends StatelessWidget {
   final FlutterErrorDetails errorDetails;
@@ -36,7 +37,8 @@ class GlobalErrorWidget extends StatelessWidget {
               SizedBox(height: 30.h),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, AppRoutes.homeLayout, (route) => false);
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primaryYellow,
