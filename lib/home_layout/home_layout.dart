@@ -6,6 +6,7 @@ import '../core/responsive/size_config.dart';
 import '../di/injection.dart';
 import 'cubit/home_layout_cubit.dart';
 import 'cubit/home_layout_states.dart';
+import 'tabs/home_tab/cubit/home_tab_cubit.dart';
 
 class HomeLayout extends StatelessWidget {
   const HomeLayout({super.key});
@@ -13,11 +14,23 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    return BlocProvider(
-      create: (context) => getIt<HomeLayoutCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => getIt<HomeLayoutCubit>()),
+        BlocProvider(
+          create: (context) => getIt<HomeTabCubit>()
+            ..getMovies()
+            ..getMoviesByGenre(0)
+            ..getMoviesByGenre(1)
+            ..getMoviesByGenre(2)
+            ..getMoviesByGenre(3),
+        ),
+      ],
       child: BlocBuilder<HomeLayoutCubit, HomeLayoutStates>(
         builder: (context, state) {
           var cubit = context.read<HomeLayoutCubit>();
+          var homeTabCubit = context.read<HomeTabCubit>();
+
           return Scaffold(
             resizeToAvoidBottomInset: false,
             body: Stack(
@@ -40,6 +53,9 @@ class HomeLayout extends StatelessWidget {
                           type: BottomNavigationBarType.fixed,
                           currentIndex: cubit.selectedIndex,
                           onTap: (index) {
+                            if (index == 0 && cubit.selectedIndex != 0) {
+                              homeTabCubit.refreshHomeCategories();
+                            }
                             cubit.changeIndex(index);
                           },
                           showSelectedLabels: false,

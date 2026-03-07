@@ -5,15 +5,15 @@ import 'package:movie_app/domain/repositories/movies_repository.dart';
 import '../../../../model/movie_response/movie_response.dart';
 import 'home_tab_states.dart';
 
-@injectable
+@lazySingleton
 class HomeTabCubit extends Cubit<HomeTabStates> {
   final MoviesRepository _moviesRepository;
 
   HomeTabCubit(this._moviesRepository) : super(HomeTabStatesInitial());
 
   MovieResponse? allMovies;
-  MovieResponse? allMoviesByGenre;
-  String? currentGenre;
+  List<MovieResponse?> genreMoviesList = [null, null, null, null];
+  List<String?> genreNames = [null, null, null, null];
 
   final List<String> genres = [
     'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime',
@@ -33,15 +33,35 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
     }
   }
 
-  Future<void> getMoviesByGenre([String? genre]) async {
-    allMoviesByGenre = null;
-    emit(HomeTabGenreMoviesLoading());
-    currentGenre = genre ?? genres[Random().nextInt(genres.length)];
+  void refreshHomeCategories() {
+    getMoviesByGenre(1);
+    getMoviesByGenre(2);
+    getMoviesByGenre(3);
+  }
+
+  Future<void> getMoviesByGenre(int index, [String? genre]) async {
+    genreMoviesList[index] = null;
+    emit(HomeTabGenreMoviesLoading(index));
+    
+    String selectedGenre = genre ?? genres[Random().nextInt(genres.length)];
+
+    if (genre == null && index > 0) {
+      while (genreNames.sublist(1).contains(selectedGenre)) {
+        selectedGenre = genres[Random().nextInt(genres.length)];
+      }
+    }
+    genreNames[index] = selectedGenre;
+
     try {
-      allMoviesByGenre = await _moviesRepository.getAllMoviesByGenre(currentGenre!);
-      emit(HomeTabGenreMoviesSuccess(moviesByGenre: allMoviesByGenre!, genre: currentGenre!));
+      final movies = await _moviesRepository.getAllMoviesByGenre(selectedGenre);
+      genreMoviesList[index] = movies;
+      emit(HomeTabGenreMoviesSuccess(
+        moviesByGenre: movies, 
+        genre: selectedGenre, 
+        index: index
+      ));
     } catch (e) {
-      emit(HomeTabGenreMoviesError(errorMessage: e.toString()));
+      emit(HomeTabGenreMoviesError(errorMessage: e.toString(), index: index));
     }
   }
 }

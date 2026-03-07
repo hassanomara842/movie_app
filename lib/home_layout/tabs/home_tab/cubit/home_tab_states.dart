@@ -16,15 +16,20 @@ class HomeTabAllMoviesError extends HomeTabStates {
   HomeTabAllMoviesError({required this.errorMessage});
 }
 
-class HomeTabGenreMoviesLoading extends HomeTabStates {}
+class HomeTabGenreMoviesLoading extends HomeTabStates {
+  final int index;
+  HomeTabGenreMoviesLoading(this.index);
+}
 
 class HomeTabGenreMoviesSuccess extends HomeTabStates {
   final MovieResponse moviesByGenre;
   final String genre;
-  HomeTabGenreMoviesSuccess({required this.moviesByGenre, required this.genre});
+  final int index;
+  HomeTabGenreMoviesSuccess({required this.moviesByGenre, required this.genre, required this.index});
 }
 
 class HomeTabGenreMoviesError extends HomeTabStates {
   final String errorMessage;
-  HomeTabGenreMoviesError({required this.errorMessage});
+  final int index;
+  HomeTabGenreMoviesError({required this.errorMessage, required this.index});
 }
