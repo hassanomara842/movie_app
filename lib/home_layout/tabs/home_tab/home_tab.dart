@@ -25,7 +25,9 @@ class HomeTab extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<HomeTabCubit>()
         ..getMovies()
-        ..getMoviesByGenre(),
+        ..getMoviesByGenre(0)
+        ..getMoviesByGenre(1)
+        ..getMoviesByGenre(2),
       child: Scaffold(
         body: BlocBuilder<HomeTabCubit, HomeTabStates>(
           builder: (context, state) {
@@ -39,51 +41,71 @@ class HomeTab extends StatelessWidget {
                     fit: BoxFit.cover),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: h(12)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: h(30)),
-                      Image.asset(AppAssets.availableNow, fit: BoxFit.contain),
-                      _buildUpperSection(state, cubit),
-                      Image.asset(AppAssets.watchNow, fit: BoxFit.contain),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: w(16)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(cubit.currentGenre?.tr() ?? "Action".tr(),
-                                style: AppText.regularTextRoboto(
-                                    color: AppColors.white, fontSize: 20.sp)),
-                            TextButton(
-                                onPressed: () {},
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text("see_more".tr(),
-                                        style: AppText.regularTextRoboto(
-                                            color: AppColors.primaryYellow,
-                                            fontSize: 16.sp)),
-                                    SizedBox(width: w(5)),
-                                    const Icon(
-                                      size: 16,
-                                      Icons.arrow_forward_outlined,
-                                      color: AppColors.primaryYellow,
-                                    )
-                                  ],
-                                )),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: _buildLowerSection(state, cubit),
-                      )
-                    ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      spacing: h(10),
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: h(30)),
+                        Image.asset(AppAssets.availableNow,
+                            fit: BoxFit.contain),
+                        _buildUpperSection(state, cubit),
+                        Image.asset(AppAssets.watchNow, fit: BoxFit.contain),
+                        _buildGenreSectionWithMovies(state, cubit, 0),
+                        _buildGenreSectionWithMovies(state, cubit, 1),
+                        _buildGenreSectionWithMovies(state, cubit, 2),
+                        SizedBox(height: h(100)),
+                      ],
+                    ),
                   ),
                 )
               ],
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget _buildGenreSectionWithMovies(
+      HomeTabStates state, HomeTabCubit cubit, int index) {
+    return Column(
+      children: [
+        _buildGenreHeader(cubit, index),
+        SizedBox(
+          height: h(250),
+          child: _buildLowerSection(state, cubit, index),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGenreHeader(HomeTabCubit cubit, int index) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: w(16)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(cubit.genreNames[index]?.tr() ?? "Loading...".tr(),
+              style: AppText.regularTextRoboto(
+                  color: AppColors.white, fontSize: 20.sp)),
+          TextButton(
+              onPressed: () {},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("see_more".tr(),
+                      style: AppText.regularTextRoboto(
+                          color: AppColors.primaryYellow, fontSize: 16.sp)),
+                  SizedBox(width: w(5)),
+                  const Icon(
+                    size: 16,
+                    Icons.arrow_forward_outlined,
+                    color: AppColors.primaryYellow,
+                  )
+                ],
+              )),
+        ],
       ),
     );
   }
@@ -129,8 +151,9 @@ class HomeTab extends StatelessWidget {
     return SizedBox(height: h(350));
   }
 
-  Widget _buildLowerSection(HomeTabStates state, HomeTabCubit cubit) {
-    final movies = cubit.allMoviesByGenre?.data?.movies;
+  Widget _buildLowerSection(
+      HomeTabStates state, HomeTabCubit cubit, int index) {
+    final movies = cubit.genreMoviesList[index]?.data?.movies;
 
     if (movies != null && movies.isNotEmpty) {
       return ListView.separated(
@@ -144,7 +167,10 @@ class HomeTab extends StatelessWidget {
       );
     }
 
-    if (state is HomeTabGenreMoviesLoading) {
+    bool isLoading =
+        (state is HomeTabGenreMoviesLoading && state.index == index);
+
+    if (isLoading && (movies == null || movies.isEmpty)) {
       return ListView.separated(
         padding: EdgeInsets.symmetric(horizontal: w(16)),
         scrollDirection: Axis.horizontal,
@@ -152,9 +178,11 @@ class HomeTab extends StatelessWidget {
         itemBuilder: (context, index) => const MovieCardShimmer(),
         separatorBuilder: (context, index) => SizedBox(width: w(16)),
       );
-    } else if (state is HomeTabGenreMoviesError) {
-      return _buildErrorState(
-          state.errorMessage, () => cubit.getMoviesByGenre(cubit.currentGenre));
+    } else if (state is HomeTabGenreMoviesError &&
+        state.index == index &&
+        (movies == null || movies.isEmpty)) {
+      return _buildErrorState(state.errorMessage,
+          () => cubit.getMoviesByGenre(index, cubit.genreNames[index]));
     }
 
     return const SizedBox();
@@ -170,7 +198,7 @@ class HomeTab extends StatelessWidget {
             message,
             textAlign: TextAlign.center,
             style:
-            AppText.regularTextRoboto(color: Colors.white, fontSize: 16.sp),
+                AppText.regularTextRoboto(color: Colors.white, fontSize: 16.sp),
           ),
           TextButton(
             onPressed: onRetry,

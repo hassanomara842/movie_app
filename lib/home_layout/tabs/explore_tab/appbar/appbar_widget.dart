@@ -31,8 +31,7 @@ class _AppBarExploreWidgetState extends State<AppBarExploreWidget> {
             length: cubit.genres.length,
             child: TabBar(
               onTap: (index) {
-                // Pass the specific genre to the cubit
-                cubit.getMoviesByGenre(cubit.genres[index]);
+                cubit.getMoviesByGenre(0, cubit.genres[index]);
               },
               isScrollable: true,
               dividerColor: AppColors.transparentColor,
@@ -43,7 +42,7 @@ class _AppBarExploreWidgetState extends State<AppBarExploreWidget> {
               tabs: List.generate(cubit.genres.length, (index) {
                 return TabItem(
                   text: cubit.genres[index],
-                  isSelected: cubit.currentGenre == cubit.genres[index],
+                  isSelected: cubit.genreNames[0] == cubit.genres[index],
                 );
               }),
             ),

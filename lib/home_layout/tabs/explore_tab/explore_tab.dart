@@ -16,14 +16,14 @@ class ExploreTab extends StatefulWidget {
 class _ExploreTabState extends State<ExploreTab> {
   @override
   Widget build(BuildContext context) {
-      SizeConfig.init(context);
+    SizeConfig.init(context);
 
-      return BlocProvider(
-        create: (_) => getIt<HomeTabCubit>()..getMoviesByGenre(),
-        child: const Scaffold(
-          appBar: AppBarExploreWidget(),
-          body: ContentExploreScreen(),
-        ),
-      );
-    }
+    return BlocProvider(
+      create: (_) => getIt<HomeTabCubit>()..getMoviesByGenre(0),
+      child: const Scaffold(
+        appBar: AppBarExploreWidget(),
+        body: ContentExploreScreen(),
+      ),
+    );
+  }
 }

@@ -12,8 +12,8 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
   HomeTabCubit(this._moviesRepository) : super(HomeTabStatesInitial());
 
   MovieResponse? allMovies;
-  MovieResponse? allMoviesByGenre;
-  String? currentGenre;
+  List<MovieResponse?> genreMoviesList = [null, null, null];
+  List<String?> genreNames = [null, null, null];
 
   final List<String> genres = [
     'Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime',
@@ -33,15 +33,27 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
     }
   }
 
-  Future<void> getMoviesByGenre([String? genre]) async {
-    allMoviesByGenre = null;
-    emit(HomeTabGenreMoviesLoading());
-    currentGenre = genre ?? genres[Random().nextInt(genres.length)];
+  Future<void> getMoviesByGenre(int index, [String? genre]) async {
+    genreMoviesList[index] = null;
+    emit(HomeTabGenreMoviesLoading(index));
+    
+    String selectedGenre = genre ?? genres[Random().nextInt(genres.length)];
+    // Ensure unique genres for each section if picking randomly
+    while (genreNames.contains(selectedGenre) && genre == null) {
+      selectedGenre = genres[Random().nextInt(genres.length)];
+    }
+    genreNames[index] = selectedGenre;
+
     try {
-      allMoviesByGenre = await _moviesRepository.getAllMoviesByGenre(currentGenre!);
-      emit(HomeTabGenreMoviesSuccess(moviesByGenre: allMoviesByGenre!, genre: currentGenre!));
+      final movies = await _moviesRepository.getAllMoviesByGenre(selectedGenre);
+      genreMoviesList[index] = movies;
+      emit(HomeTabGenreMoviesSuccess(
+        moviesByGenre: movies, 
+        genre: selectedGenre, 
+        index: index
+      ));
     } catch (e) {
-      emit(HomeTabGenreMoviesError(errorMessage: e.toString()));
+      emit(HomeTabGenreMoviesError(errorMessage: e.toString(), index: index));
     }
   }
 }

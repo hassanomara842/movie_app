@@ -20,9 +20,10 @@ class ContentExploreScreen extends StatelessWidget {
     return BlocBuilder<HomeTabCubit, HomeTabStates>(
       builder: (context, state) {
         final cubit = context.read<HomeTabCubit>();
-        final movies = cubit.allMoviesByGenre?.data?.movies;
+        final movies = cubit.genreMoviesList[0]?.data?.movies;
 
         if (state is HomeTabGenreMoviesLoading &&
+            state.index == 0 &&
             (movies == null || movies.isEmpty)) {
           return Center(
               child: CircularProgressIndicator(
@@ -30,6 +31,7 @@ class ContentExploreScreen extends StatelessWidget {
         }
 
         if (state is HomeTabGenreMoviesError &&
+            state.index == 0 &&
             (movies == null || movies.isEmpty)) {
           return Center(
             child: Column(
@@ -44,7 +46,7 @@ class ContentExploreScreen extends StatelessWidget {
                       color: Colors.white, fontSize: sp(16)),
                 ),
                 TextButton(
-                  onPressed: () => cubit.getMoviesByGenre(cubit.currentGenre),
+                  onPressed: () => cubit.getMoviesByGenre(0, cubit.genreNames[0]),
                   child: Text("Try Again",
                       style: TextStyle(color: Theme.of(context).cardColor)),
                 )
