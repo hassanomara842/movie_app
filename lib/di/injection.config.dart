@@ -107,7 +107,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i584.RegisterUseCase(gh<_i932.AuthRepository>()));
     gh.factory<_i574.ProfileCubit>(
         () => _i574.ProfileCubit(gh<_i467.GetUserProfileUseCase>()));
-    gh.factory<_i418.HomeTabCubit>(
+    gh.lazySingleton<_i418.HomeTabCubit>(
         () => _i418.HomeTabCubit(gh<_i730.MoviesRepository>()));
     gh.factory<_i140.UpdateProfileCubit>(() => _i140.UpdateProfileCubit(
           gh<_i339.UpdateProfileUseCase>(),
