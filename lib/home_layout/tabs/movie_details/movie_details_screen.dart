@@ -33,110 +33,112 @@ class MovieDetailsScreen extends StatelessWidget {
         ..getMovieSuggestions(movieId: movieId),
       child: BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
           builder: (context, state) {
-            final cubit = context.read<MovieDetailsCubit>();
-            final Movie? movie = cubit.movieDetails?.data?.movie;
+        final cubit = context.read<MovieDetailsCubit>();
+        final Movie? movie = cubit.movieDetails?.data?.movie;
 
-            if (state is MovieDetailsLoadingState) {
-              return const Scaffold(
-                body: Center(child: MainLoadingWidget()),
-              );
-            }
+        if (state is MovieDetailsLoadingState) {
+          return const Scaffold(
+            body: Center(child: MainLoadingWidget()),
+          );
+        }
 
-            if (state is MovieDetailsErrorState) {
-              return Scaffold(
-                appBar: AppBar(),
-                body: Center(
+        if (state is MovieDetailsErrorState) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(AppAssets.popcornImage, width: 150.w),
+                  SizedBox(height: h(20)),
+                  Text(
+                    state.errorMessage,
+                    textAlign: TextAlign.center,
+                    style: AppText.regularTextRoboto(
+                        color: Colors.white, fontSize: sp(16)),
+                  ),
+                  TextButton(
+                    onPressed: () => cubit.getMovieDetails(movieId: movieId),
+                    child: const Text("Try Again",
+                        style: TextStyle(color: AppColors.primaryYellow)),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+
+        if (movie == null) {
+          return Scaffold(
+            appBar: AppBar(),
+            body: const Center(child: Text("No Data Found")),
+          );
+        }
+
+        return Scaffold(
+          body: SingleChildScrollView(
+            child: Column(
+              spacing: h(16),
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                VideoPlayWidget(movie: movie),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: w(10),
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: h(10),
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.asset(AppAssets.popcornImage, width: 150.w),
-                      SizedBox(height: h(20)),
-                      Text(
-                        state.errorMessage,
-                        textAlign: TextAlign.center,
-                        style: AppText.regularTextRoboto(
-                            color: Colors.white, fontSize: sp(16)),
+                      AppButton(
+                          buttonTitle: "watch".tr(),
+                          onPressed: () {},
+                          textColor: AppColors.white,
+                          backgroundColor: AppColors.errorRed),
+                      Row(
+                        spacing: w(10),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: IconTextWidget(
+                              text: movie.likeCount?.toString() ?? "0",
+                              image: AppAssets.favouriteIcon,
+                            ),
+                          ),
+                          Expanded(
+                              child: IconTextWidget(
+                                  text: "${movie.runtime ?? 0} ${"min".tr()}",
+                                  image: AppAssets.timeIcon)),
+                          Expanded(
+                              child: IconTextWidget(
+                                  text: movie.rating?.toString() ?? "0.0",
+                                  image: AppAssets.star)),
+                        ],
                       ),
-                      TextButton(
-                        onPressed: () => cubit.getMovieDetails(movieId: movieId),
-                        child: const Text("Try Again",
-                            style: TextStyle(color: AppColors.primaryYellow)),
-                      )
+                      title("screen_shots", context),
+                      ScreenShotsListWidget(movie: movie),
+                      title("similar", context),
+                      SimilerWidget(
+                          movies: cubit.movieSuggestions?.data?.movies),
+                      title("summary", context),
+                      Text(
+                        movie.descriptionFull ?? "",
+                        style: AppText.regularTextRoboto(
+                            color: Theme.of(context).splashColor,
+                            fontSize: sp(16)),
+                      ),
+                      title("cast", context),
+                      const CastWidget(),
+                      title("genres", context),
+                      GenresListWidget(genres: movie.genres ?? [])
                     ],
                   ),
                 ),
-              );
-            }
-
-            if (movie == null) {
-              return Scaffold(
-                appBar: AppBar(),
-                body: const Center(child: Text("No Data Found")),
-              );
-            }
-
-            return Scaffold(
-              body: SingleChildScrollView(
-                child: Column(
-                  spacing: h(16),
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    VideoPlayWidget(movie: movie),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: w(10),
-                      ),
-                      child: Column(
-                        spacing: h(10),
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          AppButton(
-                              buttonTitle: "watch".tr(),
-                              onPressed: () {},
-                              textColor: AppColors.white,
-                              backgroundColor: AppColors.errorRed),
-                          Row(
-                            spacing: w(10),
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  child: IconTextWidget(
-                                      text: movie.likeCount?.toString() ?? "0",
-                                      image: AppAssets.favouriteIcon)),
-                              Expanded(
-                                  child: IconTextWidget(
-                                      text: "${movie.runtime ?? 0} ${"min".tr()}",
-                                      image: AppAssets.timeIcon)),
-                              Expanded(
-                                  child: IconTextWidget(
-                                      text: movie.rating?.toString() ?? "0.0",
-                                      image: AppAssets.star)),
-                            ],
-                          ),
-                          title("screen_shots", context),
-                          ScreenShotsListWidget(movie: movie),
-                          title("similar", context),
-                          SimilerWidget(
-                              movies: cubit.movieSuggestions?.data?.movies),
-                          title("summary", context),
-                          Text(
-                            movie.descriptionFull ?? "",
-                            style: AppText.regularTextRoboto(
-                                color: Theme.of(context).splashColor,
-                                fontSize: sp(16)),
-                          ),
-                          title("cast", context),
-                          const CastWidget(),
-                          title("genres", context),
-                          GenresListWidget(genres: movie.genres ?? [])
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 

@@ -1,11 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/responsive/size_config.dart';
 import '../../../../core/colors/app_colors.dart';
 import '../../../../core/image/app_assets.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/text/app_text.dart';
 import '../../../../model/movie_details_response/movie_details_response.dart';
+import '../cubit/movie_details_cubit.dart';
+import '../cubit/movie_details_states.dart';
 
 class VideoPlayWidget extends StatelessWidget {
   final Movie movie;
@@ -66,7 +69,27 @@ class VideoPlayWidget extends StatelessWidget {
                           color: Colors.white,
                         ),
                       ),
-                      Image.asset(AppAssets.saveIcon)
+                      BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
+                        buildWhen: (previous, current) =>
+                            current is FavoriteStatusChangedState,
+                        builder: (context, state) {
+                          final cubit = context.read<MovieDetailsCubit>();
+                          return InkWell(
+                            onTap: () {
+                              cubit.toggleFavorite(movie);
+                            },
+                            child: Icon(
+                              cubit.isFavorite
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border_outlined,
+                              size: h(32),
+                              color: cubit.isFavorite
+                                  ? AppColors.white
+                                  : Colors.white,
+                            ),
+                          );
+                        },
+                      )
                     ],
                   ),
                   InkWell(

@@ -19,3 +19,8 @@ class MovieSuggestionsErrorState extends MovieDetailsStates {
 }
 
 class MovieSuggestionsSuccessState extends MovieDetailsStates {}
+
+class FavoriteStatusChangedState extends MovieDetailsStates {
+  final bool isFavorite;
+  FavoriteStatusChangedState(this.isFavorite);
+}
