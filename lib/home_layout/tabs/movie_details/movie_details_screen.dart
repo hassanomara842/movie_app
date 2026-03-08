@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,17 +22,42 @@ import '../../../core/responsive/size_config.dart';
 import 'cubit/movie_details_cubit.dart';
 import 'cubit/movie_details_states.dart';
 
-class MovieDetailsScreen extends StatelessWidget {
+class MovieDetailsScreen extends StatefulWidget {
   final int movieId;
   const MovieDetailsScreen({super.key, required this.movieId});
 
+  @override
+  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
+}
+
+class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
+  Future<void> toggleFavorite(int movieId) async {
+    final userId = FirebaseAuth.instance.currentUser!.uid;
+
+    final favRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(userId)
+        .collection("favorites")
+        .doc(movieId.toString());
+
+    final doc = await favRef.get();
+
+    if (doc.exists) {
+      await favRef.delete();
+    } else {
+      await favRef.set({
+        "movieId": movieId,
+      });
+
+    }
+  }
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return BlocProvider(
       create: (context) => getIt<MovieDetailsCubit>()
-        ..getMovieDetails(movieId: movieId)
-        ..getMovieSuggestions(movieId: movieId),
+        ..getMovieDetails(movieId: widget.movieId)
+        ..getMovieSuggestions(movieId: widget.movieId),
       child: BlocBuilder<MovieDetailsCubit, MovieDetailsStates>(
           builder: (context, state) {
             final cubit = context.read<MovieDetailsCubit>();
@@ -58,7 +85,7 @@ class MovieDetailsScreen extends StatelessWidget {
                             color: Colors.white, fontSize: sp(16)),
                       ),
                       TextButton(
-                        onPressed: () => cubit.getMovieDetails(movieId: movieId),
+                        onPressed: () => cubit.getMovieDetails(movieId: widget.movieId),
                         child: const Text("Try Again",
                             style: TextStyle(color: AppColors.primaryYellow)),
                       )
@@ -100,9 +127,16 @@ class MovieDetailsScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    toggleFavorite(movie.id!);
+                                  },
                                   child: IconTextWidget(
-                                      text: movie.likeCount?.toString() ?? "0",
-                                      image: AppAssets.favouriteIcon)),
+                                    text: movie.likeCount?.toString() ?? "0",
+                                    image: AppAssets.favouriteIcon,
+                                  ),
+                                ),
+                              ),
                               Expanded(
                                   child: IconTextWidget(
                                       text: "${movie.runtime ?? 0} ${"min".tr()}",
