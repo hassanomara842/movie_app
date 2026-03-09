@@ -92,7 +92,18 @@ class MovieDetailsScreen extends StatelessWidget {
                     children: [
                       AppButton(
                           buttonTitle: "watch".tr(),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (movie.url != null) {
+                              Navigator.pushNamed(
+                                context,
+                                '/watchMovieScreen',
+                                arguments: {
+                                  'url': movie.url,
+                                  'movieTitle': movie.title ?? 'Watch Movie',
+                                },
+                              );
+                            }
+                          },
                           textColor: AppColors.white,
                           backgroundColor: AppColors.errorRed),
                       Row(
