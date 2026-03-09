@@ -26,6 +26,18 @@ class AppAssets {
   static const String splashLogo = 'assets/images/splash_logo.png';
   static const String logoImage = 'assets/images/logo.png';
   static const String googleIcon = 'assets/images/google.png';
+  static const String homeTabBG = 'assets/images/home_tab_bg.png';
+  static const String availableNow = 'assets/images/available_now.png';
+  static const String watchNow = 'assets/images/watch_now.png';
+  static const String star = 'assets/images/star.png';
 
-
+  static const String homeIcon = 'assets/images/icons/home_logo.png';
+  static const String searchIcon = 'assets/images/icons/search_logo.png';
+  static const String searchIconDark = 'assets/images/search_dark.png';
+  static const String exploreIcon = 'assets/images/icons/explore_logo.png';
+  static const String profileIcon = 'assets/images/icons/profile_logo.png';
+  static const String favouriteIcon = 'assets/images/favorite.png';
+  static const String playButton = 'assets/images/play.png';
+  static const String saveIcon = 'assets/images/save.png';
+  static const String timeIcon = 'assets/images/time.png';
 }

@@ -52,7 +52,7 @@ class OnboardingWidgetScreen extends StatelessWidget {
             ),
             child: SafeArea(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 35.h),
                 child: SingleChildScrollView(
                   child: Column(
                     spacing: spacing.h,

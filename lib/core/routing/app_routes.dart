@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/auth/screens/movie_screen/watch_movie_screen.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/onBoarding/screens/on_boarding_screens/create_watchlists.dart';
@@ -29,7 +28,6 @@ class AppRoutes {
   static const String registerScreen = '/registerScreen';
   static const String updateProfileScreen = '/updateProfileScreen';
   static const String profileScreen = '/profileScreen';
-  static const String watchMovieScreen = '/watchMovieScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -83,14 +81,6 @@ class AppRoutes {
       case profileScreen:
         return darkRoute(
           const ProfileScreen(),
-        );
-      case watchMovieScreen:
-        final args = settings.arguments as Map<String, dynamic>;
-        return darkRoute(
-          WatchMovieScreen(
-            url: args['url'] as String,
-            movieTitle: args['movieTitle'] as String? ?? 'Watch Movie',
-          ),
         );
 
       ///Auth Screens
