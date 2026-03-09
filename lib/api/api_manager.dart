@@ -169,7 +169,11 @@ class ApiManager {
     Uri url = Uri.https(
       ApiConstants.movieBaseUrl,
       ApiEndPoints.movieDetailsEndPoint,
-      {'movie_id': movieId.toString()},
+      {
+        'movie_id': movieId.toString(),
+        'with_images': 'true',
+        "with_cast": "true"
+      },
     );
 
     try {

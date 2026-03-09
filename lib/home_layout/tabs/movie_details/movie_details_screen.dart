@@ -6,6 +6,7 @@ import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/di/injection.dart';
+import 'package:movie_app/home_layout/tabs/movie_details/widgets/cast_widget.dart';
 import 'package:movie_app/home_layout/tabs/movie_details/widgets/download_section.dart';
 import 'package:movie_app/home_layout/tabs/movie_details/widgets/genres_widget.dart';
 import 'package:movie_app/home_layout/tabs/movie_details/widgets/icon_text_widget.dart';
@@ -138,6 +139,8 @@ class MovieDetailsScreen extends StatelessWidget {
                             color: Theme.of(context).splashColor,
                             fontSize: sp(16)),
                       ),
+                      title("cast", context),
+                      CastWidget(cast: movie.cast),
                       title("download", context),
                       DownloadSection(movie: movie),
                       title("genres", context),
