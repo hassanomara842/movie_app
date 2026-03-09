@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/model/watch_movie_screen/watch_movie_screen.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/cubit/auth_cubit.dart';
@@ -16,6 +15,7 @@ import '../../home_layout/home_layout.dart';
 import '../../home_layout/tabs/home_tab/home_tab.dart';
 import '../../home_layout/tabs/profile_tab/profile/profile_screen.dart';
 import '../../home_layout/tabs/profile_tab/update_profile_screen/update_profile_screen.dart';
+import '../../home_layout/watch_movie_screen/watch_movie_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../../auth/screens/login/login_screen.dart';
 
