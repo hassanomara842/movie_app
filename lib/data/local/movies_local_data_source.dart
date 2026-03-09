@@ -6,5 +6,7 @@ abstract class MoviesLocalDataSource {
 
   Future<void> cacheMoviesByGenre(String genre, MovieResponse response);
   Future<MovieResponse?> getCachedMoviesByGenre(String genre);
-}
 
+  Future<void> addToHistory(Movies movie);
+  Future<List<Movies>> getWatchHistory();
+}
