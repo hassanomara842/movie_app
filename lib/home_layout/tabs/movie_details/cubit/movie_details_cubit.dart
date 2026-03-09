@@ -47,9 +47,11 @@ class MovieDetailsCubit extends Cubit<MovieDetailsStates> {
         .doc(movie.id.toString());
 
     try {
+      bool added;
       if (isFavorite) {
         await favRef.delete();
         isFavorite = false;
+        added = false;
       } else {
         await favRef.set({
           "id": movie.id,
@@ -59,8 +61,10 @@ class MovieDetailsCubit extends Cubit<MovieDetailsStates> {
           "year": movie.year,
         });
         isFavorite = true;
+        added = true;
       }
       emit(FavoriteStatusChangedState(isFavorite));
+      emit(WishlistActionSuccessState(added: added));
     } catch (e) {
       emit(MovieDetailsErrorState(e.toString()));
     }

@@ -16,6 +16,7 @@ import 'package:movie_app/widgets/no_internet_widget.dart';
 import 'package:movie_app/widgets/global_error_widget.dart';
 import 'di/injection.dart';
 import 'firebase_options.dart';
+import 'package:movie_app/cubit/wishlist_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +48,7 @@ void main() async {
         providers: [
           BlocProvider(create: (context) => InternetCubit()),
           BlocProvider(create: (context) => getIt<ProfileCubit>()..getUserProfile()),
+          BlocProvider(create: (context) => getIt<WishlistCubit>()..start()),
         ],
         child: const MyApp(),
       ),
