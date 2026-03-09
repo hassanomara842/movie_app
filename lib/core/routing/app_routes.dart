@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_app/auth/screens/movie_screen/watch_movie_screen.dart';
+import 'package:movie_app/model/watch_movie_screen/watch_movie_screen.dart';
 import 'package:movie_app/auth/screens/register/register_screen.dart';
 import 'package:movie_app/auth/screens/reset_password/reset_password_screen.dart';
 import 'package:movie_app/cubit/auth_cubit.dart';
