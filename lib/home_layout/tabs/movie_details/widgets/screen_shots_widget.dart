@@ -13,9 +13,9 @@ class ScreenShotsListWidget extends StatelessWidget {
     SizeConfig.init(context);
 
     final List<String> screenShots = [
-      movie.mediumCoverImage ?? '',
-      movie.backgroundImage ?? '',
-      movie.backgroundImageOriginal ?? '',
+      movie.mediumScreenshotImage1 ?? '',
+      movie.mediumScreenshotImage2 ?? '',
+      movie.mediumScreenshotImage3 ?? '',
     ].where((url) => url.isNotEmpty).toList();
 
     return ListView.builder(

@@ -95,6 +95,13 @@ class Movie {
     this.smallCoverImage,
     this.mediumCoverImage,
     this.largeCoverImage,
+    this.mediumScreenshotImage1,
+    this.mediumScreenshotImage2,
+    this.mediumScreenshotImage3,
+    this.largeScreenshotImage1,
+    this.largeScreenshotImage2,
+    this.largeScreenshotImage3,
+    this.cast,
     this.torrents,
     this.dateUploaded,
     this.dateUploadedUnix,
@@ -109,16 +116,9 @@ class Movie {
     titleLong = json['title_long'];
     slug = json['slug'];
     year = json['year'];
-    rating = json['rating']?.toDouble();
+    rating = json['rating'];
     runtime = json['runtime'];
-    if (json['genres'] != null) {
-      genres = [];
-      json['genres'].forEach((v) {
-        genres?.add(v.toString());
-      });
-    } else {
-      genres = [];
-    }
+    genres = json['genres'] != null ? json['genres'].cast<String>() : [];
     likeCount = json['like_count'];
     descriptionIntro = json['description_intro'];
     descriptionFull = json['description_full'];
@@ -130,6 +130,18 @@ class Movie {
     smallCoverImage = json['small_cover_image'];
     mediumCoverImage = json['medium_cover_image'];
     largeCoverImage = json['large_cover_image'];
+    mediumScreenshotImage1 = json['medium_screenshot_image1'];
+    mediumScreenshotImage2 = json['medium_screenshot_image2'];
+    mediumScreenshotImage3 = json['medium_screenshot_image3'];
+    largeScreenshotImage1 = json['large_screenshot_image1'];
+    largeScreenshotImage2 = json['large_screenshot_image2'];
+    largeScreenshotImage3 = json['large_screenshot_image3'];
+    if (json['cast'] != null) {
+      cast = [];
+      json['cast'].forEach((v) {
+        cast?.add(Cast.fromJson(v));
+      });
+    }
     if (json['torrents'] != null) {
       torrents = [];
       json['torrents'].forEach((v) {
@@ -161,6 +173,13 @@ class Movie {
   String? smallCoverImage;
   String? mediumCoverImage;
   String? largeCoverImage;
+  String? mediumScreenshotImage1;
+  String? mediumScreenshotImage2;
+  String? mediumScreenshotImage3;
+  String? largeScreenshotImage1;
+  String? largeScreenshotImage2;
+  String? largeScreenshotImage3;
+  List<Cast>? cast;
   List<Torrents>? torrents;
   String? dateUploaded;
   int? dateUploadedUnix;
@@ -189,6 +208,15 @@ class Movie {
     map['small_cover_image'] = smallCoverImage;
     map['medium_cover_image'] = mediumCoverImage;
     map['large_cover_image'] = largeCoverImage;
+    map['medium_screenshot_image1'] = mediumScreenshotImage1;
+    map['medium_screenshot_image2'] = mediumScreenshotImage2;
+    map['medium_screenshot_image3'] = mediumScreenshotImage3;
+    map['large_screenshot_image1'] = largeScreenshotImage1;
+    map['large_screenshot_image2'] = largeScreenshotImage2;
+    map['large_screenshot_image3'] = largeScreenshotImage3;
+    if (cast != null) {
+      map['cast'] = cast?.map((v) => v.toJson()).toList();
+    }
     if (torrents != null) {
       map['torrents'] = torrents?.map((v) => v.toJson()).toList();
     }
@@ -263,6 +291,35 @@ class Torrents {
     map['size_bytes'] = sizeBytes;
     map['date_uploaded'] = dateUploaded;
     map['date_uploaded_unix'] = dateUploadedUnix;
+    return map;
+  }
+}
+
+class Cast {
+  Cast({
+    this.name,
+    this.characterName,
+    this.urlSmallImage,
+    this.imdbCode,
+  });
+
+  Cast.fromJson(dynamic json) {
+    name = json['name'];
+    characterName = json['character_name'];
+    urlSmallImage = json['url_small_image'];
+    imdbCode = json['imdb_code'];
+  }
+  String? name;
+  String? characterName;
+  String? urlSmallImage;
+  String? imdbCode;
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['name'] = name;
+    map['character_name'] = characterName;
+    map['url_small_image'] = urlSmallImage;
+    map['imdb_code'] = imdbCode;
     return map;
   }
 }
