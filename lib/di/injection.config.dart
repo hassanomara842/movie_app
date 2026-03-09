@@ -19,6 +19,7 @@ import 'package:movie_app/core/network/connectivity_service.dart' as _i175;
 import 'package:movie_app/cubit/auth_cubit.dart' as _i43;
 import 'package:movie_app/cubit/profile_cubit.dart' as _i574;
 import 'package:movie_app/cubit/update_profile_cubit.dart' as _i140;
+import 'package:movie_app/cubit/wishlist_cubit.dart' as _i999;
 import 'package:movie_app/data/local/movies_hive_local_data_source_impl.dart'
     as _i432;
 import 'package:movie_app/data/local/movies_local_data_source.dart' as _i1034;
@@ -119,6 +120,7 @@ extension GetItInjectableX on _i174.GetIt {
           registerUseCase: gh<_i584.RegisterUseCase>(),
           resetPasswordUseCase: gh<_i273.ResetPasswordUseCase>(),
         ));
+    gh.lazySingleton<_i999.WishlistCubit>(() => _i999.WishlistCubit());
     return this;
   }
 }
