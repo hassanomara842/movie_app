@@ -44,4 +44,8 @@ class HomeTabCubit extends Cubit<HomeTabStates> {
       emit(HomeTabGenreMoviesError(errorMessage: e.toString()));
     }
   }
+
+  Future<void> addToHistory(Movies movie) async {
+    await _moviesRepository.addToHistory(movie);
+  }
 }
