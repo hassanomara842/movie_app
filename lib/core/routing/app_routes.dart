@@ -15,6 +15,7 @@ import '../../home_layout/home_layout.dart';
 import '../../home_layout/tabs/home_tab/home_tab.dart';
 import '../../home_layout/tabs/profile_tab/profile/profile_screen.dart';
 import '../../home_layout/tabs/profile_tab/update_profile_screen/update_profile_screen.dart';
+import '../../home_layout/watch_movie_screen/watch_movie_screen.dart';
 import '../../onBoarding/screens/start_screen/find_your_next_movie.dart';
 import '../../auth/screens/login/login_screen.dart';
 
@@ -34,6 +35,7 @@ class AppRoutes {
   static const String homeTab = '/homeTab';
   static const String homeLayout = '/homeLayout';
   static const String movieDetailsScreen = '/movieDetailsScreen';
+  static const String watchMovieScreen = '/watchMovieScreen';
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     Route<dynamic> darkRoute(Widget page) {
@@ -131,6 +133,14 @@ class AppRoutes {
         final int movieId = settings.arguments as int;
         return darkRoute(
           MovieDetailsScreen(movieId: movieId),
+        );
+      case watchMovieScreen:
+        final args = settings.arguments as Map<String, dynamic>;
+        return darkRoute(
+          WatchMovieScreen(
+            url: args['url'] as String,
+            movieTitle: args['movieTitle'] as String? ?? 'Watch Movie',
+          ),
         );
       default:
         return darkRoute(
