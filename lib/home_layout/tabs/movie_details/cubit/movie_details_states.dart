@@ -24,3 +24,9 @@ class FavoriteStatusChangedState extends MovieDetailsStates {
   final bool isFavorite;
   FavoriteStatusChangedState(this.isFavorite);
 }
+
+class WishlistActionSuccessState extends MovieDetailsStates {
+  final bool added;
+
+  WishlistActionSuccessState({required this.added});
+}

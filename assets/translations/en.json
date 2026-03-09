@@ -106,7 +106,8 @@
   "oops_error": "Oops! Something went wrong",
   "error_message": "We're sorry for the inconvenience. Please try again later.",
   "back_to_home": "Back to Home",
-  "download": "Download"
-
+  "download": "Download",
+  "added_to_wishlist": "Added to wishlist",
+  "removed_from_wishlist": "Removed from wishlist"
 
 }

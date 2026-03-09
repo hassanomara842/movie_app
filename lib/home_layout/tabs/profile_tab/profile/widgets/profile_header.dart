@@ -8,6 +8,8 @@ import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/cubit/profile_cubit.dart';
 import 'package:movie_app/cubit/profile_states.dart';
+import 'package:movie_app/cubit/wishlist_cubit.dart';
+import 'package:movie_app/cubit/wishlist_state.dart';
 import 'package:movie_app/widgets/app_button.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
 
@@ -82,8 +84,19 @@ class ProfileHeader extends StatelessWidget {
                         ),
                       ],
                     ),
-                    _buildStatItem(
-                        Theme.of(context).splashColor, "12", "wish_list".tr()),
+                    BlocBuilder<WishlistCubit, WishlistState>(
+                      builder: (context, wishState) {
+                        final count = switch (wishState) {
+                          WishlistLoaded s => s.count,
+                          _ => 0,
+                        };
+                        return _buildStatItem(
+                          Theme.of(context).splashColor,
+                          count.toString(),
+                          "wish_list".tr(),
+                        );
+                      },
+                    ),
                     _buildStatItem(
                         Theme.of(context).splashColor, "10", "history".tr()),
                   ],
