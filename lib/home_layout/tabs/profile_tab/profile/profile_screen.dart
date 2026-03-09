@@ -89,7 +89,7 @@ class ProfileScreen extends StatelessWidget {
         }
 
         return ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+          padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 70.h),
           itemBuilder: (context, index) {
             final m = movies[index];
             return _WishlistMovieTile(movie: m);
@@ -124,6 +124,7 @@ class _WishlistMovieTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      splashColor: AppColors.transparentColor,
       borderRadius: BorderRadius.circular(12.r),
       onTap: () {
         final id = movie.id;
@@ -183,7 +184,8 @@ class _WishlistMovieTile extends StatelessWidget {
                   Text(
                     [
                       if (movie.year != null) movie.year.toString(),
-                      if (movie.rating != null) '⭐ ${movie.rating!.toStringAsFixed(1)}',
+                      if (movie.rating != null)
+                        '⭐ ${movie.rating!.toStringAsFixed(1)}',
                     ].join('  •  '),
                     style: AppText.regularText(
                       color: AppColors.grey,
