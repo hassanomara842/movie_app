@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
@@ -40,7 +41,11 @@ class ProfileCubit extends Cubit<ProfileStates> {
 
   Future<void> logout() async {
     try {
-      await CacheHelper.clearAll();
+      await FirebaseAuth.instance.signOut();
+      await CacheHelper.sharedPreferences.remove('userName');
+      await CacheHelper.sharedPreferences.remove('userEmail');
+      await CacheHelper.sharedPreferences.remove('avatarId');
+
       emit(LogoutSuccessState());
     } catch (e) {
       emit(ProfileErrorState("Logout failed: ${e.toString()}"));

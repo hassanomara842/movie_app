@@ -36,4 +36,8 @@ class AppAssets {
   static const String searchIconDark = 'assets/images/search_dark.png';
   static const String exploreIcon = 'assets/images/icons/explore_logo.png';
   static const String profileIcon = 'assets/images/icons/profile_logo.png';
+  static const String favouriteIcon = 'assets/images/favorite.png';
+  static const String playButton = 'assets/images/play.png';
+  static const String saveIcon = 'assets/images/save.png';
+  static const String timeIcon = 'assets/images/time.png';
 }

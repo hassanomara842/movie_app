@@ -34,9 +34,27 @@ class RegisterViewModel {
     if (value == null || value.isEmpty) {
       return "password_is_required".tr();
     }
-    if (value.length < 6) {
+
+    if (value.length < 8) {
       return "password_min_length".tr();
     }
+
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return "password_need_uppercase".tr();
+    }
+
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      return "password_need_lowercase".tr();
+    }
+
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return "password_need_number".tr();
+    }
+
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return "password_need_special".tr();
+    }
+
     return null;
   }
 
@@ -44,9 +62,15 @@ class RegisterViewModel {
     if (value == null || value.isEmpty) {
       return "confirm_password_is_required".tr();
     }
+
+    if (value.length < 8) {
+      return "password_min_length".tr();
+    }
+
     if (value != passwordController.text) {
       return "passwords_do_not_match".tr();
     }
+
     return null;
   }
 

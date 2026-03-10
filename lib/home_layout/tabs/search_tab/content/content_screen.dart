@@ -6,6 +6,7 @@ import 'package:movie_app/home_layout/tabs/search_tab/cubit/search_tab_cubit.dar
 import 'package:movie_app/widgets/main_loading_widget.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
+import '../../../../core/routing/app_routes.dart';
 import '../../../../core/text/app_text.dart';
 import '../cubit/search_tab_states.dart';
 
@@ -74,37 +75,45 @@ class ContentScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final movie = movies[index];
 
-              return Container(
-                alignment: Alignment.topLeft,
-                padding: EdgeInsets.all(w(10)),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      movie.mediumCoverImage ?? '',
+              return InkWell(
+                splashColor: Colors.transparent,
+                onTap: () {
+                  Navigator.pushNamed(context, AppRoutes.movieDetailsScreen,
+                      arguments: movie.id);
+                },
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  padding: EdgeInsets.all(w(10)),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        movie.mediumCoverImage ?? '',
+                      ),
                     ),
                   ),
-                ),
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: w(10), vertical: h(5)),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).splashColor.withValues(alpha: 0.6),
-                  ),
-                  child: Row(
-                    spacing: w(5),
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        movie.rating?.toStringAsFixed(1) ?? '0.0',
-                        style: AppText.regularTextRoboto(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: sp(16)),
-                      ),
-                      Image.asset(AppAssets.star),
-                    ],
+                  child: Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: w(10), vertical: h(5)),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color:
+                          Theme.of(context).splashColor.withValues(alpha: 0.6),
+                    ),
+                    child: Row(
+                      spacing: w(5),
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          movie.rating?.toStringAsFixed(1) ?? '0.0',
+                          style: AppText.regularTextRoboto(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: sp(16)),
+                        ),
+                        Image.asset(AppAssets.star),
+                      ],
+                    ),
                   ),
                 ),
               );
