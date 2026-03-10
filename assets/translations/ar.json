@@ -108,6 +108,17 @@
   "back_to_home": "العودة للرئيسية",
   "download": "تحميل",
   "added_to_wishlist": "تمت الإضافة إلى قائمة المفضلة",
-  "removed_from_wishlist": "تمت الإزالة من قائمة المفضلة"
-
+  "removed_from_wishlist": "تمت الإزالة من قائمة المفضلة",
+  "OK": "حسناً",
+  "Cancel": "إلغاء",
+  "confirm_exit": "تأكيد الخروج",
+  "are_you_sure_exit": "هل أنت متأكد أنك تريد الخروج؟",
+  "success": "نجاح",
+  "error": "خطأ",
+  "reset_password_successful": "تم إعادة تعيين كلمة المرور بنجاح",
+  "password_need_uppercase": "كلمة المرور تحتاج لحرف كبير",
+  "password_need_lowercase": "كلمة المرور تحتاج لحرف صغير",
+  "password_need_number": "كلمة المرور تحتاج إلى رقم",
+  "password_need_special": "كلمة المرور تحتاج إلى رمز خاص",
+  "cancel": "إلغاء"
 }

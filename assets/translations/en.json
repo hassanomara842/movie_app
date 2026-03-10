@@ -108,6 +108,17 @@
   "back_to_home": "Back to Home",
   "download": "Download",
   "added_to_wishlist": "Added to wishlist",
-  "removed_from_wishlist": "Removed from wishlist"
-
+  "removed_from_wishlist": "Removed from wishlist",
+  "OK": "OK",
+  "Cancel": "Cancel",
+  "confirm_exit": "Confirm Exit",
+  "are_you_sure_exit": "Are you sure you want to exit?",
+  "success": "Success",
+  "error": "Error",
+  "reset_password_successful": "Reset password successful",
+  "password_need_uppercase": "Password need uppercase",
+  "password_need_lowercase": "Password need lowercase",
+  "password_need_number": "Password need number",
+  "password_need_special": "Password need special",
+  "cancel": "Cancel"
 }

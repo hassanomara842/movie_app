@@ -9,8 +9,11 @@ import 'package:movie_app/cubit/auth_states.dart';
 import '../../../../widgets/app_button.dart';
 import 'package:movie_app/widgets/custom_text_form_field.dart';
 import 'package:movie_app/core/text/app_text.dart';
+import '../../../core/colors/app_colors.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/responsive/size_config.dart';
+import '../../../core/routing/app_routes.dart';
+import '../../../widgets/app_dialog_widget.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -50,14 +53,46 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     FocusScope.of(context).unfocus();
     context.read<AuthCubit>().resetPassword(emailController.text.trim());
   }
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
+        if (state is AuthLoading) {
+          AppDialog.showLoading(context, AppColors.primaryYellow);
+        }
+
         if (state is ResetPasswordSuccess) {
-          Navigator.pop(context);
+          AppDialog.hideLoading(context);
+
+          AppDialog.show(
+            context: context,
+            title: "success".tr(),
+            message: "reset_password_successful".tr(),
+            showCancel: false,
+            confirmText: "OK".tr(),
+            onConfirm: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                AppRoutes.login,
+                (route) => false,
+              );
+            },
+          );
+        }
+
+        if (state is AuthError) {
+          AppDialog.hideLoading(context);
+
+          AppDialog.show(
+            context: context,
+            title: "error".tr(),
+            message: state.message,
+            confirmText: "OK".tr(),
+            showCancel: false,
+          );
         }
       },
       child: Scaffold(
@@ -102,6 +137,31 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           errorStyle: AppText.boldText(
                             color: Theme.of(context).cardColor,
                             fontSize: 17.sp,
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: w(14),
+                            vertical: h(14),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).splashColor,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).splashColor,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(
+                              color: Theme.of(context).cardColor,
+                              width: 1.0,
+                            ),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
