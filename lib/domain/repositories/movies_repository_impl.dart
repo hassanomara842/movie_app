@@ -51,4 +51,9 @@ class MoviesRepositoryImpl implements MoviesRepository {
   Future<List<Movies>> getWatchHistory() async {
     return await _localDataSource.getWatchHistory();
   }
+
+  @override
+  Future<void> clearHistory() async {
+    await _localDataSource.clearHistory();
+  }
 }

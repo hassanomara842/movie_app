@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/image/app_assets.dart';
-import 'package:movie_app/di/di.dart';
 import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/home_layout/tabs/search_tab/cubit/search_tab_cubit.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
@@ -10,6 +9,7 @@ import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/text/app_text.dart';
+import '../../../../di/injection.dart';
 import '../cubit/search_tab_states.dart';
 
 class ContentScreen extends StatelessWidget {

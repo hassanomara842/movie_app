@@ -12,7 +12,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
   final GetUserProfileUseCase getUserProfileUseCase;
   final MoviesRepository moviesRepository;
 
-  ProfileCubit(this.getUserProfileUseCase, this.moviesRepository) : super(ProfileInitial());
+  ProfileCubit(this.getUserProfileUseCase, this.moviesRepository)
+      : super(ProfileInitial());
   Future<void> getUserProfile() async {
     emit(ProfileLoadingState());
     try {
@@ -39,6 +40,7 @@ class ProfileCubit extends Cubit<ProfileStates> {
       }
     }
   }
+
   Future<void> getWatchHistory() async {
     emit(GetWatchHistoryLoadingState());
     try {
@@ -48,6 +50,16 @@ class ProfileCubit extends Cubit<ProfileStates> {
       emit(GetWatchHistoryErrorState(e.toString()));
     }
   }
+
+  Future<void> clearHistory() async {
+    try {
+      await moviesRepository.clearHistory();
+      emit(GetWatchHistorySuccessState([]));
+    } catch (e) {
+      emit(GetWatchHistoryErrorState(e.toString()));
+    }
+  }
+
   Future<void> logout() async {
     try {
       await FirebaseAuth.instance.signOut();

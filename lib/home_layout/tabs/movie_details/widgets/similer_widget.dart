@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
-import 'package:movie_app/di/di.dart';
 import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import '../../../../core/image/app_assets.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
+import '../../../../di/injection.dart';
 import 'icon_text_widget.dart';
 
 class SimilerWidget extends StatelessWidget {
