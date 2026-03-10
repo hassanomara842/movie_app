@@ -24,8 +24,6 @@ class MoviesRepositoryImpl implements MoviesRepository {
 
     final cached = await _localDataSource.getCachedAllMovies();
     if (cached != null) return cached;
-
-    // No internet + no cache: keep error explicit.
     throw Exception('No internet connection and no cached movies found.');
   }
 
@@ -43,5 +41,14 @@ class MoviesRepositoryImpl implements MoviesRepository {
 
     throw Exception('No internet connection and no cached movies for $genre.');
   }
-}
 
+  @override
+  Future<void> addToHistory(Movies movie) async {
+    await _localDataSource.addToHistory(movie);
+  }
+
+  @override
+  Future<List<Movies>> getWatchHistory() async {
+    return await _localDataSource.getWatchHistory();
+  }
+}

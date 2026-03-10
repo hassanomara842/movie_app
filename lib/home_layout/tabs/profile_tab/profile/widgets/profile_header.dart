@@ -12,6 +12,8 @@ import 'package:movie_app/cubit/wishlist_cubit.dart';
 import 'package:movie_app/cubit/wishlist_state.dart';
 import 'package:movie_app/widgets/app_button.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
+import 'package:movie_app/core/helpers/cache_helper.dart';
+import 'package:movie_app/domain/entities/user_entity.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -29,6 +31,8 @@ class ProfileHeader extends StatelessWidget {
       AppAssets.avatar7,
       AppAssets.avatar8,
     ];
+
+    context.read<ProfileCubit>().getWatchHistory();
 
     return BlocListener<ProfileCubit, ProfileStates>(
       listener: (context, state) {
@@ -51,7 +55,15 @@ class ProfileHeader extends StatelessWidget {
             );
           }
 
-          final user = (state is ProfileSuccessState) ? state.user : null;
+          final user = (state is ProfileSuccessState && state.user != null)
+              ? state.user!
+              : UserEntity(
+            id: '',
+            name: CacheHelper.getUserName() ?? "User",
+            email: CacheHelper.getUserEmail() ?? '',
+            phone: '',
+            avaterId: CacheHelper.getAvatarId() ?? 1,
+          );
 
           return Container(
             width: double.infinity,
@@ -71,34 +83,55 @@ class ProfileHeader extends StatelessWidget {
                         CircleAvatar(
                           radius: 55.w,
                           backgroundImage: AssetImage(
-                            (user != null && user.avaterId > 0 && user.avaterId <= avatars.length)
+                            (user.avaterId > 0 && user.avaterId <= avatars.length)
                                 ? avatars[user.avaterId - 1]
                                 : AppAssets.avatar,
                           ),
                         ),
                         Text(
-                          user?.name ?? "User",
+                          user.name,
                           style: AppText.boldText(
                               color: Theme.of(context).splashColor,
                               fontSize: 20.sp),
                         ),
                       ],
                     ),
-                    BlocBuilder<WishlistCubit, WishlistState>(
-                      builder: (context, wishState) {
-                        final count = switch (wishState) {
-                          WishlistLoaded s => s.count,
-                          _ => 0,
-                        };
-                        return _buildStatItem(
-                          Theme.of(context).splashColor,
-                          count.toString(),
-                          "wish_list".tr(),
-                        );
+                    GestureDetector(
+                      onTap: () {
+                        DefaultTabController.of(context).animateTo(0);
                       },
+                      child: BlocBuilder<WishlistCubit, WishlistState>(
+                        builder: (context, wishState) {
+                          final count = switch (wishState) {
+                            WishlistLoaded s => s.count,
+                            _ => 0,
+                          };
+                          return _buildStatItem(
+                            Theme.of(context).splashColor,
+                            count.toString(),
+                            "wish_list".tr(),
+                          );
+                        },
+                      ),
                     ),
-                    _buildStatItem(
-                        Theme.of(context).splashColor, "10", "history".tr()),
+                    GestureDetector(
+                      onTap: () {
+                        DefaultTabController.of(context).animateTo(1);
+                      },
+                      child: BlocBuilder<ProfileCubit, ProfileStates>(
+                        builder: (context, profileState) {
+                          int historyCount = 0;
+                          if (profileState is GetWatchHistorySuccessState) {
+                            historyCount = profileState.movies.length;
+                          }
+                          return _buildStatItem(
+                            Theme.of(context).splashColor,
+                            historyCount.toString(),
+                            "history".tr(),
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
                 Row(
