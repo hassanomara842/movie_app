@@ -12,6 +12,7 @@ import 'package:movie_app/widgets/app_button.dart';
 import 'package:movie_app/widgets/build_inputs.dart';
 import '../../../cubit/auth_cubit.dart';
 import '../../../cubit/auth_states.dart';
+import '../../../widgets/app_dialog_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,17 +31,38 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(listener: (context, state) {
+      if (state is AuthLoading) {
+        AppDialog.showLoading(context, AppColors.primaryYellow);
+      }
+
       if (state is AuthSuccess) {
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          AppRoutes.homeLayout,
-          (route) => false,
+        AppDialog.hideLoading(context);
+
+        AppDialog.show(
+          context: context,
+          title: "success".tr(),
+          message: "login_successful".tr(),
+          showCancel: false,
+          confirmText: "OK".tr(),
+          onConfirm: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutes.homeLayout,
+              (route) => false,
+            );
+          },
         );
       }
 
       if (state is AuthError) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(state.message)),
+        AppDialog.hideLoading(context);
+
+        AppDialog.show(
+          context: context,
+          title: "error".tr(),
+          message: state.message,
+          showCancel: false,
+          confirmText: "OK".tr(),
         );
       }
     }, builder: (context, state) {
