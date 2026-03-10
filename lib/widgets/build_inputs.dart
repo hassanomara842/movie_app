@@ -11,7 +11,6 @@ class BuildInputs extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final TextInputAction textInputAction;
-  //delete unuseful attribute _obscureText
 
   const BuildInputs(
       {super.key,
@@ -33,7 +32,6 @@ class _BuildInputsState extends State<BuildInputs> {
   @override
   void initState() {
     super.initState();
-    // passing the value of isPass to _obscureText
     _obscureText = widget.isPass;
   }
 
@@ -45,6 +43,7 @@ class _BuildInputsState extends State<BuildInputs> {
       controller: widget.controller,
       validator: widget.validator,
       obscureText: _obscureText,
+      cursorColor: Theme.of(context).splashColor,
       style: AppText.regularText(
           color: Theme.of(context).splashColor, fontSize: 16.sp),
       hintText: widget.hint,
