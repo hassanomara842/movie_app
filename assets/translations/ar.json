@@ -35,7 +35,7 @@
   "name_is_required": "الاسم مطلوب",
   "name_min_length": "يجب أن يكون الاسم 3 أحرف على الأقل",
   "password_is_required": "كلمة المرور مطلوبة",
-  "password_min_length": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+  "password_min_length": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
   "confirm_password_is_required": "تأكيد كلمة المرور مطلوب",
   "passwords_do_not_match": "كلمتا المرور غير متطابقتين",
   "phone_number_is_required": "رقم الهاتف مطلوب",
