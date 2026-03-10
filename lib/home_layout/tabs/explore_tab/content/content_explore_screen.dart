@@ -88,6 +88,7 @@ class ContentExploreScreen extends StatelessWidget {
               return InkWell(
                 splashColor: Colors.transparent,
                 onTap: () {
+                  cubit.addToHistory(movie);
                   Navigator.pushNamed(context, AppRoutes.movieDetailsScreen,
                       arguments: movie.id);
                 },

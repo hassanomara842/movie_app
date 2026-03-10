@@ -7,13 +7,19 @@ import 'package:movie_app/model/movie_response/movie_response.dart';
 import 'movies_local_data_source.dart';
 
 const _moviesCacheBoxName = 'movies_cache_box';
+const _historyBoxName = 'history_box';
 
 @LazySingleton(as: MoviesLocalDataSource)
 class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
   Future<Box<MoviesCacheEntryHiveModel>>? _boxFuture;
+  Future<Box<MovieHiveModel>>? _historyBoxFuture;
 
   Future<Box<MoviesCacheEntryHiveModel>> _box() {
     return _boxFuture ??= Hive.openBox<MoviesCacheEntryHiveModel>(_moviesCacheBoxName);
+  }
+
+  Future<Box<MovieHiveModel>> _historyBox() {
+    return _historyBoxFuture ??= Hive.openBox<MovieHiveModel>(_historyBoxName);
   }
 
   @override
@@ -34,6 +40,38 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
   @override
   Future<MovieResponse?> getCachedMoviesByGenre(String genre) async {
     return _get(key: 'genre:$genre');
+  }
+
+  @override
+  Future<void> addToHistory(Movies movie) async {
+    if (movie.id == null || movie.title == null) return;
+    final box = await _historyBox();
+    final hiveMovie = MovieHiveModel(
+      id: movie.id!,
+      title: movie.title!,
+      year: movie.year,
+      rating: movie.rating,
+      mediumCoverImage: movie.mediumCoverImage,
+    );
+    await box.put(movie.id.toString(), hiveMovie);
+  }
+
+  @override
+  Future<List<Movies>> getWatchHistory() async {
+    final box = await _historyBox();
+    return box.values
+        .map(
+          (m) => Movies(
+            id: m.id,
+            title: m.title,
+            year: m.year,
+            rating: m.rating,
+            mediumCoverImage: m.mediumCoverImage,
+          ),
+        )
+        .toList()
+        .reversed
+        .toList();
   }
 
   Future<void> _cache({required String key, required MovieResponse response}) async {
@@ -66,7 +104,6 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
     final entry = box.get(key);
     if (entry == null) return null;
 
-    // Map back to MovieResponse shape used by current UI.
     final movies = entry.movies
         .map(
           (m) => Movies(
@@ -86,4 +123,3 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
     );
   }
 }
-

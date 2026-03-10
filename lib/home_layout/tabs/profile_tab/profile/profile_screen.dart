@@ -7,7 +7,10 @@ import 'package:movie_app/cubit/wishlist_state.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/text/app_text.dart';
+import 'package:movie_app/di/di.dart';
+import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_details_response/movie_details_response.dart';
+import 'package:movie_app/model/movie_response/movie_response.dart';
 import 'package:movie_app/home_layout/tabs/movie_details/movie_details_screen.dart';
 
 import 'widgets/profile_header.dart';
@@ -129,6 +132,18 @@ class _WishlistMovieTile extends StatelessWidget {
       onTap: () {
         final id = movie.id;
         if (id == null) return;
+
+        // Save to History before navigating
+        getIt<MoviesRepository>().addToHistory(
+          Movies(
+            id: movie.id,
+            title: movie.title,
+            year: movie.year,
+            rating: movie.rating,
+            mediumCoverImage: movie.mediumCoverImage,
+          ),
+        );
+
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (_) => MovieDetailsScreen(movieId: id),

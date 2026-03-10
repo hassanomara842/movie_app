@@ -2,6 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/core/image/app_assets.dart';
+import 'package:movie_app/di/di.dart';
+import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/home_layout/tabs/search_tab/cubit/search_tab_cubit.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
 import '../../../../core/responsive/responsive.dart';
@@ -78,6 +80,7 @@ class ContentScreen extends StatelessWidget {
               return InkWell(
                 splashColor: Colors.transparent,
                 onTap: () {
+                  getIt<MoviesRepository>().addToHistory(movie);
                   Navigator.pushNamed(context, AppRoutes.movieDetailsScreen,
                       arguments: movie.id);
                 },
