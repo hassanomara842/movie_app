@@ -120,8 +120,7 @@ class HomeTab extends StatelessWidget {
         itemCount: movies.length,
         itemBuilder: (context, index, realIndex) {
           return MovieCover(
-            coverImageUrl: movies[index].mediumCoverImage ?? '',
-            movieId: movies[index].id!,
+            movie: movies[index],
           );
         },
         options: CarouselOptions(
