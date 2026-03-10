@@ -120,5 +120,11 @@
   "password_need_lowercase": "كلمة المرور تحتاج لحرف صغير",
   "password_need_number": "كلمة المرور تحتاج إلى رقم",
   "password_need_special": "كلمة المرور تحتاج إلى رمز خاص",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "clear_history": "مسح السجل",
+  "clear_history_confirmation": "هل أنت متأكد أنك تريد مسح سجل المشاهدة بالكامل؟",
+  "clear": "مسح",
+  "watch_history": "سجل المشاهده",
+  "no_history_yet": "لا سجل بعد"
+
 }

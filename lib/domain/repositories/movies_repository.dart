@@ -6,4 +6,5 @@ abstract class MoviesRepository {
 
   Future<void> addToHistory(Movies movie);
   Future<List<Movies>> getWatchHistory();
+  Future<void> clearHistory();
 }
