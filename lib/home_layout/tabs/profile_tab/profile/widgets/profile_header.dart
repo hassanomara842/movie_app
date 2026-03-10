@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
-import 'package:movie_app/core/responsive/responsive.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/text/app_text.dart';
 import 'package:movie_app/core/image/app_assets.dart';
@@ -13,7 +12,6 @@ import 'package:movie_app/cubit/wishlist_cubit.dart';
 import 'package:movie_app/cubit/wishlist_state.dart';
 import 'package:movie_app/widgets/app_button.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
-import '../../../../../widgets/app_dialog_widget.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({super.key});
@@ -66,31 +64,25 @@ class ProfileHeader extends StatelessWidget {
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  spacing: w(25),
                   children: [
-                    Expanded(
-                      child: Column(
-                        spacing: 5.h,
-                        children: [
-                          CircleAvatar(
-                            radius: 55.w,
-                            backgroundImage: AssetImage(
-                              (user != null &&
-                                      user.avaterId > 0 &&
-                                      user.avaterId <= avatars.length)
-                                  ? avatars[user.avaterId - 1]
-                                  : AppAssets.avatar,
-                            ),
+                    Column(
+                      spacing: 5.h,
+                      children: [
+                        CircleAvatar(
+                          radius: 55.w,
+                          backgroundImage: AssetImage(
+                            (user != null && user.avaterId > 0 && user.avaterId <= avatars.length)
+                                ? avatars[user.avaterId - 1]
+                                : AppAssets.avatar,
                           ),
-                          Text(
-                            textAlign: TextAlign.center,
-                            user?.name ?? "User",
-                            style: AppText.boldText(
-                                color: Theme.of(context).splashColor,
-                                fontSize: 20.sp),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Text(
+                          user?.name ?? "User",
+                          style: AppText.boldText(
+                              color: Theme.of(context).splashColor,
+                              fontSize: 20.sp),
+                        ),
+                      ],
                     ),
                     BlocBuilder<WishlistCubit, WishlistState>(
                       builder: (context, wishState) {
@@ -127,24 +119,14 @@ class ProfileHeader extends StatelessWidget {
                     ),
                     Expanded(
                       child: AppButton(
-                        buttonTitle: "exit".tr(),
-                        textColor: AppColors.white,
-                        icon: const Icon(Icons.exit_to_app_rounded),
-                        backgroundColor: AppColors.errorRed,
-                        onPressed: () {
-                          AppDialog.show(
-                            context: context,
-                            title: "confirm_exit".tr(),
-                            message: "are_you_sure_exit".tr(),
-                            confirmText: "exit".tr(),
-                            cancelText: "cancel".tr(),
-                            onConfirm: () {
-                              context.read<ProfileCubit>().logout();
-                            },
-                          );
-                        },
-                      ),
-                    ),
+                          buttonTitle: "exit".tr(),
+                          textColor: AppColors.white,
+                          onPressed: () {
+                            context.read<ProfileCubit>().logout();
+                          },
+                          icon: const Icon(Icons.exit_to_app_rounded),
+                          backgroundColor: AppColors.errorRed),
+                    )
                   ],
                 ),
               ],

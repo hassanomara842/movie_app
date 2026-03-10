@@ -5,13 +5,14 @@ import 'package:movie_app/core/helpers/cache_helper.dart';
 import 'package:movie_app/cubit/profile_states.dart';
 import '../domain/entities/user_entity.dart';
 import '../domain/usecases/get_user_profile_usecase.dart';
+import '../domain/repositories/movies_repository.dart';
 
 @injectable
 class ProfileCubit extends Cubit<ProfileStates> {
   final GetUserProfileUseCase getUserProfileUseCase;
+  final MoviesRepository moviesRepository;
 
-  ProfileCubit(this.getUserProfileUseCase) : super(ProfileInitial());
-
+  ProfileCubit(this.getUserProfileUseCase, this.moviesRepository) : super(ProfileInitial());
   Future<void> getUserProfile() async {
     emit(ProfileLoadingState());
     try {
@@ -38,7 +39,15 @@ class ProfileCubit extends Cubit<ProfileStates> {
       }
     }
   }
-
+  Future<void> getWatchHistory() async {
+    emit(GetWatchHistoryLoadingState());
+    try {
+      final movies = await moviesRepository.getWatchHistory();
+      emit(GetWatchHistorySuccessState(movies));
+    } catch (e) {
+      emit(GetWatchHistoryErrorState(e.toString()));
+    }
+  }
   Future<void> logout() async {
     try {
       await FirebaseAuth.instance.signOut();

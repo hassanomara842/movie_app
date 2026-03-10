@@ -19,7 +19,7 @@ import 'package:movie_app/core/network/connectivity_service.dart' as _i175;
 import 'package:movie_app/cubit/auth_cubit.dart' as _i43;
 import 'package:movie_app/cubit/profile_cubit.dart' as _i574;
 import 'package:movie_app/cubit/update_profile_cubit.dart' as _i140;
-import 'package:movie_app/cubit/wishlist_cubit.dart' as _i999;
+import 'package:movie_app/cubit/wishlist_cubit.dart' as _i948;
 import 'package:movie_app/data/local/movies_hive_local_data_source_impl.dart'
     as _i432;
 import 'package:movie_app/data/local/movies_local_data_source.dart' as _i1034;
@@ -68,6 +68,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i163.MovieDetailsCubit>(() => _i163.MovieDetailsCubit());
     gh.factory<_i750.SearchTabCubit>(() => _i750.SearchTabCubit());
     gh.singleton<_i1065.ApiManager>(() => _i1065.ApiManager());
+    gh.lazySingleton<_i948.WishlistCubit>(() => _i948.WishlistCubit());
     gh.lazySingleton<_i59.FirebaseAuth>(() => firebaseModule.firebaseAuth);
     gh.lazySingleton<_i974.FirebaseFirestore>(() => firebaseModule.firestore);
     gh.lazySingleton<_i116.GoogleSignIn>(() => firebaseModule.googleSignIn);
@@ -106,8 +107,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i639.LoginUseCase(gh<_i932.AuthRepository>()));
     gh.lazySingleton<_i584.RegisterUseCase>(
         () => _i584.RegisterUseCase(gh<_i932.AuthRepository>()));
-    gh.factory<_i574.ProfileCubit>(
-        () => _i574.ProfileCubit(gh<_i467.GetUserProfileUseCase>()));
     gh.lazySingleton<_i418.HomeTabCubit>(
         () => _i418.HomeTabCubit(gh<_i730.MoviesRepository>()));
     gh.factory<_i140.UpdateProfileCubit>(() => _i140.UpdateProfileCubit(
@@ -120,7 +119,10 @@ extension GetItInjectableX on _i174.GetIt {
           registerUseCase: gh<_i584.RegisterUseCase>(),
           resetPasswordUseCase: gh<_i273.ResetPasswordUseCase>(),
         ));
-    gh.lazySingleton<_i999.WishlistCubit>(() => _i999.WishlistCubit());
+    gh.factory<_i574.ProfileCubit>(() => _i574.ProfileCubit(
+          gh<_i467.GetUserProfileUseCase>(),
+          gh<_i730.MoviesRepository>(),
+        ));
     return this;
   }
 }

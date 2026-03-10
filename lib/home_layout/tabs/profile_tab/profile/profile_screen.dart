@@ -12,8 +12,8 @@ import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_details_response/movie_details_response.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import 'package:movie_app/home_layout/tabs/movie_details/movie_details_screen.dart';
-
 import 'widgets/profile_header.dart';
+import '../history/history_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -29,31 +29,46 @@ class ProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const ProfileHeader(),
-                  TabBar(
-                    dividerColor: Colors.transparent,
-                    indicatorColor: AppColors.primaryYellow,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    labelColor: AppColors.primaryYellow,
-                    unselectedLabelColor: Theme.of(context).splashColor,
-                    tabs: [
-                      Tab(
-                        icon: const Icon(Icons.list),
-                        text: "wish_list".tr(),
-                      ),
-                      Tab(
-                        icon: const Icon(Icons.folder),
-                        text: "history".tr(),
-                      ),
-                    ],
+                  Builder(
+                    builder: (tabContext) => TabBar(
+                      onTap: (index) async {
+                        if (index == 1) {
+                          await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const HistoryScreen(),
+                            ),
+                          );
+                          if (context.mounted) {
+                            DefaultTabController.of(tabContext)?.animateTo(0);
+                          }
+                        }
+                      },
+                      dividerColor: Colors.transparent,
+                      indicatorColor: AppColors.primaryYellow,
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      labelColor: AppColors.primaryYellow,
+                      unselectedLabelColor: Theme.of(context).splashColor,
+                      tabs: [
+                        Tab(
+                          icon: const Icon(Icons.list),
+                          text: "wish_list".tr(),
+                        ),
+                        Tab(
+                          icon: const Icon(Icons.folder),
+                          text: "history".tr(),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: [
                   _buildWishlistTab(context),
-                  _buildEmptyState(context),
+                  const SizedBox.shrink(),
                 ],
               ),
             ),

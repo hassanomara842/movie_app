@@ -1,3 +1,4 @@
+import 'package:movie_app/model/movie_response/movie_response.dart';
 import '../domain/entities/user_entity.dart';
 
 abstract class ProfileStates {}
@@ -13,3 +14,13 @@ class ProfileErrorState extends ProfileStates {
   ProfileErrorState(this.error);
 }
 class LogoutSuccessState extends ProfileStates {}
+class GetWatchHistoryLoadingState extends ProfileStates {}
+
+class GetWatchHistorySuccessState extends ProfileStates {
+  final List<Movies> movies;
+  GetWatchHistorySuccessState(this.movies);
+}
+class GetWatchHistoryErrorState extends ProfileStates {
+  final String error;
+  GetWatchHistoryErrorState(this.error);
+}

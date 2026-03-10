@@ -44,16 +44,15 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
 
   @override
   Future<void> addToHistory(Movies movie) async {
-    if (movie.id == null || movie.title == null) return;
     final box = await _historyBox();
     final hiveMovie = MovieHiveModel(
-      id: movie.id!,
-      title: movie.title!,
+      id: movie.id ?? 0,
+      title: movie.title ?? '',
       year: movie.year,
       rating: movie.rating,
       mediumCoverImage: movie.mediumCoverImage,
     );
-    await box.put(movie.id.toString(), hiveMovie);
+    await box.put(movie.id, hiveMovie);
   }
 
   @override
@@ -69,8 +68,6 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
             mediumCoverImage: m.mediumCoverImage,
           ),
         )
-        .toList()
-        .reversed
         .toList();
   }
 
