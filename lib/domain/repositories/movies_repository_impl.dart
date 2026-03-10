@@ -3,8 +3,7 @@ import 'package:movie_app/api/api_manager.dart';
 import 'package:movie_app/core/network/connectivity_service.dart';
 import 'package:movie_app/data/local/movies_local_data_source.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
-
-import 'movies_repository.dart';
+import 'package:movie_app/domain/repositories/movies_repository.dart';
 
 @LazySingleton(as: MoviesRepository)
 class MoviesRepositoryImpl implements MoviesRepository {
@@ -24,6 +23,7 @@ class MoviesRepositoryImpl implements MoviesRepository {
 
     final cached = await _localDataSource.getCachedAllMovies();
     if (cached != null) return cached;
+
     throw Exception('No internet connection and no cached movies found.');
   }
 

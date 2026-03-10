@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
 import 'package:movie_app/core/text/app_text.dart';
+import 'package:movie_app/home_layout/tabs/home_tab/cubit/home_tab_cubit.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import 'package:movie_app/widgets/main_loading_widget.dart';
 import '../../../../core/image/app_assets.dart';
@@ -18,6 +20,8 @@ class MovieCard extends StatelessWidget {
     return InkWell(
       splashColor: AppColors.transparentColor,
       onTap: () {
+        context.read<HomeTabCubit>().addToHistory(movie);
+        
         Navigator.pushNamed(
           context,
           AppRoutes.movieDetailsScreen,

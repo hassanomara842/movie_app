@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_app/core/routing/app_routes.dart';
+import 'package:movie_app/di/di.dart';
+import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import '../../../../core/image/app_assets.dart';
 import '../../../../core/responsive/responsive.dart';
@@ -34,6 +36,7 @@ class SimilerWidget extends StatelessWidget {
         final movie = movies![index];
         return InkWell(
           onTap: () {
+            getIt<MoviesRepository>().addToHistory(movie);
             Navigator.pushNamed(
               context,
               AppRoutes.movieDetailsScreen,
