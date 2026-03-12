@@ -21,7 +21,7 @@ class IconTextWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+       mainAxisSize: MainAxisSize.min,
         spacing: w(10),
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -30,14 +30,12 @@ class IconTextWidget extends StatelessWidget {
             fit: BoxFit.contain,
             height: h(25),
           ),
-          Expanded(
-            child: Text(
-              text,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: AppText.regularTextRoboto(
-                  color: AppColors.white, fontSize: sp(25)),
-            ),
+          Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppText.regularTextRoboto(
+                color: AppColors.white, fontSize: sp(25)),
           ),
         ],
       ),

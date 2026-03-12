@@ -112,16 +112,19 @@ class MovieDetailsScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Expanded(
+                            flex: 2,
                             child: IconTextWidget(
                               text: movie.likeCount?.toString() ?? "0",
                               image: AppAssets.favouriteIcon,
                             ),
                           ),
                           Expanded(
+                              flex: 3,
                               child: IconTextWidget(
                                   text: "${movie.runtime ?? 0} ${"min".tr()}",
                                   image: AppAssets.timeIcon)),
                           Expanded(
+                              flex: 2,
                               child: IconTextWidget(
                                   text: movie.rating?.toString() ?? "0.0",
                                   image: AppAssets.star)),
