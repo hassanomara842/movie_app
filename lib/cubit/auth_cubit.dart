@@ -1,13 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:injectable/injectable.dart';
-import 'package:movie_app/core/colors/app_colors.dart';
-import '../domain/usecases/google_signin_usecase.dart';
-import '../domain/usecases/login_usecase.dart';
-import '../domain/usecases/register_usecase.dart';
-import '../domain/usecases/reset_password_usecase.dart';
+import '../domain/use_cases/google_sign_in_use_case.dart';
+import '../domain/use_cases/login_use_case.dart';
+import '../domain/use_cases/register_use_case.dart';
+import '../domain/use_cases/reset_password_use_case.dart';
 import 'auth_states.dart';
 
 @injectable
@@ -77,7 +76,9 @@ class AuthCubit extends Cubit<AuthState> {
       );
       emit(AuthSuccess(user));
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 
@@ -95,11 +96,6 @@ class AuthCubit extends Cubit<AuthState> {
     emit(AuthLoading());
     try {
       final user = await googleSignInUseCase();
-
-      if (user == null) {
-        emit(AuthInitial());
-        return;
-      }
       emit(AuthSuccess(user));
     } on FirebaseAuthException catch (e) {
       emit(AuthError(getReadableError(e)));
