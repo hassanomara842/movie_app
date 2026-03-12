@@ -2,8 +2,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
 import 'package:movie_app/cubit/update_profile_states.dart';
-import '../domain/usecases/update_profile_usecase.dart';
-import '../domain/usecases/delete_account_usecase.dart';
+import '../domain/use_cases/update_profile_use_case.dart';
+import '../domain/use_cases/delete_account_use_case.dart';
 
 @injectable
 class UpdateProfileCubit extends Cubit<UpdateProfileStates> {

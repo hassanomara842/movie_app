@@ -6,6 +6,7 @@ part 'movies_cache_entry_hive_model.g.dart';
 
 @HiveType(typeId: 2)
 class MoviesCacheEntryHiveModel extends HiveObject {
+  @override
   @HiveField(0)
   final String key;
 

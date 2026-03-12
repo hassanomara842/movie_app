@@ -30,8 +30,12 @@ class ApiManager {
         }),
       );
 
-      print("UPDATE STATUS CODE: ${response.statusCode}");
-      print("UPDATE RAW RESPONSE: ${response.body}");
+      if (kDebugMode) {
+        print("UPDATE STATUS CODE: ${response.statusCode}");
+      }
+      if (kDebugMode) {
+        print("UPDATE RAW RESPONSE: ${response.body}");
+      }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var json = jsonDecode(response.body);
@@ -67,8 +71,12 @@ class ApiManager {
         }),
       );
 
-      print("REGISTER STATUS CODE: ${response.statusCode}");
-      print("REGISTER RAW RESPONSE: ${response.body}");
+      if (kDebugMode) {
+        print("REGISTER STATUS CODE: ${response.statusCode}");
+      }
+      if (kDebugMode) {
+        print("REGISTER RAW RESPONSE: ${response.body}");
+      }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var json = jsonDecode(response.body);
@@ -92,8 +100,12 @@ class ApiManager {
         },
       );
 
-      print("DELETE ACCOUNT STATUS CODE: ${response.statusCode}");
-      print("DELETE ACCOUNT RESPONSE: ${response.body}");
+      if (kDebugMode) {
+        print("DELETE ACCOUNT STATUS CODE: ${response.statusCode}");
+      }
+      if (kDebugMode) {
+        print("DELETE ACCOUNT RESPONSE: ${response.body}");
+      }
 
       if (response.statusCode != 200 && response.statusCode != 204) {
         throw Exception('Failed to delete account: ${response.body}');

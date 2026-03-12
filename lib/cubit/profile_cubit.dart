@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:movie_app/core/helpers/cache_helper.dart';
 import 'package:movie_app/cubit/profile_states.dart';
 import '../domain/entities/user_entity.dart';
-import '../domain/usecases/get_user_profile_usecase.dart';
+import '../domain/use_cases/get_user_profile_use_case.dart';
 import '../domain/repositories/movies_repository.dart';
 
 @injectable
