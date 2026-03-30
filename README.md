@@ -52,7 +52,7 @@ lib/
 ### Installation
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/movie_app.git
+    git clone https://github.com/hassanomara842/movie_app.git
     ```
 2.  **Install dependencies:**
     ```bash
