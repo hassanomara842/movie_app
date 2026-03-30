@@ -35,14 +35,14 @@ import 'package:movie_app/domain/repositories/auth_repository_impl.dart'
 import 'package:movie_app/domain/repositories/movies_repository.dart' as _i730;
 import 'package:movie_app/domain/repositories/movies_repository_impl.dart'
     as _i738;
-import 'package:movie_app/domain/usecases/delete_account_usecase.dart' as _i566;
-import 'package:movie_app/domain/usecases/get_user_profile_usecase.dart'
+import 'package:movie_app/domain/use_cases/delete_account_use_case.dart' as _i566;
+import 'package:movie_app/domain/use_cases/get_user_profile_use_case.dart'
     as _i467;
-import 'package:movie_app/domain/usecases/google_signin_usecase.dart' as _i983;
-import 'package:movie_app/domain/usecases/login_usecase.dart' as _i639;
-import 'package:movie_app/domain/usecases/register_usecase.dart' as _i584;
-import 'package:movie_app/domain/usecases/reset_password_usecase.dart' as _i273;
-import 'package:movie_app/domain/usecases/update_profile_usecase.dart' as _i339;
+import 'package:movie_app/domain/use_cases/google_sign_in_use_case.dart' as _i983;
+import 'package:movie_app/domain/use_cases/login_use_case.dart' as _i639;
+import 'package:movie_app/domain/use_cases/register_use_case.dart' as _i584;
+import 'package:movie_app/domain/use_cases/reset_password_use_case.dart' as _i273;
+import 'package:movie_app/domain/use_cases/update_profile_use_case.dart' as _i339;
 import 'package:movie_app/home_layout/cubit/home_layout_cubit.dart' as _i115;
 import 'package:movie_app/home_layout/tabs/home_tab/cubit/home_tab_cubit.dart'
     as _i418;

@@ -12,6 +12,7 @@ import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_details_response/movie_details_response.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import 'package:movie_app/home_layout/tabs/movie_details/movie_details_screen.dart';
+import '../../../../di/injection.dart';
 import 'widgets/profile_header.dart';
 import '../history/history_screen.dart';
 
@@ -39,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           );
                           if (context.mounted) {
-                            DefaultTabController.of(tabContext)?.animateTo(0);
+                            DefaultTabController.of(tabContext).animateTo(0);
                           }
                         }
                       },

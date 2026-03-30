@@ -7,6 +7,7 @@ import 'package:movie_app/model/movie_response/movie_response.dart';
 import '../../../../core/image/app_assets.dart';
 import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
+import '../../../../di/injection.dart';
 import 'icon_text_widget.dart';
 
 class SimilerWidget extends StatelessWidget {

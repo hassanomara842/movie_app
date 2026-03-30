@@ -10,6 +10,7 @@ import '../../../../core/responsive/responsive.dart';
 import '../../../../core/responsive/size_config.dart';
 import '../../../../core/routing/app_routes.dart';
 import '../../../../core/text/app_text.dart';
+import '../../../../di/injection.dart';
 import '../cubit/search_tab_states.dart';
 
 class ContentScreen extends StatelessWidget {

@@ -15,7 +15,8 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
   Future<Box<MovieHiveModel>>? _historyBoxFuture;
 
   Future<Box<MoviesCacheEntryHiveModel>> _box() {
-    return _boxFuture ??= Hive.openBox<MoviesCacheEntryHiveModel>(_moviesCacheBoxName);
+    return _boxFuture ??=
+        Hive.openBox<MoviesCacheEntryHiveModel>(_moviesCacheBoxName);
   }
 
   Future<Box<MovieHiveModel>> _historyBox() {
@@ -45,6 +46,22 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
   @override
   Future<void> addToHistory(Movies movie) async {
     final box = await _historyBox();
+
+    // Find the existing entry's key to delete it.
+    // We must search by values because we want to delete by the auto-incrementing key.
+    dynamic existingKey;
+    for (var key in box.keys) {
+      final m = box.get(key);
+      if (m?.id == movie.id) {
+        existingKey = key;
+        break;
+      }
+    }
+
+    if (existingKey != null) {
+      await box.delete(existingKey);
+    }
+
     final hiveMovie = MovieHiveModel(
       id: movie.id ?? 0,
       title: movie.title ?? '',
@@ -52,12 +69,16 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
       rating: movie.rating,
       mediumCoverImage: movie.mediumCoverImage,
     );
-    await box.put(movie.id, hiveMovie);
+    
+    // add() uses an auto-incrementing key which preserves insertion order.
+    await box.add(hiveMovie);
   }
 
   @override
   Future<List<Movies>> getWatchHistory() async {
     final box = await _historyBox();
+    // box.values follows the order of the keys. Since we use auto-incrementing keys,
+    // the last added items are at the end. We reverse to show most recent first.
     return box.values
         .map(
           (m) => Movies(
@@ -68,10 +89,19 @@ class MoviesHiveLocalDataSourceImpl implements MoviesLocalDataSource {
             mediumCoverImage: m.mediumCoverImage,
           ),
         )
+        .toList()
+        .reversed
         .toList();
   }
 
-  Future<void> _cache({required String key, required MovieResponse response}) async {
+  @override
+  Future<void> clearHistory() async {
+    final box = await _historyBox();
+    await box.clear();
+  }
+
+  Future<void> _cache(
+      {required String key, required MovieResponse response}) async {
     final movies = response.data?.movies ?? const [];
     final hiveMovies = movies
         .where((m) => m.id != null && m.title != null)

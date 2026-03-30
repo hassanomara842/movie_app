@@ -4,6 +4,7 @@ import 'package:movie_app/di/injection.dart';
 import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
 import '../../../../core/routing/app_routes.dart';
+import '../../../../di/injection.dart';
 import '../../../../widgets/main_loading_widget.dart';
 
 class MovieCover extends StatelessWidget {

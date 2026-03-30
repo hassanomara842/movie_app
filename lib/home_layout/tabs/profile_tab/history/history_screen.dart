@@ -2,12 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../../core/colors/app_colors.dart';
 import '../../../../../core/image/app_assets.dart';
-import '../../../../../core/responsive/size_config.dart';
 import '../../../../../core/text/app_text.dart';
 import '../../../../../cubit/profile_cubit.dart';
-import '../../../../../cubit/profile_states.dart';
 import 'history_grid.dart';
 
 class HistoryScreen extends StatefulWidget {
