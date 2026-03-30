@@ -7,7 +7,7 @@ import 'package:movie_app/cubit/wishlist_state.dart';
 import 'package:movie_app/core/colors/app_colors.dart';
 import 'package:movie_app/core/image/app_assets.dart';
 import 'package:movie_app/core/text/app_text.dart';
-import 'package:movie_app/di/di.dart';
+import 'package:movie_app/di/injection.dart';
 import 'package:movie_app/domain/repositories/movies_repository.dart';
 import 'package:movie_app/model/movie_details_response/movie_details_response.dart';
 import 'package:movie_app/model/movie_response/movie_response.dart';
