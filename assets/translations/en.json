@@ -120,10 +120,5 @@
   "password_need_lowercase": "Password need lowercase",
   "password_need_number": "Password need number",
   "password_need_special": "Password need special",
-  "cancel": "Cancel",
-  "clear_history": "Clear History",
-  "clear_history_confirmation": "Are you sure you want to clear all watch history?",
-  "clear": "Clear",
-  "watch_history": "Watch History",
-  "no_history_yet": "No history yet"
+  "cancel": "Cancel"
 }
